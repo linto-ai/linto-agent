@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  linto-bls:
+    container_name: linto-business-logic-server
+    image: linto/business-logic-server 
+    env_file: .env
+    networks:
+      - linto_net
+
+networks:
+    linto_net:
+       external: true

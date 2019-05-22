@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  linto-mqtt:
+    container_name: linto-mqtt-broker
+    image: matteocollina/mosca
+    env_file: .env
+    networks:
+      - linto_net
+
+networks:
+    linto_net:
+       external: true
