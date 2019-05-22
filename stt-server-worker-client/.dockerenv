@@ -1,0 +1,12 @@
+MODEL_PATH=./fr
+MODEL_CONFIG=./worker.config
+ENTITY_PATH=./fr/LM_gen/entities
+INTENT_PATH=./fr/LM_gen/skills
+OFFLINE_PORT=8888
+
+SWAGGER_PATH=./document/
+SWAGGER_JSON=/app/swagger/swagger.yml
+
+
+
+
