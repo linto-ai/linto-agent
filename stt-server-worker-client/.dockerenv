@@ -1,7 +1,6 @@
-MODEL_PATH=./fr
+AM_PATH=./fr
+LM_PATH=./fr/graph
 MODEL_CONFIG=./worker.config
-ENTITY_PATH=./fr/LM_gen/entities
-INTENT_PATH=./fr/LM_gen/skills
 OFFLINE_PORT=8888
 
 SWAGGER_PATH=./document/

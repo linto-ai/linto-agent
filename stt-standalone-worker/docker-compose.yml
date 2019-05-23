@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+
+  stt-worker_standelone:
+    container_name: linto-stt-worker_standelone
+    image: lintoai/linto-platform-stt-standalone-worker
+    volumes:
+      - ${AM_PATH}:/opt/models/AM
+      - ${LM_PATH}:/opt/models/LM
+    env_file: .env
+    environment:
+      - ${SERVICE_PORT}
+    networks:
+      - linto_net
+
+networks:
+    linto_net:
+       external: true
+

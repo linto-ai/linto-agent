@@ -7,8 +7,8 @@ info:
 
 schemes:
   - http
-host: localhost
-basePath: /sttapi/fr
+host: localhost:8888
+basePath: /
 
 paths:
   /transcribe:
@@ -39,11 +39,7 @@ paths:
                     type: "string"
                   uuid:
                     type: "string"
-                  avg_confidence_per_word:
-                    type: "number"
                   confidence_score:
-                    type: "number"
-                  decode_time:
                     type: "number"
         503:
           description: Worker failed to transcribe the audio
@@ -312,9 +308,9 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "entityName"
+      - name: "intentName"
         in: "path"
-        description: "Entity Name"
+        description: "Intent Name"
         required: true
         schema:
           type: "string"
@@ -357,9 +353,9 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "entityName"
+      - name: "intentName"
         in: "path"
-        description: "Entity Name"
+        description: "Intent Name"
         required: true
         schema:
           type: "string"
@@ -402,9 +398,9 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "entityName"
+      - name: "intentName"
         in: "path"
-        description: "Entity Name"
+        description: "Intent Name"
         required: true
         schema:
           type: "string"
@@ -440,9 +436,9 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "entityName"
+      - name: "intentName"
         in: "path"
-        description: "Entity Name"
+        description: "Intent Name"
         required: true
         schema:
           type: "string"

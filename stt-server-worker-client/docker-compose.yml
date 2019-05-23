@@ -8,10 +8,9 @@ services:
     depends_on:
       - stt-server
     volumes:
-      - ${MODEL_PATH}:/opt/models
+      - ${AM_PATH}:/opt/models/AM
+      - ${LM_PATH}:/opt/models/LM
       - ${MODEL_CONFIG}:/opt/worker.config
-      - ${ENTITY_PATH}:/opt/entities
-      - ${INTENT_PATH}:/opt/skills
     env_file: .dockerenv
     environment:
       - OFFLINE_PORT
@@ -30,6 +29,7 @@ services:
       - linto_net
 
   swaggerui:
+    container_name: linto-stt-swagger
     image: swaggerapi/swagger-ui
     hostname: swaggerui
     volumes:
