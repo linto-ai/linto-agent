@@ -11,7 +11,7 @@ services:
       - ${AM_PATH}:/opt/models/AM
       - ${LM_PATH}:/opt/models/LM
       - ${MODEL_CONFIG}:/opt/worker.config
-    env_file: .dockerenv
+    env_file: .docker_env
     environment:
       - OFFLINE_PORT
     networks:
@@ -21,7 +21,7 @@ services:
     container_name: linto-stt-server
     image: lintoai/linto-platform-stt-server
     hostname: stt-server
-    env_file: .dockerenv
+    env_file: .docker_env
     environment:
       - OFFLINE_PORT
     networks:
@@ -34,7 +34,7 @@ services:
     hostname: swaggerui
     volumes:
       - ${SWAGGER_PATH}:/app/swagger/
-    env_file: .dockerenv
+    env_file: .docker_env
     environment:
       - SWAGGER_JSON
     networks:

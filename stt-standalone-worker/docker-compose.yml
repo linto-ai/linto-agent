@@ -8,7 +8,7 @@ services:
     volumes:
       - ${AM_PATH}:/opt/models/AM
       - ${LM_PATH}:/opt/models/LM
-    env_file: .env
+    env_file: .docker_env
     environment:
       - ${SERVICE_PORT}
     networks:
