@@ -17,6 +17,10 @@ You'll find here a docker-compose file per service wrapped-up in their correspon
 - overwatch/docker-compose.yml
 - stt/docker-compose.yml
 
+## Getting started
+
+//TODO: WIP : https://github.com/linto-ai/linto-platform-stt-server-worker-client/releases 
+
 ## Usage
 
 First of all, create an attachable network which will enables inter-services communication
@@ -24,10 +28,35 @@ First of all, create an attachable network which will enables inter-services com
 `linto_network=linto_net docker network create --attachable $linto_network`
 `docker network create --attachable linto_net`
 
-Then the second step is to build all by the following command.
-`docker-compose up -f service_name ...`
+Then the second step is to run all by the following command depend on which LinSTT you want
 
-We provides all data about the .env file to a specific setup.
+LinSTT with the generation of model and transcription
+```shell
+docker-compose \
+-f tock/docker-compose.yml \
+-f admin/docker-compose.yml \
+-f business-logic-server/docker-compose.yml \
+-f mqtt-broker/docker-compose.yml \
+-f nginx-ingress/docker-compose.yml \
+-f overwatch/docker-compose.yml \
+-f stt-server-worker-client/docker-compose.yml up
+```
+
+LinSTT with only the transcription
+
+```shell
+docker-compose \
+-f tock/docker-compose.yml \
+-f admin/docker-compose.yml \
+-f business-logic-server/docker-compose.yml \
+-f mqtt-broker/docker-compose.yml \
+-f nginx-ingress/docker-compose.yml \
+-f overwatch/docker-compose.yml \
+-f stt-standalone-worker/docker-compose.yml up
+```
+
+
+We provides all data about the .env file to your specific setup.
 
 ## How does this work ?
 

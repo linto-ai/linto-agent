@@ -1,4 +1,1 @@
-AM_PATH=./fr
-LM_PATH=./LMs/graph_fr
 SERVICE_PORT=2000
-

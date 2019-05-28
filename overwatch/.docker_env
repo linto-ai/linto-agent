@@ -1,0 +1,16 @@
+DEBUG=*
+
+MQTT_KEEP_ALIVE=2
+
+MQTT_HOST=linto_admin_mongo
+MQTT_PORT=1883
+
+MONGO_HOST=linto_admin_mongo
+MONGO_PORT=27017
+MONGO_DB_NAME=lintoAdmin
+
+MONGO_COLLECTION_LINTOS=lintos
+MONGO_COLLECTION_LOG=statusLog
+
+MONGO_USER=root
+MONGO_PSW=example

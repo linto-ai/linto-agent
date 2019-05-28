@@ -1,13 +1,14 @@
-version: '3'
+version: '3.5'
 
 services:
   linto-mqtt:
     container_name: linto-mqtt-broker
     image: matteocollina/mosca
-    env_file: .env
     networks:
+      - internal
       - linto_net
 
 networks:
+    internal:
     linto_net:
        external: true

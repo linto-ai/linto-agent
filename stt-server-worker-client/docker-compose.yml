@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.5'
 
 services:
 
@@ -7,13 +7,11 @@ services:
     image: lintoai/linto-platform-stt-worker-client
     depends_on:
       - stt-server
+    env_file: .docker_env
     volumes:
       - ${AM_PATH}:/opt/models/AM
       - ${LM_PATH}:/opt/models/LM
-      - ${MODEL_CONFIG}:/opt/worker.config
-    env_file: .docker_env
-    environment:
-      - OFFLINE_PORT
+      - ./worker.config:/opt/worker.config
     networks:
       - internal
 
@@ -22,8 +20,6 @@ services:
     image: lintoai/linto-platform-stt-server
     hostname: stt-server
     env_file: .docker_env
-    environment:
-      - OFFLINE_PORT
     networks:
       - internal
       - linto_net
@@ -32,11 +28,9 @@ services:
     container_name: linto-stt-swagger
     image: swaggerapi/swagger-ui
     hostname: swaggerui
-    volumes:
-      - ${SWAGGER_PATH}:/app/swagger/
     env_file: .docker_env
-    environment:
-      - SWAGGER_JSON
+    volumes:
+      - ./document:/app/swagger/
     networks:
       - linto_net
 

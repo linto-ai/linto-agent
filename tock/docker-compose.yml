@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
 
@@ -6,8 +6,6 @@ services:
     image: mongo:3.6.5
     volumes:
       - tockmongo:/data/db
-    ports:
-      - "127.0.0.1:27017:27017"
     command: --smallfiles --bind_ip_all --port 27017 --replSet "tock"
     networks:
       - internal
@@ -18,8 +16,6 @@ services:
       - mongo
     volumes:
       - tockmongo2:/data/db
-    ports:
-      - "127.0.0.1:27018:27018"
     command: --smallfiles --bind_ip_all --port 27018 --replSet "tock"
     networks:
       - internal
@@ -31,8 +27,6 @@ services:
       - mongo2
     volumes:
       - tockmongo3:/data/db
-    ports:
-      - "127.0.0.1:27019:27019"
     command: --smallfiles --bind_ip_all --port 27019 --replSet "tock"
     networks:
       - internal
@@ -65,15 +59,18 @@ services:
       - mongo
       - mongo2
       - mongo3
+    env_file: .docker_env
     environment:
       - tock_mongo_url=mongodb://mongo:27017,mongo2:27018,mongo3:27019/?replicaSet=tock
       - tock_env=prod
       - JAVA_ARGS=-Xmx1g -XX:MaxMetaspaceSize=256m
+    env_file: .docker_env
     networks:
       - internal
 
   duckling:
     image: tock/duckling:$TAG
+    env_file: .docker_env
     environment:
       - tock_env=prod
     expose:
@@ -83,6 +80,7 @@ services:
 
   kotlin_compiler:
     image: tock/kotlin_compiler:$TAG
+    env_file: .docker_env
     environment:
       - tock_env=prod
       - tock_kotlin_compiler_classpath=/maven
@@ -90,7 +88,9 @@ services:
       - internal
 
   admin_web:
+    container_name: linto-admin-web
     image: tock/bot_admin:$TAG
+    env_file: .docker_env
     depends_on:
       - mongo
       - mongo2
@@ -106,14 +106,14 @@ services:
       #remove this in production
       - tock_https_env=false
       - botadminverticle_body_limit=-1
-    ports:
-      - "127.0.0.1:81:8080"
     networks:
       - internal
       - linto_net
 
   nlp_api:
+    container_name: linto-nlp-api
     image: tock/nlp_api:$TAG
+    env_file: .docker_env
     depends_on:
       - mongo
       - mongo2
@@ -126,8 +126,6 @@ services:
       - tock_web_use_default_cors_handler=true
       - tock_web_use_default_cors_handler_with_credentials=false
       - tock_web_use_default_cors_handler_url=*
-    ports:
-      - "127.0.0.1:8888:8080"
     networks:
       - internal
       - linto_net
