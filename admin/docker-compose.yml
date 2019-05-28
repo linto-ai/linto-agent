@@ -7,7 +7,7 @@ services:
     depends_on:
       - mongo
       - redis
-    env_file: .docker_env
+    env_file: ${PWD}/admin/.docker_env
     networks:
      - internal
      - linto_net
@@ -17,7 +17,7 @@ services:
     restart: always
     volumes:
       - ${HOME}/linto-admin-dbdata:/data/db
-      - ./mongodb/seed:/docker-entrypoint-initdb.d
+      - ./../admin/mongodb/seed:/docker-entrypoint-initdb.d
     environment:
       MONGO_INITDB_DATABASE: lintoAdmin
     networks:

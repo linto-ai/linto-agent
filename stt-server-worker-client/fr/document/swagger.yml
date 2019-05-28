@@ -1,0 +1,468 @@
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: LinSTT
+  description: A simple way to test LinSTT API, and to learn how to use API
+
+schemes:
+  - http
+host: localhost
+basePath: /stt/fr/
+
+paths:
+  /transcribe:
+    post:
+      tags:
+        - "Speech-To-Text API"
+      summary: Perform Speech-to-Text
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "wavFile"
+        in: "formData"
+        description: "Wave File"
+        required: true
+        type: "file"
+      responses:
+        200:
+          description: Successfully transcribe the audio
+          schema:
+            type: "object"
+            properties:
+              transcript:
+                type: "object"
+                properties:
+                  transcription:
+                    type: "string"
+                  uuid:
+                    type: "string"
+                  confidence_score:
+                    type: "number"
+        503:
+          description: Worker failed to transcribe the audio
+          schema:
+            type: "object"
+            properties:
+              transcript:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                  uuid:
+                    type: "string"
+  /model:
+    post:
+      tags:
+        - "Language Model update API"
+      summary: UPDATE the language model
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: Successfully update the language model
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  update:
+                    type: "string"
+                  uuid:
+                    type: "string"
+        503:
+          description: Worker failed
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                  uuid:
+                    type: "string"
+    get:
+      tags:
+        - "Language Model update API"
+      summary: Get all commands
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: Json document
+  /entity/{entityName}:
+    post:
+      tags:
+        - "Entity Management"
+      summary: CREATE entity
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "entityName"
+        in: "path"
+        description: "Entity Name"
+        required: true
+        schema:
+          type: "string"
+      - name: "txtFile"
+        in: "formData"
+        description: "Entity File"
+        required: true
+        type: "file"
+      responses:
+        200:
+          description: Successfully update the entity
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  update:
+                    type: "string"
+                  uuid:
+                    type: "string"
+        503:
+          description: Worker failed
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                  uuid:
+                    type: "string"
+    patch:
+      tags:
+        - "Entity Management"
+      summary: UPDATE entity
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "entityName"
+        in: "path"
+        description: "Entity Name"
+        required: true
+        schema:
+          type: "string"
+      - name: "txtFile"
+        in: "formData"
+        description: "Entity File"
+        required: true
+        type: "file"
+      responses:
+        200:
+          description: Successfully update the entity
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  update:
+                    type: "string"
+                  uuid:
+                    type: "string"
+        503:
+          description: Worker failed
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                  uuid:
+                    type: "string"
+    put:
+      tags:
+        - "Entity Management"
+      summary: REPLACE entity
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "entityName"
+        in: "path"
+        description: "Entity Name"
+        required: true
+        schema:
+          type: "string"
+      - name: "txtFile"
+        in: "formData"
+        description: "Entity File"
+        required: true
+        type: "file"
+      responses:
+        200:
+          description: Successfully replace the entity
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  update:
+                    type: "string"
+                  uuid:
+                    type: "string"
+        503:
+          description: Worker failed
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                  uuid:
+                    type: "string"
+    delete:
+      tags:
+        - "Entity Management"
+      summary: DELETE entity
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "entityName"
+        in: "path"
+        description: "Entity Name"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: Successfully update the entity
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  update:
+                    type: "string"
+                  uuid:
+                    type: "string"
+        503:
+          description: Worker failed
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                  uuid:
+                    type: "string"
+    get:
+      tags:
+        - "Entity Management"
+      summary: Get entity
+      description: Return the values of a given entity name
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "entityName"
+        in: "path"
+        description: "Entity Name"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: Json document
+  /entities:
+    get:
+      tags:
+        - "Entity Management"
+      summary: Get list of entities
+      description: Return either the list of entities
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: Json document
+  /intent/{intentName}:
+    post:
+      tags:
+        - "Intent Management"
+      summary: CREATE intent
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "intentName"
+        in: "path"
+        description: "Intent Name"
+        required: true
+        schema:
+          type: "string"
+      - name: "txtFile"
+        in: "formData"
+        description: "Intent File"
+        required: true
+        type: "file"
+      responses:
+        200:
+          description: Successfully create the intent
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  update:
+                    type: "string"
+                  uuid:
+                    type: "string"
+        503:
+          description: Worker failed
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                  uuid:
+                    type: "string"  
+    put:
+      tags:
+        - "Intent Management"
+      summary: REPLACE intent
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "intentName"
+        in: "path"
+        description: "Intent Name"
+        required: true
+        schema:
+          type: "string"
+      - name: "txtFile"
+        in: "formData"
+        description: "Intent File"
+        required: true
+        type: "file"
+      responses:
+        200:
+          description: Successfully replace the intent
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  update:
+                    type: "string"
+                  uuid:
+                    type: "string"
+        503:
+          description: Worker failed
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                  uuid:
+                    type: "string"
+    delete:
+      tags:
+        - "Intent Management"
+      summary: DELETE intent
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "intentName"
+        in: "path"
+        description: "Intent Name"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: Successfully delete the intent
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  update:
+                    type: "string"
+                  uuid:
+                    type: "string"
+        503:
+          description: Worker failed
+          schema:
+            type: "object"
+            properties:
+              update:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                  uuid:
+                    type: "string"
+    get:
+      tags:
+        - "Intent Management"
+      summary: Get intent
+      produces:
+      - "application/json"
+      parameters:
+      - name: "intentName"
+        in: "path"
+        description: "Intent Name"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: Json document
+  /intents:
+    get:
+      tags:
+        - "Intent Management"
+      summary: Get all intents
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: Json document
+  /:
+    get:
+      tags:
+        - "LinSTT Documentation"
+      summary: Get ReadMe
+      description: Get documentation file
+      produces:
+      - "text/html; charset=UTF-8"
+      responses:
+        200:
+          description: Texte document

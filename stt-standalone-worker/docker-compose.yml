@@ -8,7 +8,7 @@ services:
     volumes:
       - ${AM_PATH_STANDALONE}:/opt/models/AM
       - ${LM_PATH_STANDALONE}:/opt/models/LM
-    env_file: .docker_env
+    env_file: ${PWD}/stt-standalone-worker/.docker_env
     networks:
       - linto_net
 

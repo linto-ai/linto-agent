@@ -21,6 +21,9 @@ You'll find here a docker-compose file per service wrapped-up in their correspon
 
 //TODO: WIP : https://github.com/linto-ai/linto-platform-stt-server-worker-client/releases 
 
+## ENV
+//TODO: CONFIG ENV DEPEND ON STT (if fr + en or just one stt)
+
 ## Usage
 
 First of all, create an attachable network which will enables inter-services communication
@@ -33,24 +36,25 @@ Then the second step is to run all by the following command depend on which LinS
 LinSTT with the generation of model and transcription
 ```shell
 docker-compose \
+-f nginx-ingress/docker-compose.yml \
 -f tock/docker-compose.yml \
 -f admin/docker-compose.yml \
 -f business-logic-server/docker-compose.yml \
 -f mqtt-broker/docker-compose.yml \
--f nginx-ingress/docker-compose.yml \
 -f overwatch/docker-compose.yml \
--f stt-server-worker-client/docker-compose.yml up
+-f stt-server-worker-client/fr/docker-compose.yml \
+-f stt-server-worker-client/en/docker-compose.yml up
 ```
 
 LinSTT with only the transcription
 
 ```shell
 docker-compose \
+-f nginx-ingress/docker-compose.yml \
 -f tock/docker-compose.yml \
 -f admin/docker-compose.yml \
 -f business-logic-server/docker-compose.yml \
 -f mqtt-broker/docker-compose.yml \
--f nginx-ingress/docker-compose.yml \
 -f overwatch/docker-compose.yml \
 -f stt-standalone-worker/docker-compose.yml up
 ```
@@ -61,3 +65,26 @@ We provides all data about the .env file to your specific setup.
 ## How does this work ?
 
 Docker network provides resolution of domain names for each service. You will be able to get acces to the platform by using the acces defined in the nginx.
+
+
+
+docker-compose \
+-f nginx-ingress/docker-compose.yml \
+-f stt-server-worker-client/fr/docker-compose.yml \
+-f stt-server-worker-client/en/docker-compose.yml config
+
+
+docker-compose \
+-f nginx-ingress/docker-compose.yml \
+-f stt-server-worker-client/fr/docker-compose.yml \
+-f stt-server-worker-client/en/docker-compose.yml up
+
+
+docker-compose \
+-f nginx-ingress/docker-compose.yml \
+-f tock/docker-compose.yml \
+-f admin/docker-compose.yml \
+-f business-logic-server/docker-compose.yml \
+-f mqtt-broker/docker-compose.yml \
+-f overwatch/docker-compose.yml \
+-f stt-server-worker-client/docker-compose.yml config

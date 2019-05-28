@@ -43,7 +43,7 @@ services:
       - mongo2:mongo2
       - mongo3:mongo3
     volumes:
-      - ./scripts:/scripts
+      - ./../tock/scripts:/scripts
     environment:
       - MONGO1=mongo
       - MONGO2=mongo2
@@ -59,18 +59,17 @@ services:
       - mongo
       - mongo2
       - mongo3
-    env_file: .docker_env
+    env_file: ${PWD}/tock/.docker_env
     environment:
       - tock_mongo_url=mongodb://mongo:27017,mongo2:27018,mongo3:27019/?replicaSet=tock
       - tock_env=prod
       - JAVA_ARGS=-Xmx1g -XX:MaxMetaspaceSize=256m
-    env_file: .docker_env
     networks:
       - internal
 
   duckling:
     image: tock/duckling:$TAG
-    env_file: .docker_env
+    env_file: ${PWD}/tock/.docker_env
     environment:
       - tock_env=prod
     expose:
@@ -80,7 +79,7 @@ services:
 
   kotlin_compiler:
     image: tock/kotlin_compiler:$TAG
-    env_file: .docker_env
+    env_file: ${PWD}/tock/.docker_env
     environment:
       - tock_env=prod
       - tock_kotlin_compiler_classpath=/maven
@@ -90,7 +89,7 @@ services:
   admin_web:
     container_name: linto-admin-web
     image: tock/bot_admin:$TAG
-    env_file: .docker_env
+    env_file: ${PWD}/tock/.docker_env
     depends_on:
       - mongo
       - mongo2
@@ -113,7 +112,7 @@ services:
   nlp_api:
     container_name: linto-nlp-api
     image: tock/nlp_api:$TAG
-    env_file: .docker_env
+    env_file: ${PWD}/tock/.docker_env
     depends_on:
       - mongo
       - mongo2

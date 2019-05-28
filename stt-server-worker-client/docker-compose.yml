@@ -7,11 +7,11 @@ services:
     image: lintoai/linto-platform-stt-worker-client
     depends_on:
       - stt-server
-    env_file: .docker_env
+    env_file: ${PWD}/stt-server-worker-client/.docker_env
     volumes:
-      - ${AM_PATH}:/opt/models/AM
-      - ${LM_PATH}:/opt/models/LM
-      - ./worker.config:/opt/worker.config
+      - ${AM_PATH_TEST}:/opt/models/AM
+      - ${LM_PATH_TEST}:/opt/models/LM
+      - ./../stt-server-worker-client/worker.config:/opt/worker.config
     networks:
       - internal
 
@@ -19,7 +19,7 @@ services:
     container_name: linto-stt-server
     image: lintoai/linto-platform-stt-server
     hostname: stt-server
-    env_file: .docker_env
+    env_file: ${PWD}/stt-server-worker-client/.docker_env
     networks:
       - internal
       - linto_net
@@ -27,10 +27,9 @@ services:
   swaggerui:
     container_name: linto-stt-swagger
     image: swaggerapi/swagger-ui
-    hostname: swaggerui
-    env_file: .docker_env
+    env_file: ${PWD}/stt-server-worker-client/.docker_env
     volumes:
-      - ./document:/app/swagger/
+      - ./../stt-server-worker-client/document:/app/swagger/
     networks:
       - linto_net
 

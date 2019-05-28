@@ -4,7 +4,7 @@ services:
   linto-bls:
     container_name: linto-business-logic-server
     image: linto/business-logic-server 
-    env_file: .docker_env
+    env_file: ${PWD}/business-logic-server/.docker_env
     networks:
       - linto_net
 
