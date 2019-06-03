@@ -10,16 +10,16 @@ WS_PORT=9001
 
 # Redis settings
 REDIS_PORT=6379
-REDIS_HOST=linto_admin_redis
+REDIS_HOST=linto-admin-redis
 
 # Mongodb settings
 BDD_TYPE=mongodb
-MONGODB_HOST=linto_admin_mongo
+MONGODB_HOST=linto-admin-mongo
 MONGODB_PORT=27017
 MONGODB_DBNAME=lintoAdmin
 MONGODB_REQUIRE_LOGIN=true
-MONGODB_USER=MONGODB_USER
-MOGODB_PSWD=MOGODB_PSWD
+MONGODB_USER=root
+MOGODB_PSWD=example
 
 # NLU settings
 IS_POPULATE=false
@@ -29,7 +29,7 @@ TOCK_API=http://localhost:81
 LM_API=http://54.37.20.77:5001
 
 # Business Logic Server
-BUSINESS_LOGIC_SERVER_URI=BUSINESS_LOGIC_SERVER_URI
+BUSINESS_LOGIC_SERVER_URI=linto-business-logic-server:9000
 BLS_AUTH=true
 # Default login settings
 BLS_LOGIN=admin

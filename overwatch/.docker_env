@@ -2,10 +2,10 @@ DEBUG=*
 
 MQTT_KEEP_ALIVE=2
 
-MQTT_HOST=linto_admin_mongo
+MQTT_HOST=linto-mqtt-broker
 MQTT_PORT=1883
 
-MONGO_HOST=linto_admin_mongo
+MONGO_HOST=linto-admin-mongo
 MONGO_PORT=27017
 MONGO_DB_NAME=lintoAdmin
 

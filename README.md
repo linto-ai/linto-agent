@@ -65,26 +65,3 @@ We provides all data about the .env file to your specific setup.
 ## How does this work ?
 
 Docker network provides resolution of domain names for each service. You will be able to get acces to the platform by using the acces defined in the nginx.
-
-
-
-docker-compose \
--f nginx-ingress/docker-compose.yml \
--f stt-server-worker-client/fr/docker-compose.yml \
--f stt-server-worker-client/en/docker-compose.yml config
-
-
-docker-compose \
--f nginx-ingress/docker-compose.yml \
--f stt-server-worker-client/fr/docker-compose.yml \
--f stt-server-worker-client/en/docker-compose.yml up
-
-
-docker-compose \
--f nginx-ingress/docker-compose.yml \
--f tock/docker-compose.yml \
--f admin/docker-compose.yml \
--f business-logic-server/docker-compose.yml \
--f mqtt-broker/docker-compose.yml \
--f overwatch/docker-compose.yml \
--f stt-server-worker-client/docker-compose.yml config

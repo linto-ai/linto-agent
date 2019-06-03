@@ -1,12 +1,13 @@
 version: '3.5'
 
 services:
-  overwatch:
-    container_name: linto-overwatch
+  linto-overwatch:
+    container_name: linto-platform-overwatch
     image: lintoai/linto-platform-overwatch
     env_file: ${PWD}/overwatch/.docker_env
     networks:
-      - internal
+      - linto_net
 
 networks:
-  internal:
+  linto_net:
+    external: true

@@ -1,7 +1,6 @@
 version: '3.5'
 
 services:
-
   mongo:
     image: mongo:3.6.5
     volumes:
@@ -72,8 +71,6 @@ services:
     env_file: ${PWD}/tock/.docker_env
     environment:
       - tock_env=prod
-    expose:
-      - "8080"
     networks:
       - internal
 
@@ -86,8 +83,8 @@ services:
     networks:
       - internal
 
-  admin_web:
-    container_name: linto-admin-web
+  linto-nlu-web:
+    container_name: linto-nlu-web
     image: tock/bot_admin:$TAG
     env_file: ${PWD}/tock/.docker_env
     depends_on:
@@ -106,10 +103,10 @@ services:
       - tock_https_env=false
       - botadminverticle_body_limit=-1
     networks:
-      - internal
       - linto_net
+      - internal
 
-  nlp_api:
+  linto-nlp-api:
     container_name: linto-nlp-api
     image: tock/nlp_api:$TAG
     env_file: ${PWD}/tock/.docker_env
@@ -126,8 +123,9 @@ services:
       - tock_web_use_default_cors_handler_with_credentials=false
       - tock_web_use_default_cors_handler_url=*
     networks:
-      - internal
       - linto_net
+      - internal
+
 
 volumes:
   tockmongo:
@@ -135,6 +133,6 @@ volumes:
   tockmongo3:
 
 networks:
-  internal:
   linto_net:
     external: true
+  internal:

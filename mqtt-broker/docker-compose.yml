@@ -5,7 +5,6 @@ services:
     container_name: linto-mqtt-broker
     image: matteocollina/mosca
     networks:
-      - internal
       - linto_net
 
 networks:
