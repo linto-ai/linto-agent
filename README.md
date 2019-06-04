@@ -26,7 +26,7 @@ You will need to have Docker and Docker Compose installed on your machine. If th
 Otherwise, you can install them referring to [https://docs.docker.com/engine/installation/](https://docs.docker.com/engine/installation/ "Install Docker"), and to [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/ "Install Docker Compose").
 
 ## ENV
-//TODO: CONFIG ENV DEPEND ON STT (if fr + en or just one stt)
+WIP: TODO CONFIG ENV (can found data on each github repository)
 
 ## RELEASE MODEL STT
 LinSTT Model can be found here : [https://github.com/linto-ai/linto-platform-stt-server-worker-client/releases](https://github.com/linto-ai/linto-platform-stt-server-worker-client/releases). This will contain an empty model that can be populate. You can check the [documentation](https://github.com/linto-ai/linto-platform-stt-server-worker-client) or deploy the swagger for API description.
