@@ -6,7 +6,7 @@ DEFAULT_LANGUE=fr-FR
 APP_URL=http://localhost:9000
 
 # WebSocket
-WS_PORT=9001
+WS_PORT=9000
 
 # Redis settings
 REDIS_PORT=6379
@@ -29,7 +29,7 @@ TOCK_API=linto-nlu-web
 LM_API=http://54.37.20.77:5001
 
 # Business Logic Server
-BUSINESS_LOGIC_SERVER_URI=linto-business-logic-server:9000
+BUSINESS_LOGIC_SERVER_URI=linto-business-logic-server:9000/redui
 BLS_AUTH=true
 # Default login settings
 BLS_LOGIN=admin

@@ -1,0 +1,24 @@
+version: "3.5"  
+
+networks: 
+  linto_net: 
+    external: true
+services: 
+  haproxy: 
+    cap_add: 
+      - NET_ADMIN
+    container_name: haproxy
+    image: nmarus/haproxy-certbot
+#    depends_on:
+#      - nginx
+    networks: 
+      - linto_net
+    ports: 
+      - "80:80"
+      - "443:443"
+      - "1883:1883"
+      - "8883:8883"
+    volumes: 
+      - "${HAPROXY_CONF}:/config"
+      - "${HAPROXY_LETSENCRYPT}:/etc/letsencrypt"
+      - "${SSL_CERTS}:/usr/local/etc/haproxy/certs.d"

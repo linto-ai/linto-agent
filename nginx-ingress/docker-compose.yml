@@ -15,9 +15,7 @@ services:
       - linto-nlu-web
       - linto-nlp-api
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - 80:80
+      - ${NGINX_CONF}:/etc/nginx/conf.d/default.conf
     networks:
       - linto_net
 
