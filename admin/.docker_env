@@ -5,9 +5,6 @@ DEFAULT_CITY=Paris
 DEFAULT_LANGUE=fr-FR
 APP_URL=http://localhost:9000
 
-# WebSocket
-WS_PORT=9001
-
 # Redis settings
 REDIS_PORT=6379
 REDIS_HOST=linto-admin-redis
@@ -29,8 +26,8 @@ TOCK_API=linto-nlu-web
 LM_API=http://54.37.20.77:5001
 
 # Business Logic Server
-BUSINESS_LOGIC_SERVER_URI=linto-business-logic-server:9000
-BLS_AUTH=true
+BUSINESS_LOGIC_SERVER_URI=linto-business-logic-server:9000/redui
+BLS_AUTH=false
 # Default login settings
 BLS_LOGIN=admin
 BLS_PSWD=password
@@ -42,3 +39,7 @@ LOGIC_MQTT_USER=LOGIC_MQTT_USER
 LOGIC_MQTT_PWD=LOGIC_MQTT_PWD
 LOGIC_MQTT_USE_LOGIN=false
 LOGIC_CLIENT_CODE=blk
+
+# STT
+STT_URL_FR=linto-stt-server-fr:8888/stt/fr/transcribe
+STT_URL_EN=linto-stt-server-en:8888/stt/en/transcribe
