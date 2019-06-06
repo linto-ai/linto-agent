@@ -21,6 +21,7 @@ services:
     environment:
       MONGO_INITDB_DATABASE: lintoAdmin
     networks:
+     - linto_net
      - internal
   redis-admin:
     container_name: linto-admin-redis

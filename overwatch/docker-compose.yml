@@ -5,6 +5,8 @@ services:
     container_name: linto-platform-overwatch
     image: lintoai/linto-platform-overwatch
     env_file: ${PWD}/overwatch/.docker_env
+    depends_on:
+      - nginx
     networks:
       - linto_net
 

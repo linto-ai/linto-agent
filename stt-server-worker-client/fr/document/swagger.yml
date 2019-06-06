@@ -6,9 +6,9 @@ info:
   description: A simple way to test LinSTT API, and to learn how to use API
 
 schemes:
-  - http
-host: localhost
-basePath: /stt/fr/
+  - https
+host: stage.linto.ai/
+basePath: stt/fr/
 
 paths:
   /transcribe:

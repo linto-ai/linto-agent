@@ -57,7 +57,8 @@ docker-compose \
 -f mqtt-broker/docker-compose.yml \
 -f overwatch/docker-compose.yml \
 -f stt-server-worker-client/fr/docker-compose.yml \
--f stt-server-worker-client/en/docker-compose.yml up
+-f stt-server-worker-client/en/docker-compose.yml \
+-f haproxy/docker-compose.yml up -d
 ```
 
 LinSTT with only the transcription

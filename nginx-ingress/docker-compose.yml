@@ -9,7 +9,6 @@ services:
       - linto-admin
       - linto-bls
       - linto-mqtt
-      - linto-overwatch
       - stt-server-en
       - stt-server-fr
       - linto-nlu-web

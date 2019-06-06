@@ -9,8 +9,8 @@ services:
       - NET_ADMIN
     container_name: haproxy
     image: nmarus/haproxy-certbot
-#    depends_on:
-#      - nginx
+    depends_on:
+      - nginx
     networks: 
       - linto_net
     ports: 
