@@ -3,7 +3,7 @@ version: '3.5'
 services:
   linto-mqtt:
     container_name: linto-mqtt-broker
-    image: matteocollina/mosca
+    image: eclipse-mosquitto
     networks:
       - linto_net
 
