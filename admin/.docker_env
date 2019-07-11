@@ -41,5 +41,8 @@ LOGIC_MQTT_USE_LOGIN=false
 LOGIC_CLIENT_CODE=blk
 
 # STT
-STT_URL_FR=linto-stt-server-fr:8888/stt/fr/transcribe
-STT_URL_EN=linto-stt-server-en:8888/stt/en/transcribe
+STT_URL_FR=http://linto-stt-server-fr:8888/transcribe
+STT_URL_EN=http://linto-stt-server-en:8888/transcribe
+
+# TZ
+TZ=Europe/Paris

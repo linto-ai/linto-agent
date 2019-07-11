@@ -16,3 +16,6 @@ TOCK_PASSWORD=''
 TOCK_USER=''
 TOCK_API=''
 LM_API=''
+
+#TZ
+TZ=Europe/Paris

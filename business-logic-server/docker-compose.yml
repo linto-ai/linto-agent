@@ -5,6 +5,8 @@ services:
     container_name: linto-business-logic-server
     image: lintoai/linto-platform-business-logic-server
     env_file: ${PWD}/business-logic-server/.docker_env
+    volumes:
+      - ../business-logic-server/flow-storage:/root/.node-red
     networks:
       - linto_net
 
