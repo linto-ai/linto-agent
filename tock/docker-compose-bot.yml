@@ -4,7 +4,7 @@ services:
 
   mongo:
     image: mongo:3.6.5
-    container_name: linto-tock-mongo-1
+    container_name: linto-tock-mongo
     volumes:
       - tockmongo:/data/db
     command: --smallfiles --bind_ip_all --port 27017 --replSet "tock"
@@ -13,7 +13,7 @@ services:
 
   mongo2:
     image: mongo:3.6.5
-    container_name: linto-tock-mongo-2
+    container_name: linto-tock-mongo2
     depends_on:
       - mongo
     volumes:
@@ -24,7 +24,7 @@ services:
 
   mongo3:
     image: mongo:3.6.5
-    container_name: linto-tock-mongo-3
+    container_name: linto-tock-mongo3
     depends_on:
       - mongo
       - mongo2
@@ -46,7 +46,7 @@ services:
       - mongo2:mongo2
       - mongo3:mongo3
     volumes:
-      - ./../tock/scripts:/scripts
+      - ./scripts:/scripts
     environment:
       - MONGO1=mongo
       - MONGO2=mongo2
@@ -55,7 +55,7 @@ services:
     entrypoint: [ "/scripts/setup.sh" ]
     networks:
       - internal
-    
+
   build_worker:
     image: tock/build_worker:$TAG
     container_name: linto-tock-build-worker
@@ -66,6 +66,7 @@ services:
     environment:
       - tock_mongo_url=mongodb://mongo:27017,mongo2:27018,mongo3:27019/?replicaSet=tock
       - tock_env=prod
+      - JAVA_ARGS=-Xmx1g -XX:MaxMetaspaceSize=256m
     networks:
       - internal
 
@@ -73,26 +74,38 @@ services:
     image: tock/duckling:$TAG
     container_name: linto-tock-duckling
     environment:
-      - tock_mongo_url=mongodb://mongo:27017,mongo2:27018,mongo3:27019/?replicaSet=tock
       - tock_env=prod
     networks:
       - internal
 
+  kotlin_compiler:
+    image: tock/kotlin_compiler:$TAG
+    container_name: linto-tock-kotlin-compiler
+    environment:
+      - tock_env=prod
+      - tock_kotlin_compiler_classpath=/maven
+    networks:
+      - internal
+
   linto-nlu-web:
-    image: tock/nlp_admin:$TAG
+    image: tock/bot_admin:$TAG
     container_name: linto-tock-nlu-web
     depends_on:
       - mongo
       - mongo2
       - mongo3
       - duckling
+      - kotlin_compiler
     environment:
       - tock_mongo_url=mongodb://mongo:27017,mongo2:27018,mongo3:27019/?replicaSet=tock
       - nlp_duckling_url=http://duckling:8080
       - tock_env=prod
+      - tock_bot_admin_rest_default_base_url=http://bot_api:8080
+      - tock_bot_compiler_service_url=http://kotlin_compiler:8080
+      - tock_configuration_bot_default_base_url=http://bot_api:8080
       #remove this in production
       - tock_https_env=false
-      - adminverticle_body_limit=-1
+      - botadminverticle_body_limit=-1
     networks:
       - linto_net
       - internal
@@ -112,6 +125,23 @@ services:
       - tock_web_use_default_cors_handler=true
       - tock_web_use_default_cors_handler_with_credentials=false
       - tock_web_use_default_cors_handler_url=*
+    networks:
+      - linto_net
+      - internal
+
+  bot_api:
+    image: tock/bot_api:$TAG
+    container_name: linto-tock-bot-api
+    depends_on:
+      - mongo
+      - mongo2
+      - mongo3
+      - nlp_api
+    environment:
+      - tock_mongo_url=mongodb://mongo:27017,mongo2:27018,mongo3:27019/?replicaSet=tock
+      - tock_nlp_service_url=http://nlp_api:8080
+      - tock_env=integ
+      - tock_websocket_enabled=true
     networks:
       - linto_net
       - internal
