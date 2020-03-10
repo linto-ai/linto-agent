@@ -46,8 +46,8 @@ done
 
 # DOWNLOAD MODEL IF TAG EXIST
 if [ "$OK_TAGS" = true ]; then
-  rm -r $MODELS_FOLDER 2>/dev/null
-  mkdir $MODELS_FOLDER
+  find ./models -mindepth 1 ! -name '.gitkeep' -exec rm -r {} +
+  mkdir -p $MODELS_FOLDER
 
   echo 'Do you want an empty model'
   printf 'Enter [y/n]: '
