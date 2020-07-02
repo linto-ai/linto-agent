@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  linto-platform-redis:
+    image: redis:latest
+    networks:
+      - linto-net
+
+networks:
+  linto-net:
+    external: true

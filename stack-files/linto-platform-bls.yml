@@ -1,0 +1,49 @@
+version: '3.7'
+
+x-labels: &labels
+   traefik.enable: "true"
+   traefik.http.services.linto-platform-bls.loadbalancer.server.port: 80
+   traefik.http.routers.linto-platform-bls.entrypoints: "http"
+   traefik.http.routers.linto-platform-bls.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`${LINTO_STACK_BLS_SERVICE_UI_PATH}`) || PathPrefix(`${LINTO_STACK_BLS_SERVICE_API_PATH}`))"
+
+x-ssl: &ssl
+  traefik.http.routers.linto-platform-bls-secure.entrypoints: "https"
+  traefik.http.routers.linto-platform-bls-secure.tls: "true"
+  traefik.http.routers.linto-platform-bls-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`${LINTO_STACK_BLS_SERVICE_UI_PATH}`) || PathPrefix(`${LINTO_STACK_BLS_SERVICE_API_PATH}`))"
+  traefik.http.routers.linto-platform-bls.middlewares: "ssl-redirect@file"
+
+x-acme: &acme
+  traefik.http.routers.linto-platform-bls-secure.tls.certresolver: "mytlschallenge"
+
+services:
+  linto-platform-bls:
+    image: lintoai/linto-platform-business-logic-server:$LINTO_STACK_IMAGE_TAG
+    env_file: .dockerenv
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        <<: [ *labels ]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 50s
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${LINTO_SHARED_MOUNT}/.bls/:/root/.node-red/
+    # Allow to map specific node-red settings to local
+    # - ${LINTO_SHARED_MOUNT}/.bls/settings.js:/usr/src/app/business-logic-server/lib/node-red/settings/settings.js
+    command: 
+    # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
+      - --run-cmd=npm run start
+    networks:
+      - linto-net
+
+networks:
+  linto-net:
+    external: true

@@ -1,0 +1,50 @@
+version: '3.7'
+
+x-labels: &labels
+  traefik.enable: "true"
+  traefik.http.services.linto-platform-overwatch.loadbalancer.server.port: 80
+  traefik.http.routers.linto-platform-overwatch.entrypoints: "http"
+  traefik.http.routers.linto-platform-overwatch.rule: "Host(`${LINTO_STACK_DOMAIN}`) && PathPrefix(`${LINTO_STACK_OVERWATCH_BASE_PATH}`)"
+
+x-basic-auth: &basic-auth-ssl
+  traefik.http.routers.linto-platform-overwatch-secure.middlewares: "basic-auth@file"
+
+x-basic-auth-ssl: &basic-auth
+  traefik.http.routers.linto-platform-overwatch.middlewares: "basic-auth@file"
+
+x-ssl: &ssl
+  traefik.http.routers.linto-platform-overwatch-secure.entrypoints: "https"
+  traefik.http.routers.linto-platform-overwatch-secure.tls: "true" 
+  traefik.http.routers.linto-platform-overwatch-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && PathPrefix(`${LINTO_STACK_OVERWATCH_BASE_PATH}`)"
+  traefik.http.routers.linto-platform-overwatch.middlewares: "ssl-redirect@file"
+
+x-acme: &acme
+  traefik.http.routers.linto-platform-overwatch-secure.tls.certresolver: "mytlschallenge"
+
+
+services:
+  linto-platform-overwatch:
+    image: lintoai/linto-platform-overwatch:$LINTO_STACK_IMAGE_TAG
+    env_file: .dockerenv
+    environment:
+      - LINTO_STACK_MONGODB_SERVICE=linto-platform-mongo
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        <<: [ *labels ]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 50s
+    networks:
+      - linto-net
+
+networks:
+  linto-net:
+    external: true

@@ -1,0 +1,8 @@
+[file]
+watch = true
+
+[http.middlewares]
+  [http.middlewares.linto-tock-web-path.stripPrefix]
+    prefixes = ["/tock"]
+  [http.middlewares.linto-tock-api-path.stripPrefix]
+    prefixes = ["/tockapi"]

@@ -1,0 +1,6 @@
+[file]
+watch = true
+
+[http.middlewares]
+  [http.middlewares.linto-stt-service-manager-path.stripPrefix]
+    prefixes = ["/stt-manager"]

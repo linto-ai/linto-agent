@@ -1,0 +1,44 @@
+version: "3.7"
+
+x-labels: &labels
+   traefik.enable: "true"
+   traefik.http.services.linto-docker-visualizer.loadbalancer.server.port: 8080
+   traefik.http.routers.linto-docker-visualizer.entrypoints: "http"
+   traefik.http.routers.linto-docker-visualizer.rule: "Host(`${LINTO_STACK_DOMAIN}`) && PathPrefix(`/viz`)"
+
+x-basic-auth: &basic-auth-ssl
+  traefik.http.routers.linto-docker-visualizer-secure.middlewares: "basic-auth@file"
+
+x-basic-auth-ssl: &basic-auth
+  traefik.http.routers.linto-docker-visualizer.middlewares: "basic-auth@file"
+
+x-ssl: &ssl
+  traefik.http.routers.linto-docker-visualizer-secure.entrypoints: "https"
+  traefik.http.routers.linto-docker-visualizer-secure.tls: "true" 
+  traefik.http.routers.linto-docker-visualizer-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && PathPrefix(`/viz`)"
+  traefik.http.routers.linto-docker-visualizer.middlewares: "ssl-redirect@file"
+
+x-acme: &acme
+  traefik.http.routers.linto-docker-visualizer-secure.tls.certresolver: "mytlschallenge"
+
+services:
+  linto-docker-visualizer:
+    image: dockersamples/visualizer:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        <<: [ *labels ]
+    environment:
+      - CTX_ROOT=/viz
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # <== Volume for docker admin
+    networks:
+      - linto-net
+
+networks:
+  linto-net:
+    external: true

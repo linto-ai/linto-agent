@@ -1,0 +1,84 @@
+version: "3.7"
+
+x-labels: &labels
+  traefik.enable: "true"
+  traefik.http.services.linto-edge-router.loadbalancer.server.port: 80
+  traefik.http.routers.api.entrypoints: "dashboard-http"
+  traefik.http.routers.api.rule: "PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
+  traefik.http.routers.api.service: "api@internal"
+
+x-basic-auth: &basic-auth
+  traefik.http.routers.api.middlewares: "basic-auth@file"
+
+x-basic-auth-ssl: &basic-auth-ssl
+  traefik.http.routers.api-secure.middlewares: "basic-auth@file"
+
+x-ssl: &ssl
+  traefik.http.routers.api.middlewares: "ssl-redirect-dashboard@file"
+  traefik.http.routers.api-secure.entrypoints: "dashboard-https"
+  traefik.http.routers.api-secure.rule: "PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
+  traefik.http.routers.api-secure.service: "api@internal"
+  traefik.http.routers.api-secure.tls: "true"
+  traefik.http.routers.api-secure.tls.domains[0].main: "${LINTO_STACK_DOMAIN}"
+
+x-acme: &acme
+  traefik.http.routers.api-secure.tls.certresolver: "mytlschallenge"
+
+services:
+  linto-edge-router:
+    image: traefik:latest
+    env_file: .dockerenv
+    ports:
+      - "1883:1883" # <== tcp in for insecure MQTT
+      - "8883:8883" # <== tcp in for TLS MQTT
+      - "80:80" # <== http / websockets
+      - "443:443" # <== http / websockets over TLS
+      - "4480:4480" # <== Dashboard HTTP port
+      - "4443:4443" # <== Dashboard HTTPS port
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+          - node.labels.ip == ingress # <== Must get deployed on a manager node with ip label set to "ingress"
+      labels:
+        #### Labels define the behavior and rules of the traefik proxy for this service ####
+        <<: [ *labels ]
+
+    command:
+      ## API Settings - https://docs.traefik.io/operations/api/, endpoints - https://docs.traefik.io/operations/api/#endpoints ##
+      - --api.insecure=false # <== Enabling insecure api on published 8080, NOT RECOMMENDED FOR PRODUCTION. requires 8080 exposed and published
+      - --api.dashboard=true # <== Enabling the dashboard to view services, middlewares, routers, etc...
+      - --api.debug=true # <== Enabling additional endpoints for debugging and profiling
+      ## Log Settings (options: ERROR, DEBUG, PANIC, FATAL, WARN, INFO) - https://docs.traefik.io/observability/logs/ ##
+      - --log.level=INFO # <== Setting the level of the logs from traefik
+      ## Provider Settings - https://docs.traefik.io/providers/docker/#provider-configuration ##
+      - --providers.file.directory=/traefik/ # <== Referring to a dynamic configuration directory
+      # - --configFile=/traefik/traefik.toml # <== Static configuration
+      - --providers.file.watch=true # <== Hot Reload
+      - --providers.docker.swarmMode=true
+      - --providers.docker.exposedbydefault=false # <== Don't expose every container to traefik, only expose enabled ones
+      - --providers.docker.network=linto-net # <== Default Operate on the docker network named linto-net / Can be overriden in services with traefik.docker.network
+      ## Entrypoints Settings - https://docs.traefik.io/routing/entrypoints/#configuration ##
+      - --entrypoints.http.address=:80 # <== Defining an entrypoint for port :80 named http
+      - --entrypoints.https.address=:443 # <== Defining an entrypoint for https on port :443 named https
+      - --entrypoints.mqtt.address=:1883 # <== Defining an entrypoint for MQTT on port :1883 named mqtt
+      - --entrypoints.mqtts.address=:8883 # <== Defining an entrypoint for MQTTS on port :8883 named mqtts
+      - --entrypoints.dashboard-http.address=:4480 # <== HTTP for traefik dashboard
+      - --entrypoints.dashboard-https.address=:4443 # <== HTTPS for traefik dashboard
+      ## Certificate Settings (Let's Encrypt) -  https://docs.traefik.io/https/acme/#configuration-examples ##
+      - --serverstransport.insecureskipverify=true
+      - --certificatesresolvers.mytlschallenge.acme.tlschallenge=true # <== Enable TLS-ALPN-01 to generate and renew ACME certs
+      - --certificatesresolvers.mytlschallenge.acme.email=${LINTO_STACK_ACME_EMAIL} # <== Setting email for certs
+      - --certificatesresolvers.mytlschallenge.acme.storage=/certs/acme.json # <== Defining acme file to store cert information
+    volumes:
+      - ${LINTO_SHARED_MOUNT}/certs:/certs # <== Volume for certs (TLS)
+      - /var/run/docker.sock:/var/run/docker.sock # <== Volume for docker admin
+      - ${LINTO_SHARED_MOUNT}/config/traefik/:/traefik # <== Volume for dynamic conf file, **ref: line 27
+    networks:
+      - linto-net # <== Placing traefik on the network linto-net to access containers on this network
+
+networks:
+  linto-net:
+    external: true

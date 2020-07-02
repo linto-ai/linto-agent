@@ -1,0 +1,37 @@
+version: "3.7"
+
+x-labels: &labels
+  traefik.enable: "true"
+  traefik.tcp.routers.linto-mqtt-in.entrypoints: "mqtt"
+  traefik.tcp.routers.linto-mqtt-in.rule: "HostSNI(`*`)" # <== Must specify that
+  traefik.tcp.services.linto-mqtt-broker.loadbalancer.server.port: 1883 # <== Send tcp trafic to this port
+
+x-ssl: &ssl
+  traefik.tcp.routers.linto-mqtts-in.entrypoints: "mqtts"
+  traefik.tcp.routers.linto-mqtts-in.rule: "HostSNI(`${LINTO_STACK_DOMAIN}`)"
+  traefik.tcp.routers.linto-mqtts-in.tls: "true"
+  traefik.tcp.routers.linto-mqtts-in.tls.passthrough: "false"
+
+x-acme: &acme
+  traefik.tcp.routers.linto-mqtts-in.tls.certresolver: "mytlschallenge"
+
+services:
+  linto-mqtt-broker:
+    image: eclipse-mosquitto:latest
+    env_file: .dockerenv
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        <<: [ *labels ]
+
+    volumes:
+      - ${LINTO_SHARED_MOUNT}/config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ${LINTO_SHARED_MOUNT}/config/mosquitto/docker-entrypoint.sh:/docker-entrypoint.sh
+      - ${LINTO_SHARED_MOUNT}/data/mosquitto/:/mosquitto/data
+    networks:
+      - linto-net
+
+networks:
+  linto-net:
+    external: true

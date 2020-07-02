@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+
+  ################################################
+  ####         Grafana dashboard             #####
+  ################################################
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+     - grafana-storage:/var/lib/grafana
+     - ./log/grafana:/var/log/grafana
+    environment:
+     - GF_SECURITY_ADMIN_PASSWORD=supersecret
+     # Comment out if you have users that should sign up
+     - GF_USERS_ALLOW_SIGN_UP=true 
+     - GF_SERVER_ROOT_URL=/grafana
+     - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.entrypoints=web"
+      - "traefik.http.routers.grafana.rule=PathPrefix(`/grafana`) || PathPrefix(`/grafana/`)"
+      - "traefik.port=3000"
+      - "traefik.docker.network=web"
+    networks:
+      - linto-net
+
+networks:
+  linto-net:
+    external: true
+  monitoring:
+    external: false
+
+volumes:
+  grafana-storage:

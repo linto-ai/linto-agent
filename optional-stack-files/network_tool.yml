@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  linto-busy-box:
+    image: praqma/network-multitool:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+    networks:
+      - linto-net
+    env_file: .dockerenv
+
+networks:
+  linto-net:
+    external: true

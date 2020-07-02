@@ -1,0 +1,108 @@
+##############################################################################################
+### Infrastructure setup (see https://doc.linto.ai/#/infra )
+##############################################################################################
+LINTO_SHARED_MOUNT=~/linto_shared_mount/
+LINTO_STACK_USE_SSL=true
+LINTO_STACK_USE_ACME=false
+LINTO_STACK_ACME_EMAIL=my@mail.com
+LINTO_STACK_DOMAIN=dev.linto.local
+LINTO_STACK_HTTP_USE_AUTH=false
+LINTO_STACK_HTTP_USER=LINTO_STACK_HTTP_USER
+LINTO_STACK_HTTP_PASSWORD=LINTO_STACK_HTTP_PASSWORD
+LINTO_STACK_IMAGE_TAG=latest-unstable
+
+##############################################################################################
+### Node JS apps setup
+##############################################################################################
+TZ=Europe/Paris
+LINTO_STACK_ADMIN_HTTP_PORT=80
+LINTO_STACK_ADMIN_API_WHITELIST_DOMAINS=https://dev.linto.local
+
+
+##############################################################################################
+### Redis session store for webapps
+##############################################################################################
+LINTO_STACK_REDIS_SESSION_SERVICE=linto-platform-redis
+LINTO_STACK_REDIS_SESSION_SERVICE_PORT=6379
+
+##############################################################################################
+### MQTT Broker for LinTO clients
+##############################################################################################
+LINTO_STACK_MQTT_USE_LOGIN=true
+LINTO_STACK_MQTT_USER=LINTO_STACK_MQTT_USER
+LINTO_STACK_MQTT_PASSWORD=LINTO_STACK_MQTT_PASSWORD
+LINTO_STACK_MQTT_PORT=1883
+LINTO_STACK_MQTT_KEEP_ALIVE=60
+LINTO_STACK_MQTT_HOST=linto-mqtt-broker
+LINTO_STACK_MQTT_OVER_WS=false
+LINTO_STACK_MQTT_OVER_WS_PORT=1884
+# Default scope for registration of linto see https://doc.linto.ai/#/client/osgenerator?id=usage
+# --> LinTO Serial number and server address (pairing with LinTO platform)
+LINTO_STACK_MQTT_DEFAULT_HW_SCOPE=blk
+
+##############################################################################################
+### Database
+##############################################################################################
+LINTO_STACK_MONGODB_SERVICE=linto-platform-mongo
+LINTO_STACK_MONGODB_PORT=27017
+LINTO_STACK_MONGODB_DBNAME=linto-stack
+LINTO_STACK_MONGODB_USE_LOGIN=true
+LINTO_STACK_MONGODB_USER=my-db-user
+LINTO_STACK_MONGODB_PASSWORD=my-db-password
+LINTO_STACK_MONGODB_VOLUME_NAME=mongodb-admin
+LINTO_STACK_MONGODB_TARGET_VERSION=1
+
+##############################################################################################
+### LinTO business logc server (skill server backed by node-red)
+##############################################################################################
+LINTO_STACK_BLS_SERVICE=linto-platform-bls
+LINTO_STACK_BLS_USE_LOGIN=true
+LINTO_STACK_BLS_USER=LINTO_STACK_BLS_LOGIN
+LINTO_STACK_BLS_PASSWORD=LINTO_STACK_BLS_PASSWORD
+
+LINTO_STACK_BLS_SERVICE_UI_PATH=/redui
+LINTO_STACK_BLS_SERVICE_API_PATH=/red
+
+##############################################################################################
+### Tock NLU service
+##############################################################################################
+LINTO_STACK_TOCK_SERVICE=linto-tock-nlu-web
+LINTO_STACK_MONGODB_TOCK_VOLUME_NAME=linto-tock-mongo
+LINTO_STACK_TOCK_SERVICE_PORT=8080
+LINTO_STACK_TOCK_SERVICE_UI_PATH=/tock
+LINTO_STACK_TOCK_ENV=prod
+LINTO_STACK_TOCK_USER=tock@linto.ai
+LINTO_STACK_TOCK_PASSWORD=password
+LINTO_STACK_TOCK_TAG=19.9.3
+
+##############################################################################################
+### STT Service manager
+##############################################################################################
+LINTO_STACK_STT_SERVICE_MANAGER_SERVICE=linto-platform-stt-service-manager
+LINTO_STACK_STT_SERVICE_MANAGER_INGRESS_CONTROLLER=traefik
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_HOST=linto-platform-stt-service-manager-mongodb
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PORT=27017
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_DBNAME=linSTTAdmin
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_REQUIRE_LOGIN=true
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_USER=root
+LINTO_STACK_STT_SERVICE_MANAGER_MOGODB_PSWD=root
+LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME=stt-service-manager
+
+##############################################################################################
+### LinSTT Service
+##############################################################################################
+LINTO_STACK_LINSTT_IMAGE=lintoai/linto-platform-stt-standalone-worker
+LINTO_STACK_LINSTT_NETWORK=linto-net
+LINTO_STACK_LINSTT_PREFIX=stt
+
+##############################################################################################
+### Overwatch Service manager
+##############################################################################################
+LINTO_STACK_OVERWATCH_LOGS_MONGODB=false
+LINTO_STACK_OVERWATCH_BASE_PATH=/overwatch
+
+LINTO_STACK_OVERWATCH_AUTH_TYPE=local
+
+LINTO_STACK_OVERWATCH_AUTH_LDAP_SERVER_URL=
+LINTO_STACK_OVERWATCH_AUTH_LDAP_SERVER_SEARCH_BASE=
+LINTO_STACK_OVERWATCH_AUTH_LDAP_SERVER_SEARCH_FILTER=

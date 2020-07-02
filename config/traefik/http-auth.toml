@@ -1,0 +1,8 @@
+[file]
+watch = true
+
+[http.middlewares]
+  [http.middlewares.basic-auth.basicAuth]
+  users = [
+    "$LINTO_STACK_HTTP_HASH_STRING",
+  ]

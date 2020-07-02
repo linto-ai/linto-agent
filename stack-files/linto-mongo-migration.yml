@@ -1,0 +1,31 @@
+version: '3.7'
+
+x-mongo-env: &mongo-env
+  MONGO_INITDB_DATABASE: $LINTO_STACK_MONGODB_DBNAME
+
+x-mongo-auth: &mongo-auth
+  MONGO_INITDB_ROOT_USERNAME: superuser
+  MONGO_INITDB_ROOT_PASSWORD: supersecret
+
+services:
+  linto-platform-mongodb-migration:
+    image: lintoai/linto-platform-mongodb-migration:$LINTO_STACK_IMAGE_TAG
+    networks:
+      - linto-net
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: none
+      placement:
+        constraints:
+          - node.role == manager
+    command: # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
+      - --run-cmd=npm run migrate
+    labels:
+      <<: [ *mongo-env ]
+    env_file: .dockerenv
+      
+networks:
+  linto-net:
+    external: true

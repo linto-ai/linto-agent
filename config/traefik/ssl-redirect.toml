@@ -1,0 +1,19 @@
+[file]
+watch = true
+
+# Redirect to https
+[http.middlewares]
+  [http.middlewares.ssl-redirect.redirectScheme]
+    scheme = "https"
+    permanent = false
+
+  [http.middlewares.ssl-redirect-dashboard.redirectScheme]
+    scheme = "https"
+    permanent = false
+    port = "4443"
+
+[tls]
+  [[tls.certificates]]
+    certFile = "/certs/cert.pem"
+    keyFile = "/certs/key.pem"
+    stores = ["default"]

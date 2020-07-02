@@ -1,0 +1,164 @@
+version: '3.5'
+
+# NLU-WEB labels
+x-labels: &labels-nlu
+  traefik.enable: "true"
+  traefik.http.services.linto-tock-nlu-web.loadbalancer.server.port: 8080
+  traefik.http.routers.linto-tock-nlu-web.entrypoints: "http"
+  traefik.http.routers.linto-tock-nlu-web.middlewares: "linto-tock-web-path@file"
+  # PathPrefix(`/rest/`) -> linto-tock-nlu-web service expose his own express on /rest/  where he  can conflict with the nlp service
+  traefik.http.routers.linto-tock-nlu-web.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`/tock/`) || PathPrefix(`/rest/`))"
+
+x-labels: &labels-nlp
+  traefik.enable: "true"
+  traefik.http.services.linto-tock-nlp-api.loadbalancer.server.port: 8080
+  traefik.http.routers.linto-tock-nlp-api.entrypoints: "http"
+  traefik.http.routers.linto-tock-nlp-api.middlewares: "linto-tock-api-path@file"
+  traefik.http.routers.linto-tock-nlp-api.rule: "Host(`${LINTO_STACK_DOMAIN}`) && Path(`/tockapi/rest/nlp/parse`)"
+
+x-ssl: &ssl-nlu
+  traefik.http.routers.linto-tock-nlu-web-secure.entrypoints: "https"
+  traefik.http.routers.linto-tock-nlu-web-secure.tls: "true"
+  traefik.http.routers.linto-tock-nlu-web-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`/tock/`) || PathPrefix(`/rest/`))"
+  traefik.http.routers.linto-tock-nlu-web-secure.middlewares: "linto-tock-web-path@file"
+
+x-ssl: &ssl-nlp
+  traefik.http.routers.linto-tock-nlp-api-secure.entrypoints: "https"
+  traefik.http.routers.linto-tock-nlp-api-secure.tls: "true"
+  traefik.http.routers.linto-tock-nlp-api-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && Path(`/tockapi/rest/nlp/parse`)"
+  traefik.http.routers.linto-tock-nlp-api-secure.middlewares: "linto-tock-api-path@file"
+
+x-acme: &acme-nlu
+  traefik.http.routers.linto-tock-nlu-web.tls.certresolver: "mytlschallenge"
+
+x-acme: &acme-nlp
+  traefik.http.routers.linto-tock-nlp-api.tls.certresolver: "mytlschallenge"
+
+services:
+
+  linto-tock-mongo:
+    image: mongo:3.6.5
+    command: --smallfiles --replSet "tock"
+    volumes:
+      - $HOME/${LINTO_STACK_MONGODB_TOCK_VOLUME_NAME}/.dbdata:/data/db
+      - $HOME/${LINTO_STACK_MONGODB_TOCK_VOLUME_NAME}/.dbbackup:/data/backup
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - linto-net
+
+  linto-tock-mongo-setup:
+    image: mongo:3.6.5
+    volumes:
+      - ${LINTO_SHARED_MOUNT}/config/tock/scripts:/scripts
+    env_file: .dockerenv
+    environment:
+      - MONGO1=linto-tock-mongo
+      - RS=tock
+    entrypoint: [ /scripts/setup.sh ]
+    networks:
+      - linto-net
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 10s
+    
+  linto-tock-build_worker:
+    image: tock/build_worker:$LINTO_STACK_TOCK_TAG
+    env_file: .dockerenv
+    environment:
+      - tock_mongo_url=mongodb://linto-tock-mongo:27017
+      - tock_env=${TOCK_ENV}
+    networks:
+      - linto-net
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 10s
+
+  linto-tock-duckling:
+    image: tock/duckling:$LINTO_STACK_TOCK_TAG
+    env_file: .dockerenv
+    environment:
+      - tock_mongo_url=mongodb://linto-tock-mongo:27017
+      - tock_env=${TOCK_ENV}
+    networks:
+      - linto-net
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 10s
+
+  linto-tock-nlu-web:
+    image: tock/nlp_admin:$LINTO_STACK_TOCK_TAG
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 50s
+    env_file: .dockerenv
+    environment:
+      - tock_mongo_url=mongodb://linto-tock-mongo:27017
+      - nlp_duckling_url=http://linto-tock-duckling:8080
+      - tock_env=${TOCK_ENV}
+      - tock_users=${LINTO_STACK_TOCK_USER}
+      - tock_passwords=${LINTO_STACK_TOCK_PASSWORD}
+    volumes:
+      - ${LINTO_SHARED_MOUNT}config/tock/scripts/admin-web-entrypoint.sh:/root/admin-web-entrypoint.sh
+    entrypoint: [ /root/admin-web-entrypoint.sh ]
+    command: [ "java $JAVA_ARGS -Dfile.encoding=UTF-8 -Dtock_nlp_model_refresh_rate=10 -cp '/maven/*' ai.tock.nlp.admin.StartAdminServerKt" ]
+    networks:
+      - linto-net
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        <<: [ *labels-nlu ]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 20s
+
+  linto-tock-nlp-api:
+    image: tock/nlp_api:$LINTO_STACK_TOCK_TAG
+    env_file: .dockerenv
+    environment:
+      - tock_mongo_url=mongodb://linto-tock-mongo:27017
+      - nlp_duckling_url=http://linto-tock-duckling:8080
+      - tock_env=${TOCK_ENV}
+    networks:
+      - linto-net
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        <<: [ *labels-nlp ]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 20s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+networks:
+  linto-net:
+    external: true

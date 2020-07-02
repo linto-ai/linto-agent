@@ -1,0 +1,75 @@
+version: '3.7'
+
+x-labels: &labels
+  traefik.enable: "true"
+  traefik.http.services.linto-platform-stt-service-manager.loadbalancer.server.port: 80
+  traefik.http.routers.linto-platform-stt-service-manager.entrypoints: "http"
+  traefik.http.routers.linto-platform-stt-service-manager.middlewares: "linto-stt-service-manager-path@file"
+  traefik.http.routers.linto-platform-stt-service-manager.rule: "Host(`${LINTO_STACK_DOMAIN}`) && PathPrefix(`/stt-manager`)"
+
+x-ssl: &ssl
+  traefik.http.routers.linto-platform-stt-service-manager-secure.entrypoints: "https"
+  traefik.http.routers.linto-platform-stt-service-manager-secure.tls: "true" 
+  traefik.http.routers.linto-platform-stt-service-manager-secure.middlewares: "linto-stt-service-manager-path@file"
+  traefik.http.routers.linto-platform-stt-service-manager-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && PathPrefix(`/stt-manager`)"
+
+x-acme: &acme
+  traefik.http.routers.linto-platform-stt-service-manager.tls.certresolver: "mytlschallenge"
+
+services:
+
+  linto-platform-stt-service-manager:
+    image: lintoai/linto-platform-stt-server-manager:$LINTO_STACK_IMAGE_TAG
+    env_file: .dockerenv
+    volumes:
+      - ${LINTO_SHARED_MOUNT}/models:/opt/model
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
+      - ${LINTO_SHARED_MOUNT}/stt-service-manager/swagger.yml:/opt/swagger.yml
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        <<: [ *labels ]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 50s
+    command:
+      - --run-cmd=npm run start
+    environment:
+      LINTO_STACK_STT_SERVICE_MANAGER_DIRECTORY: ${LINTO_SHARED_MOUNT}/models
+      LINTO_STACK_NAME: linto_stack
+      LINTO_STACK_STT_SERVICE_MANAGER_SWAGGER_PATH: /opt/swagger.yml
+    networks:
+      - linto-net
+
+  linto-platform-stt-service-manager-mongodb:
+    image: mongo:latest
+    volumes:
+      - ${HOME}/${LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME}/dbdata:/data/db
+      - ${HOME}/${LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME}/dbbackup:/data/backup
+      - ${LINTO_SHARED_MOUNT}/stt-service-manager:/docker-entrypoint-initdb.d
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    environment:
+      MONGO_INITDB_DATABASE: $LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_DBNAME
+    networks:
+      - linto-net
+
+networks:
+    internal:
+    linto-net:
+       external: true
