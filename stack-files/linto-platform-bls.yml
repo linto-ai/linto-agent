@@ -4,12 +4,12 @@ x-labels: &labels
    traefik.enable: "true"
    traefik.http.services.linto-platform-bls.loadbalancer.server.port: 80
    traefik.http.routers.linto-platform-bls.entrypoints: "http"
-   traefik.http.routers.linto-platform-bls.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`${LINTO_STACK_BLS_SERVICE_UI_PATH}`) || PathPrefix(`${LINTO_STACK_BLS_SERVICE_API_PATH}`))"
+   traefik.http.routers.linto-platform-bls.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`${LINTO_STACK_BLS_SERVICE_UI_PATH}`) || PathPrefix(`/red`))"
 
 x-ssl: &ssl
   traefik.http.routers.linto-platform-bls-secure.entrypoints: "https"
   traefik.http.routers.linto-platform-bls-secure.tls: "true"
-  traefik.http.routers.linto-platform-bls-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`${LINTO_STACK_BLS_SERVICE_UI_PATH}`) || PathPrefix(`${LINTO_STACK_BLS_SERVICE_API_PATH}`))"
+  traefik.http.routers.linto-platform-bls-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`${LINTO_STACK_BLS_SERVICE_UI_PATH}`) || PathPrefix(`/red`))"
   traefik.http.routers.linto-platform-bls.middlewares: "ssl-redirect@file"
 
 x-acme: &acme

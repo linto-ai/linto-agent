@@ -233,7 +233,6 @@ NOTE : All of this is set up in the declarative hidden file `.dockerenv` at the 
 |LINTO_STACK_BLS_USER|BLS service username|username|
 |LINTO_STACK_BLS_PASSWORD|BLS service password|password|
 |LINTO_STACK_BLS_SERVICE_UI_PATH|User interface path|/redui|
-|LINTO_STACK_BLS_SERVICE_API_PATH|Rest API Path|/red|
 |**Tock NLU**|
 |LINTO_STACK_TOCK_SERVICE|Tock service host/url|linto-tock-nlu-web|
 |LINTO_STACK_MONGODB_TOCK_VOLUME_NAME|Mongodb volume name for tock service|linto-tock-mongo|
