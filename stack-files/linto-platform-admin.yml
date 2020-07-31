@@ -18,6 +18,9 @@ x-acme: &acme
 services:
   linto-platform-admin:
     image: lintoai/linto-platform-admin:$LINTO_STACK_IMAGE_TAG
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${LINTO_SHARED_MOUNT}/mongodb-schemas/version:/usr/src/app/linto-admin/webserver/model/mongodb/schemas
     env_file: .dockerenv
     deploy:
       mode: replicated
@@ -33,9 +36,6 @@ services:
       timeout: 10s
       retries: 4
       start_period: 150s
-    
-    volumes:
-      - "/etc/localtime:/etc/localtime:ro"
       # You might bind mount here webserver and vue_app directories for development ;)
     command: # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
       - --reinstall-webserver
