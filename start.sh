@@ -130,15 +130,19 @@ sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-platform-re
 ###########################################
 ###       LinTO Mongodb migration       ###
 ###########################################
+rm -rf ${LINTO_SHARED_MOUNT}/mongodb-schemas
+mkdir -p ${LINTO_SHARED_MOUNT}/mongodb-schemas
 
 LABELS=""
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-mongo-migration.yml \
 | docker stack deploy --resolve-image always --compose-file - linto_stack
 
+id=$(docker create lintoai/linto-platform-mongodb-migration:$LINTO_STACK_IMAGE_TAG)
+docker cp $id:/usr/src/app/linto-platform-mongodb-migration/migrations ${LINTO_SHARED_MOUNT}/mongodb-schemas && mv ${LINTO_SHARED_MOUNT}/mongodb-schemas/migrations ${LINTO_SHARED_MOUNT}/mongodb-schemas/version
+docker rm -v $id
 ###########################################
 ###         LinTO Platform Admin        ###
 ###########################################
-
 
 LABELS=""
 if [[ "$LINTO_STACK_USE_SSL" == true ]]; then
