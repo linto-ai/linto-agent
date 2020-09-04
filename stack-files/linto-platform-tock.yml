@@ -66,6 +66,12 @@ services:
       timeout: 10s
       retries: 4
       start_period: 10s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
     
   linto-tock-build_worker:
     image: tock/build_worker:$LINTO_STACK_TOCK_TAG
