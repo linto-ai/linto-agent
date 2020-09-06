@@ -12,6 +12,14 @@ x-ssl: &ssl
   traefik.tcp.routers.linto-mqtts-in.tls: "true"
   traefik.tcp.routers.linto-mqtts-in.tls.passthrough: "false"
 
+x-wss: &wss
+  traefik.http.routers.linto-wss-in.entrypoints: "https"
+  traefik.http.routers.linto-wss-in.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`/mqtts`))"
+  traefik.http.routers.linto-wss-in.tls: "true"
+  traefik.http.routers.linto-wss-in.tls.passthrough: "false"
+  traefik.http.routers.linto-wss-in.middlewares.stripprefix.prefixes: "/mqtts"
+  traefik.http.services.linto-mqtt-broker.loadbalancer.server.port: 9001 # < == Port setup in config/mosquitto/mosquitto.conf
+
 x-acme: &acme
   traefik.tcp.routers.linto-mqtts-in.tls.certresolver: "mytlschallenge"
 

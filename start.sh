@@ -69,6 +69,10 @@ if [[ "$LINTO_STACK_USE_SSL" == true ]]; then
     LABELS="${LABELS}, *ssl"
     [[ "$LINTO_STACK_USE_ACME" == true ]] && LABELS="${LABELS}, *acme"
 fi
+# Secure Websocket support for MQTT
+if [[ "$LINTO_STACK_MQTT_OVER_WSS" == true ]]; then
+    LABELS="${LABELS}, *wss"
+fi
 
 # Stack deployment using correct labels
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-mqtt-broker.yml \
