@@ -67,11 +67,11 @@ fi
 LABELS=""
 if [[ "$LINTO_STACK_USE_SSL" == true ]]; then
     LABELS="${LABELS}, *ssl"
-    [[ "$LINTO_STACK_USE_ACME" == true ]] && LABELS="${LABELS}, *acme-wss"
+    [[ "$LINTO_STACK_USE_ACME" == true ]] && [[ "$LINTO_STACK_MQTT_OVER_WS" == true ]] && LABELS="${LABELS}, *acme-wss"
+    [[ "$LINTO_STACK_USE_ACME" == true ]] && [[ "$LINTO_STACK_MQTT_OVER_WS" == false ]] && LABELS="${LABELS}, *acme"
     [[ "$LINTO_STACK_MQTT_OVER_WS" == true ]] && LABELS="${LABELS}, *wss" # Secure Websocket support for MQTT
 else
-    [[ "$LINTO_STACK_USE_ACME" == true ]] && LABELS="${LABELS}, *acme"
-    [[ "$LINTO_STACK_MQTT_OVER_WS" == true ]] && LABELS="${LABELS}, *ws" # Non-secure websocket support for MQTT
+    [[ "$LINTO_STACK_MQTT_OVER_WS" == true ]] && [[ "$LINTO_STACK_MQTT_OVER_WS" == true ]] && LABELS="${LABELS}, *ws" # Non-secure websocket support for MQTT
 fi
 
 # Stack deployment using correct labels
