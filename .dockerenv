@@ -35,7 +35,7 @@ LINTO_STACK_MQTT_PORT=1883
 LINTO_STACK_MQTT_KEEP_ALIVE=60
 LINTO_STACK_MQTT_HOST=linto-mqtt-broker
 LINTO_STACK_MQTT_OVER_WS=false
-LINTO_STACK_MQTT_OVER_WS_PORT=1884
+LINTO_STACK_MQTT_OVER_WS_ENDPOINT=/mqtt
 # Default scope for registration of linto see https://doc.linto.ai/#/client/osgenerator?id=usage
 # --> LinTO Serial number and server address (pairing with LinTO platform)
 LINTO_STACK_MQTT_DEFAULT_HW_SCOPE=blk
