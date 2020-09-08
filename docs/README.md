@@ -216,8 +216,8 @@ NOTE : All of this is set up in the declarative hidden file `.dockerenv` at the 
 | LINTO_STACK_MQTT_USER | MQTT broker user | user |
 | LINTO_STACK_MQTT_PASSWORD | MQTT broker password | password |
 |LINTO_STACK_MQTT_KEEP_ALIVE| TCP keep alive in seconds|60|
-|LINTO_STACK_MQTT_OVER_WS|MQTT accesible over WS ?|true, false|
-|LINTO_STACK_MQTT_OVER_WS_PORT|Port settings for mqtt over ws|1884|
+|LINTO_STACK_MQTT_OVER_WS|MQTT accesible over websockets or secure ws|true, false|
+|LINTO_STACK_MQTT_OVER_WS_ENDPOINT|mqtt over ws/wss endpoint|/mqtt|
 |**Database**|
 | LINTO_STACK_MONGODB_SERVICE | MongoDb service host/url | linto-platform-mongo |
 | LINTO_STACK_MONGODB_PORT | MongoDb service port | 27017 |
