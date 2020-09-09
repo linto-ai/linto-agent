@@ -50,7 +50,7 @@ LINTO_STACK_MONGODB_USE_LOGIN=true
 LINTO_STACK_MONGODB_USER=my-db-user
 LINTO_STACK_MONGODB_PASSWORD=my-db-password
 LINTO_STACK_MONGODB_VOLUME_NAME=mongodb-admin
-LINTO_STACK_MONGODB_TARGET_VERSION=1
+LINTO_STACK_MONGODB_TARGET_VERSION=2
 
 ##############################################################################################
 ### LinTO business logc server (skill server backed by node-red)
