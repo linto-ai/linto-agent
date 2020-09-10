@@ -80,6 +80,7 @@ LINTO_STACK_TOCK_TAG=19.9.3
 ##############################################################################################
 LINTO_STACK_STT_SERVICE_MANAGER_SERVICE=linto-platform-stt-service-manager
 LINTO_STACK_STT_SERVICE_MANAGER_INGRESS_CONTROLLER=traefik
+LINTO_STACK_STT_SERVICE_MANAGER_NGINX_HOST=linto_stack_linto-platform-stt-service-manager-nginx
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_HOST=linto-platform-stt-service-manager-mongodb
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PORT=27017
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_DBNAME=linSTTAdmin

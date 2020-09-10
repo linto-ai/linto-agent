@@ -25,6 +25,7 @@ services:
       - ${LINTO_SHARED_MOUNT}/models:/opt/model
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
+      - ${LINTO_SHARED_MOUNT}/stt-service-manager/nginx.conf:/opt/nginx/nginx.conf
       - ${LINTO_SHARED_MOUNT}/stt-service-manager/swagger.yml:/opt/swagger.yml
     deploy:
       mode: replicated

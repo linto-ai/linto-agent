@@ -289,6 +289,15 @@ else
     [[ "$LINTO_STACK_HTTP_USE_AUTH" == true ]] && middlewares="basic-auth@file, "
 fi
 
+# Run nginx if it is used as ingress controller
+if [[ "$LINTO_STACK_STT_SERVICE_MANAGER_INGRESS_CONTROLLER" == "nginx" ]]; then
+    sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" \
+        -e "s/\(traefik.http.routers.linto-platform-stt-service-manager-nginx.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
+        -e "s/\(traefik.http.routers.linto-platform-stt-service-manager-nginx-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
+        ./stack-files/linto-platform-stt-service-manager-nginx.yml \
+    | docker stack deploy --resolve-image always --compose-file - linto_stack
+fi
+
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" \
     -e "s/\(traefik.http.routers.linto-platform-stt-service-manager.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
     -e "s/\(traefik.http.routers.linto-platform-stt-service-manager-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
