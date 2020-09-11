@@ -67,6 +67,7 @@ LINTO_STACK_BLS_SERVICE_API_PATH=/red
 ### Tock NLU service
 ##############################################################################################
 LINTO_STACK_TOCK_SERVICE=linto-tock-nlu-web
+LINTO_STACK_TOCK_NLP_API=linto-tock-nlp-api
 LINTO_STACK_MONGODB_TOCK_VOLUME_NAME=linto-tock-mongo
 LINTO_STACK_TOCK_SERVICE_PORT=8080
 LINTO_STACK_TOCK_SERVICE_UI_PATH=/tock
