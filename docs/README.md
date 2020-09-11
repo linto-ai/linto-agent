@@ -247,6 +247,7 @@ NOTE : All of this is set up in the declarative hidden file `.dockerenv` at the 
 |**STT Service manager**|
 |LINTO_STACK_STT_SERVICE_MANAGER_SERVICE|STT-manager service host|linto-platform-stt-service-manager|
 |LINTO_STACK_STT_SERVICE_MANAGER_INGRESS_CONTROLLER|Controller ingress used|traefik|
+|LINTO_STACK_STT_SERVICE_MANAGER_NGINX_HOST|STT-manager nginx host (used only if nginx is choosed as Controller Ingress)|stack_linto_linto-platform-stt-service-manager-nginx|
 |LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_HOST|STT-manager mongodb host|linto-platform-stt-service-manager-mongodb|
 |LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PORT|STT-manager mongodb port|27017|
 |LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_DBNAME|MongoDb service database name|linSTTAdmin|
