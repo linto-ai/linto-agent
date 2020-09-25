@@ -93,7 +93,8 @@ LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME=stt-service-manager
 ##############################################################################################
 ### LinSTT Service
 ##############################################################################################
-LINTO_STACK_LINSTT_IMAGE=lintoai/linto-platform-stt-standalone-worker
+LINTO_STACK_LINSTT_OFFLINE_IMAGE=lintoai/linto-platform-stt-standalone-worker
+LINTO_STACK_LINSTT_STREAMING_IMAGE=lintoai/linto-platform-stt-standalone-worker-streaming
 LINTO_STACK_LINSTT_NETWORK=linto-net
 LINTO_STACK_LINSTT_PREFIX=stt
 

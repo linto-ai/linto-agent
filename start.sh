@@ -274,8 +274,8 @@ mkdir -p ${HOME}/${LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME}/dbdata
 mkdir -p ${HOME}/${LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME}/dbbackup
 
 # pull stt-standealone-worker images
-docker pull lintoai/linto-platform-stt-standalone-worker:offline
-docker pull lintoai/linto-platform-stt-standalone-worker:online
+docker pull ${LINTO_STACK_LINSTT_OFFLINE_IMAGE}:$LINTO_STACK_IMAGE_TAG
+docker pull ${LINTO_STACK_LINSTT_STREAMING_IMAGE}:$LINTO_STACK_IMAGE_TAG
 
 LABELS=""
 middlewares=""
