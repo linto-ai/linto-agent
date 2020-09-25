@@ -50,7 +50,7 @@ LINTO_STACK_MONGODB_USE_LOGIN=true
 LINTO_STACK_MONGODB_USER=my-db-user
 LINTO_STACK_MONGODB_PASSWORD=my-db-password
 LINTO_STACK_MONGODB_VOLUME_NAME=mongodb-admin
-LINTO_STACK_MONGODB_TARGET_VERSION=1
+LINTO_STACK_MONGODB_TARGET_VERSION=2
 
 ##############################################################################################
 ### LinTO business logc server (skill server backed by node-red)
@@ -67,6 +67,7 @@ LINTO_STACK_BLS_SERVICE_API_PATH=/red
 ### Tock NLU service
 ##############################################################################################
 LINTO_STACK_TOCK_SERVICE=linto-tock-nlu-web
+LINTO_STACK_TOCK_NLP_API=linto-tock-nlp-api
 LINTO_STACK_MONGODB_TOCK_VOLUME_NAME=linto-tock-mongo
 LINTO_STACK_TOCK_SERVICE_PORT=8080
 LINTO_STACK_TOCK_SERVICE_UI_PATH=/tock
@@ -80,6 +81,7 @@ LINTO_STACK_TOCK_TAG=19.9.3
 ##############################################################################################
 LINTO_STACK_STT_SERVICE_MANAGER_SERVICE=linto-platform-stt-service-manager
 LINTO_STACK_STT_SERVICE_MANAGER_INGRESS_CONTROLLER=traefik
+LINTO_STACK_STT_SERVICE_MANAGER_NGINX_HOST=linto_stack_linto-platform-stt-service-manager-nginx
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_HOST=linto-platform-stt-service-manager-mongodb
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PORT=27017
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_DBNAME=linSTTAdmin
@@ -91,7 +93,8 @@ LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME=stt-service-manager
 ##############################################################################################
 ### LinSTT Service
 ##############################################################################################
-LINTO_STACK_LINSTT_IMAGE=lintoai/linto-platform-stt-standalone-worker
+LINTO_STACK_LINSTT_OFFLINE_IMAGE=lintoai/linto-platform-stt-standalone-worker
+LINTO_STACK_LINSTT_STREAMING_IMAGE=lintoai/linto-platform-stt-standalone-worker-streaming
 LINTO_STACK_LINSTT_NETWORK=linto-net
 LINTO_STACK_LINSTT_PREFIX=stt
 

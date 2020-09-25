@@ -274,8 +274,8 @@ mkdir -p ${HOME}/${LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME}/dbdata
 mkdir -p ${HOME}/${LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME}/dbbackup
 
 # pull stt-standealone-worker images
-docker pull lintoai/linto-platform-stt-standalone-worker:offline
-docker pull lintoai/linto-platform-stt-standalone-worker:online
+docker pull ${LINTO_STACK_LINSTT_OFFLINE_IMAGE}:$LINTO_STACK_IMAGE_TAG
+docker pull ${LINTO_STACK_LINSTT_STREAMING_IMAGE}:$LINTO_STACK_IMAGE_TAG
 
 LABELS=""
 middlewares=""
@@ -287,6 +287,15 @@ if [[ "$LINTO_STACK_USE_SSL" == true ]]; then
     [[ "$LINTO_STACK_HTTP_USE_AUTH" == true ]] && secure_middlewares="basic-auth@file, "
 else
     [[ "$LINTO_STACK_HTTP_USE_AUTH" == true ]] && middlewares="basic-auth@file, "
+fi
+
+# Run nginx if it is used as ingress controller
+if [[ "$LINTO_STACK_STT_SERVICE_MANAGER_INGRESS_CONTROLLER" == "nginx" ]]; then
+    sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" \
+        -e "s/\(traefik.http.routers.linto-platform-stt-service-manager-nginx.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
+        -e "s/\(traefik.http.routers.linto-platform-stt-service-manager-nginx-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
+        ./stack-files/linto-platform-stt-service-manager-nginx.yml \
+    | docker stack deploy --resolve-image always --compose-file - linto_stack
 fi
 
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" \

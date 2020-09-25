@@ -14,7 +14,8 @@ This repo provides a tool that *tries* to solve all the burden of  deploying Lin
 The tool is available here, [linto-platform-stack](https://github.com/linto-ai/linto-platform-stack). It mainly consists of a bash script, `start.sh`, that feeds Docker Swarm with the provided YML Docker Compose files. The script will also generate files in a shared folder made available on every node of the swarm cluster. Almost every user setups are wrapped in a single environement variable declarative file.
 
 The whole point here is to rationalize all your deployement in two quick steps:
-1. Configure the service stack options by filling-up all the mandatory environement variables in `.dockerenv`
+1. Copy the template : `cp dockerenv_template .dockerenv`
+2. Configure the service stack options by filling-up all the mandatory environement variables in `.dockerenv`
 2. Run the `start.sh` script on a manager node of your cluster
 
 Simple, isn't it ?
@@ -235,6 +236,7 @@ NOTE : All of this is set up in the declarative hidden file `.dockerenv` at the 
 |LINTO_STACK_BLS_SERVICE_UI_PATH|User interface path|/redui|
 |**Tock NLU**|
 |LINTO_STACK_TOCK_SERVICE|Tock service host/url|linto-tock-nlu-web|
+|LINTO_STACK_TOCK_NLP_API|Tock NLP service host/url|linto-tock-nlp-api|
 |LINTO_STACK_MONGODB_TOCK_VOLUME_NAME|Mongodb volume name for tock service|linto-tock-mongo|
 |LINTO_STACK_TOCK_SERVICE_PORT|Tock service port|8080|
 |LINTO_STACK_TOCK_SERVICE_UI_PATH|TOck user interface path|/tock|
@@ -245,6 +247,7 @@ NOTE : All of this is set up in the declarative hidden file `.dockerenv` at the 
 |**STT Service manager**|
 |LINTO_STACK_STT_SERVICE_MANAGER_SERVICE|STT-manager service host|linto-platform-stt-service-manager|
 |LINTO_STACK_STT_SERVICE_MANAGER_INGRESS_CONTROLLER|Controller ingress used|traefik|
+|LINTO_STACK_STT_SERVICE_MANAGER_NGINX_HOST|STT-manager nginx host (used only if nginx is choosed as Controller Ingress)|stack_linto_linto-platform-stt-service-manager-nginx|
 |LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_HOST|STT-manager mongodb host|linto-platform-stt-service-manager-mongodb|
 |LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PORT|STT-manager mongodb port|27017|
 |LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_DBNAME|MongoDb service database name|linSTTAdmin|
