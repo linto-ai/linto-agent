@@ -53,7 +53,7 @@ LINTO_STACK_MONGODB_VOLUME_NAME=mongodb-admin
 LINTO_STACK_MONGODB_TARGET_VERSION=2
 
 ##############################################################################################
-### LinTO business logc server (skill server backed by node-red)
+### LinTO business logic server (skill server backed by node-red)
 ##############################################################################################
 LINTO_STACK_BLS_SERVICE=linto-platform-bls
 LINTO_STACK_BLS_USE_LOGIN=true
@@ -62,6 +62,7 @@ LINTO_STACK_BLS_PASSWORD=LINTO_STACK_BLS_PASSWORD
 
 LINTO_STACK_BLS_SERVICE_UI_PATH=/redui
 LINTO_STACK_BLS_SERVICE_API_PATH=/red
+LINTO_STACK_BLS_API_MAX_LENGTH=5mb
 
 ##############################################################################################
 ### Tock NLU service
