@@ -253,24 +253,8 @@ parameters:
     file:
       name: "file"
       in: "formData"
-      description: "Audio File - Allowed file format: wav, mp3, aiff, flac, ogg"
+      description: "Audio File - Waveform format is supported"
       type: "file"
-
-    nbrSpeaker:
-      name: "nbrSpeaker"
-      in: "formData"
-      description: "Number of speakers in the audio"
-      required: false
-      type: integer
-      minimum: 1
-
-    speaker:
-        name: "speaker"
-        in: "formData"
-        description: "Do speaker diarization"
-        required: false
-        type: "string"
-        enum: [ "", "Yes", "No" ]  
 
 paths:
   /${{linsttPathPrefix}}/{serviceId}/transcribe:
@@ -286,8 +270,6 @@ paths:
       parameters:
       - $ref: '#/parameters/service/serviceId-req'
       - $ref: '#/parameters/stt/file'
-      - $ref: '#/parameters/stt/nbrSpeaker'
-      - $ref: '#/parameters/stt/speaker'
       responses:
         200:
           description: Successfully transcribe the audio
