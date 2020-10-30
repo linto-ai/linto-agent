@@ -86,6 +86,11 @@ services:
       timeout: 10s
       retries: 4
       start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
 
   linto-tock-duckling:
     image: tock/duckling:$LINTO_STACK_TOCK_TAG
