@@ -78,7 +78,13 @@ parameters:
       required: true
       type: "string"
       pattern: '[a-zA-ZàâçèéêîôùûÀÂÇÈÉÊÎÔÙÛ0-9_\-]*[a-zA-ZàâçèéêîôùûÀÂÇÈÉÊÎÔÙÛ0-9]$'
-
+    api-access-req:
+        name: "externalAccess"
+        in: "formData"
+        description: "Allow external access to the service API"
+        required: true
+        type: "string"
+        enum: [ "", "yes", "no" ]
     replicas:
         name: "replicas"
         in: formData
@@ -289,6 +295,7 @@ paths:
       - $ref: '#/parameters/service/replicas-req'
       - $ref: '#/parameters/service/tag-req'
       - $ref: '#/parameters/service/LM-req'
+      - $ref: '#/parameters/service/api-access-req'
       responses:
         200:
           description: success
@@ -305,6 +312,7 @@ paths:
       - $ref: '#/parameters/service/replicas'
       - $ref: '#/parameters/service/tag'
       - $ref: '#/parameters/service/LM'
+      - $ref: '#/parameters/service/api-access-req'
       responses:
         200:
           description: success
