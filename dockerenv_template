@@ -98,6 +98,7 @@ LINTO_STACK_LINSTT_OFFLINE_IMAGE=lintoai/linto-platform-stt-standalone-worker
 LINTO_STACK_LINSTT_STREAMING_IMAGE=lintoai/linto-platform-stt-standalone-worker-streaming
 LINTO_STACK_LINSTT_NETWORK=linto-net
 LINTO_STACK_LINSTT_PREFIX=stt
+LINTO_STACK_LINSTT_NAME=linto_stack
 
 ##############################################################################################
 ### Overwatch Service manager
