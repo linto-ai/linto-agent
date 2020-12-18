@@ -38,8 +38,11 @@ services:
       - ${LINTO_SHARED_MOUNT}/.bls/:/root/.node-red/
     # Allow to map specific node-red settings to local
     # - ${LINTO_SHARED_MOUNT}/.bls/settings.js:/usr/src/app/business-logic-server/lib/node-red/settings/settings.js
-    command: 
-    # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
+    command: # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
+    # - --default-registry-npmrc
+    # - --set-custom-registry-npmrc
+    # - --custom-registry-npmrc
+    # - --reinstall
       - --run-cmd=npm run start
     networks:
       - linto-net
