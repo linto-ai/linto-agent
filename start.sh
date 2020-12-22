@@ -50,19 +50,23 @@ sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-edge-router
 ###########################################
 ###        Mosquitto MQTT Broker        ###
 ###########################################
-
 mkdir -p ${LINTO_SHARED_MOUNT}/config/mosquitto/
 mkdir -p ${LINTO_SHARED_MOUNT}/data/mosquitto/
 chmod o+wrx ${LINTO_SHARED_MOUNT}/data/mosquitto/ # Fix permissions rights for 1883:1883 UID:GUID used by mosquitto docker image
-cp ./config/mosquitto/docker-entrypoint.sh ${LINTO_SHARED_MOUNT}/config/mosquitto/
+cp -rp ./config/mosquitto ${LINTO_SHARED_MOUNT}/config/
 if [[ "$LINTO_STACK_MQTT_USE_LOGIN" == true ]]
     then
     [[ -z "$LINTO_STACK_MQTT_USER" ]] && { echo "Missing LINTO_STACK_MQTT_USER"; exit 1; }
     [[ -z "$LINTO_STACK_MQTT_PASSWORD" ]] && { echo "Missing LINTO_STACK_MQTT_PASSWORD"; exit 1; }
-    envsubst < ./config/mosquitto/mosquitto.conf > ${LINTO_SHARED_MOUNT}/config/mosquitto/mosquitto.conf
-    else
-    envsubst < ./config/mosquitto/mosquitto_nologin.conf > ${LINTO_SHARED_MOUNT}/config/mosquitto/mosquitto.conf
+
+    rm -f ${LINTO_SHARED_MOUNT}/config/mosquitto/conf.d/go-auth.conf
+    rm -f ${LINTO_SHARED_MOUNT}/config/mosquitto/auth/acls
+
+    envsubst < ./config/mosquitto/conf-tempalte/go-auth-template.conf > ${LINTO_SHARED_MOUNT}/config/mosquitto/conf.d/go-auth.conf
+    htpasswd -nbBC 10 ${LINTO_STACK_MQTT_USER} ${LINTO_STACK_MQTT_PASSWORD} >${LINTO_SHARED_MOUNT}/config/mosquitto/auth/users
+    envsubst < ./config/mosquitto/auth/acls > ${LINTO_SHARED_MOUNT}/config/mosquitto/auth/acls
 fi
+
 
 LABELS=""
 if [[ "$LINTO_STACK_USE_SSL" == true ]]; then

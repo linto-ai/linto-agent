@@ -26,6 +26,27 @@ services:
         constraints:
           - node.role == manager
 
+  linto-platform-mongo-setup:
+    image: mongo:latest
+    depends_on:
+      - linto-platform-mongo
+    volumes:
+      - ${LINTO_SHARED_MOUNT}/mongoseeds:/docker-entrypoint-initdb.d
+    command: mongo --host linto-platform-mongo ${LINTO_STACK_MONGODB_DBNAME} /docker-entrypoint-initdb.d/admin-users.js
+    env_file: .dockerenv
+    networks:
+      - linto-net
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 10s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
 networks:
   linto-net:
     external: true
