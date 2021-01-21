@@ -26,8 +26,6 @@ services:
   linto-platform-overwatch:
     image: lintoai/linto-platform-overwatch:$LINTO_STACK_IMAGE_TAG
     env_file: .dockerenv
-    environment:
-      - LINTO_STACK_MONGODB_SERVICE=linto-platform-mongo
     deploy:
       mode: replicated
       replicas: 1

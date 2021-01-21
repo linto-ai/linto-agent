@@ -1,0 +1,5 @@
+user ${LINTO_STACK_MQTT_USER}
+topic #
+
+pattern readwrite +/tolinto/%u/#
+pattern readwrite +/fromlinto/%u/#

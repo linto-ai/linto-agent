@@ -21,6 +21,7 @@ services:
         constraints:
           - node.role == manager
     command: # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
+    # - --migrate
       - --run-cmd=npm run migrate
     labels:
       <<: [ *mongo-env ]

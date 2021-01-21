@@ -34,6 +34,7 @@ LINTO_STACK_MQTT_PASSWORD=LINTO_STACK_MQTT_PASSWORD
 LINTO_STACK_MQTT_PORT=1883
 LINTO_STACK_MQTT_KEEP_ALIVE=60
 LINTO_STACK_MQTT_HOST=linto-mqtt-broker
+LINTO_STACK_WSS=false
 LINTO_STACK_MQTT_OVER_WS=false
 LINTO_STACK_MQTT_OVER_WS_ENDPOINT=/mqtt
 # Default scope for registration of linto see https://doc.linto.ai/#/client/osgenerator?id=usage
@@ -53,7 +54,7 @@ LINTO_STACK_MONGODB_VOLUME_NAME=mongodb-admin
 LINTO_STACK_MONGODB_TARGET_VERSION=2
 
 ##############################################################################################
-### LinTO business logc server (skill server backed by node-red)
+### LinTO business logic server (skill server backed by node-red)
 ##############################################################################################
 LINTO_STACK_BLS_SERVICE=linto-platform-bls
 LINTO_STACK_BLS_USE_LOGIN=true
@@ -62,6 +63,7 @@ LINTO_STACK_BLS_PASSWORD=LINTO_STACK_BLS_PASSWORD
 
 LINTO_STACK_BLS_SERVICE_UI_PATH=/redui
 LINTO_STACK_BLS_SERVICE_API_PATH=/red
+LINTO_STACK_BLS_API_MAX_LENGTH=5mb
 
 ##############################################################################################
 ### Tock NLU service
@@ -87,7 +89,7 @@ LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PORT=27017
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_DBNAME=linSTTAdmin
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_REQUIRE_LOGIN=true
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_USER=root
-LINTO_STACK_STT_SERVICE_MANAGER_MOGODB_PSWD=root
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PSWD=root
 LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME=stt-service-manager
 
 ##############################################################################################
@@ -97,6 +99,7 @@ LINTO_STACK_LINSTT_OFFLINE_IMAGE=lintoai/linto-platform-stt-standalone-worker
 LINTO_STACK_LINSTT_STREAMING_IMAGE=lintoai/linto-platform-stt-standalone-worker-streaming
 LINTO_STACK_LINSTT_NETWORK=linto-net
 LINTO_STACK_LINSTT_PREFIX=stt
+LINTO_STACK_LINSTT_NAME=linto_stack
 
 ##############################################################################################
 ### Overwatch Service manager

@@ -34,17 +34,15 @@ x-acme-wss: &acme-wss
 
 services:
   linto-mqtt-broker:
-    image: eclipse-mosquitto:latest
+    image: iegomez/mosquitto-go-auth
     env_file: .dockerenv
     deploy:
       mode: replicated
       replicas: 1
       labels:
         <<: [ *labels ]
-
     volumes:
-      - ${LINTO_SHARED_MOUNT}/config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - ${LINTO_SHARED_MOUNT}/config/mosquitto/docker-entrypoint.sh:/docker-entrypoint.sh
+      - ${LINTO_SHARED_MOUNT}/config/mosquitto/:/etc/mosquitto
       - ${LINTO_SHARED_MOUNT}/data/mosquitto/:/mosquitto/data
     networks:
       - linto-net

@@ -38,8 +38,10 @@ services:
       start_period: 150s
       # You might bind mount here webserver and vue_app directories for development ;)
     command: # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
-      - --reinstall-webserver
       - --rebuild-vue-app
+    # - --rebuild-vue-app-dev
+    # - --reinstall-vue-app
+    # - --reinstall-webserver
       - --run-cmd=npm run start
     networks:
       - linto-net

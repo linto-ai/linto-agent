@@ -48,7 +48,6 @@ services:
       - --run-cmd=npm run start
     environment:
       LINTO_STACK_STT_SERVICE_MANAGER_DIRECTORY: ${LINTO_SHARED_MOUNT}/models
-      LINTO_STACK_NAME: linto_stack
       LINTO_STACK_STT_SERVICE_MANAGER_SWAGGER_PATH: /opt/swagger.yml
     networks:
       - linto-net
