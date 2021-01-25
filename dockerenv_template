@@ -50,7 +50,7 @@ LINTO_STACK_MONGODB_DBNAME=linto-stack
 LINTO_STACK_MONGODB_USE_LOGIN=true
 LINTO_STACK_MONGODB_USER=my-db-user
 LINTO_STACK_MONGODB_PASSWORD=my-db-password
-LINTO_STACK_MONGODB_VOLUME_NAME=mongodb-admin
+LINTO_STACK_MONGODB_VOLUME_NAME=linto-mongo/admin
 LINTO_STACK_MONGODB_TARGET_VERSION=2
 
 ##############################################################################################
@@ -70,7 +70,7 @@ LINTO_STACK_BLS_API_MAX_LENGTH=5mb
 ##############################################################################################
 LINTO_STACK_TOCK_SERVICE=linto-tock-nlu-web
 LINTO_STACK_TOCK_NLP_API=linto-tock-nlp-api
-LINTO_STACK_MONGODB_TOCK_VOLUME_NAME=linto-tock-mongo
+LINTO_STACK_MONGODB_TOCK_VOLUME_NAME=linto-mongo/tock
 LINTO_STACK_TOCK_SERVICE_PORT=8080
 LINTO_STACK_TOCK_SERVICE_UI_PATH=/tock
 LINTO_STACK_TOCK_ENV=prod
@@ -90,7 +90,7 @@ LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_DBNAME=linSTTAdmin
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_REQUIRE_LOGIN=true
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_USER=root
 LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PSWD=root
-LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME=stt-service-manager
+LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME=linto-mongo/stt-service-manager
 
 ##############################################################################################
 ### LinSTT Service
