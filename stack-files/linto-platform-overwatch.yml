@@ -40,6 +40,8 @@ services:
       timeout: 10s
       retries: 4
       start_period: 50s
+    command: # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
+      - --run-cmd=npm run start
     networks:
       - linto-net
 

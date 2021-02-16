@@ -26,7 +26,7 @@ x-acme: &acme
 
 services:
   linto-edge-router:
-    image: traefik:latest
+    image: traefik:latest # <== Latest tags tested 2.4.2 (Error with tag :2.4.1 )
     env_file: .dockerenv
     ports:
       - "1883:1883" # <== tcp in for insecure MQTT
