@@ -1,13 +1,16 @@
 version: '3.5'
 
-# NLU-WEB labels
 x-labels: &labels-nlu
   traefik.enable: "true"
   traefik.http.services.linto-tock-nlu-web.loadbalancer.server.port: 8080
   traefik.http.routers.linto-tock-nlu-web.entrypoints: "http"
-  traefik.http.routers.linto-tock-nlu-web.middlewares: "linto-tock-web-path@file"
   # PathPrefix(`/rest/`) -> linto-tock-nlu-web service expose his own express on /rest/  where he  can conflict with the nlp service
   traefik.http.routers.linto-tock-nlu-web.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`/tock/`) || PathPrefix(`/rest/`))"
+
+x-ssl: &ssl-nlu
+  traefik.http.routers.linto-tock-nlu-web-secure.entrypoints: "https"
+  traefik.http.routers.linto-tock-nlu-web-secure.tls: "true"
+  traefik.http.routers.linto-tock-nlu-web-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`/tock/`) || PathPrefix(`/rest/`))"
 
 x-labels: &labels-nlp
   traefik.enable: "true"
@@ -15,12 +18,6 @@ x-labels: &labels-nlp
   traefik.http.routers.linto-tock-nlp-api.entrypoints: "http"
   traefik.http.routers.linto-tock-nlp-api.middlewares: "linto-tock-api-path@file"
   traefik.http.routers.linto-tock-nlp-api.rule: "Host(`${LINTO_STACK_DOMAIN}`) && Path(`/tockapi/rest/nlp/parse`)"
-
-x-ssl: &ssl-nlu
-  traefik.http.routers.linto-tock-nlu-web-secure.entrypoints: "https"
-  traefik.http.routers.linto-tock-nlu-web-secure.tls: "true"
-  traefik.http.routers.linto-tock-nlu-web-secure.rule: "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`/tock/`) || PathPrefix(`/rest/`))"
-  traefik.http.routers.linto-tock-nlu-web-secure.middlewares: "linto-tock-web-path@file"
 
 x-ssl: &ssl-nlp
   traefik.http.routers.linto-tock-nlp-api-secure.entrypoints: "https"
@@ -118,12 +115,9 @@ services:
       - tock_mongo_url=mongodb://linto-tock-mongo:27017
       - nlp_duckling_url=http://linto-tock-duckling:8080
       - tock_env=${TOCK_ENV}
-      - tock_users=${LINTO_STACK_TOCK_USER}
-      - tock_passwords=${LINTO_STACK_TOCK_PASSWORD}
-    volumes:
-      - ${LINTO_SHARED_MOUNT}config/tock/scripts/admin-web-entrypoint.sh:/root/admin-web-entrypoint.sh
-    entrypoint: [ /root/admin-web-entrypoint.sh ]
-    command: [ "java $JAVA_ARGS -Dfile.encoding=UTF-8 -Dtock_nlp_model_refresh_rate=10 -cp '/maven/*' ai.tock.nlp.admin.StartAdminServerKt" ]
+      # - tock_users=${LINTO_STACK_TOCK_USER}
+      # - tock_passwords=${LINTO_STACK_TOCK_PASSWORD}
+      - adminverticle_base_href=/tock
     networks:
       - linto-net
     deploy:
