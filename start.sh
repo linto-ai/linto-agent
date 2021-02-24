@@ -222,13 +222,21 @@ else
 fi
 
 
-# Stack deployment using correct labels
+if [[ "$LINTO_STACK_TOCK_BOT" == true ]]; then
+sed -e "s/<<: \[ \*labels\-nlu \]/<<: [ *labels-nlu${LABELS} ]/" -e "s/\-xxx/-nlu/" -e "s/\-xxx/-nlu/" \
+    -e "s/<<: \[ \*labels\-nlp \]/<<: [ *labels-nlp${LABELS} ]/" -e "s/\-xxx/-nlp/" -e "s/\-xxx/-nlp/" \
+    -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
+    -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
+    ./stack-files/linto-platform-tock-tchatbot.yml \
+| docker stack deploy --resolve-image always --compose-file - linto_stack
+else
 sed -e "s/<<: \[ \*labels\-nlu \]/<<: [ *labels-nlu${LABELS} ]/" -e "s/\-xxx/-nlu/" -e "s/\-xxx/-nlu/" \
     -e "s/<<: \[ \*labels\-nlp \]/<<: [ *labels-nlp${LABELS} ]/" -e "s/\-xxx/-nlp/" -e "s/\-xxx/-nlp/" \
     -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
     -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
     ./stack-files/linto-platform-tock.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --resolve-image always --compose-file - linto_stackfi
+fi
 
 
 ###########################################
