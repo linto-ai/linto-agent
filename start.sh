@@ -235,7 +235,7 @@ sed -e "s/<<: \[ \*labels\-nlu \]/<<: [ *labels-nlu${LABELS} ]/" -e "s/\-xxx/-nl
     -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
     -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
     ./stack-files/linto-platform-tock.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stackfi
+| docker stack deploy --resolve-image always --compose-file - linto_stack
 fi
 
 
