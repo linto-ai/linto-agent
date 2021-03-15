@@ -77,7 +77,7 @@ LINTO_STACK_TOCK_SERVICE_UI_PATH=/tock
 LINTO_STACK_TOCK_ENV=prod
 LINTO_STACK_TOCK_USER=tock@linto.ai
 LINTO_STACK_TOCK_PASSWORD=password
-LINTO_STACK_TOCK_TAG=19.9.3
+LINTO_STACK_TOCK_TAG=20.9.3
 
 ##############################################################################################
 ### STT Service manager
