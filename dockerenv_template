@@ -9,7 +9,7 @@ LINTO_STACK_DOMAIN=dev.linto.local
 LINTO_STACK_HTTP_USE_AUTH=false
 LINTO_STACK_HTTP_USER=LINTO_STACK_HTTP_USER
 LINTO_STACK_HTTP_PASSWORD=LINTO_STACK_HTTP_PASSWORD
-LINTO_STACK_IMAGE_TAG=latest-unstable
+LINTO_STACK_IMAGE_TAG=latest
 
 ##############################################################################################
 ### Node JS apps setup
