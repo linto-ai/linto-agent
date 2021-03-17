@@ -16,9 +16,16 @@ The tool is available here, [linto-platform-stack](https://github.com/linto-ai/l
 The whole point here is to rationalize all your deployement in two quick steps:
 1. Copy the template : `cp dockerenv_template .dockerenv`
 2. Configure the service stack options by filling-up all the mandatory environement variables in `.dockerenv`
-2. Run the `start.sh` script on a manager node of your cluster
+3. Run the `start.sh` script on a manager node of your cluster
 
 Simple, isn't it ?
+
+Note: `start.sh [-- command args]` have command arguments
+```sh
+    -f | --force-pull     Force image pull
+    -r | --restart        Hard restart of the stack
+```
+
 
 ## Repo's structure explained
 

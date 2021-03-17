@@ -3,6 +3,76 @@ set -uea
 SUDO=''
 . .dockerenv # Source all env
 
+
+###########################################
+###### Stack parameter command init  ######
+###########################################
+
+echoerr() { echo "$@" 1>&2; }
+
+usage() {
+  cat <<USAGE >&2
+Usage:
+    ./start [-- command args]
+    -f | --force-pull     Force image pull
+    -r | --restart        Hard restart of the stack
+USAGE
+  exit 1
+}
+
+STACK_IMAGE_PULL=false
+STACK_RESTART=false
+
+# process arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  -fr | -rf)
+    STACK_IMAGE_PULL=true
+    STACK_RESTART=true
+    shift 1
+    ;;
+  -f | --force-pull)
+    STACK_IMAGE_PULL=true
+    shift 1
+    ;;
+  -r | --restart)
+    STACK_RESTART=true
+    shift 1
+    ;;
+  -h | --help)
+    usage
+    ;;
+  *)
+    echoerr "Unknown argument: $1"
+    usage
+    ;;
+  esac
+done
+
+if [ "$STACK_RESTART" = true ]; then
+  echo -e '\e[31mForce stack to restart\e[0m'
+  docker stack rm linto_stack
+fi
+
+if [ "$STACK_IMAGE_PULL" = true ]; then
+  echo 'Force image pull'
+  echo 'LinTo tag :' $LINTO_STACK_IMAGE_TAG
+  echo 'TOCK tag :' $LINTO_STACK_TOCK_TAG
+
+  docker image pull lintoai/linto-platform-admin:$LINTO_STACK_IMAGE_TAG
+  docker image pull lintoai/linto-platform-business-logic-server:$LINTO_STACK_IMAGE_TAG
+  docker image pull lintoai/linto-platform-mongodb-migration:$LINTO_STACK_IMAGE_TAG
+  docker image pull lintoai/linto-platform-overwatch:$LINTO_STACK_IMAGE_TAG
+  docker image pull lintoai/linto-platform-stt-server-manager:$LINTO_STACK_IMAGE_TAG
+
+  docker image pull tock/bot_api:$LINTO_STACK_TOCK_TAG
+  docker image pull tock/build_worker:$LINTO_STACK_TOCK_TAG
+  docker image pull tock/duckling:$LINTO_STACK_TOCK_TAG
+  docker image pull tock/kotlin_compiler:$LINTO_STACK_TOCK_TAG
+  docker image pull tock/nlp_api:$LINTO_STACK_TOCK_TAG
+  docker image pull tock/bot_admin:$LINTO_STACK_TOCK_TAG
+fi
+
 echo "Generating configuration file in ${LINTO_SHARED_MOUNT}"
 
 [[ "$LINTO_STACK_USE_SSL" == true ]] && echo -e "SSL : \e[32mON\e[0m" || echo -e "SSL : \e[31mOFF\e[0m"
