@@ -34,7 +34,7 @@ x-acme-wss: &acme-wss
 
 services:
   linto-mqtt-broker:
-    image: iegomez/mosquitto-go-auth:1.5.0
+    image: iegomez/mosquitto-go-auth:1.4.3
     env_file: .dockerenv
     deploy:
       mode: replicated
