@@ -130,12 +130,12 @@ services:
       - tock_mongo_url=mongodb://linto-tock-mongo:27017
       - nlp_duckling_url=http://linto-tock-duckling:8080
       - tock_env=${TOCK_ENV}
-      # - tock_users=${LINTO_STACK_TOCK_USER}
-      # - tock_passwords=${LINTO_STACK_TOCK_PASSWORD}
+      - tock_users=${LINTO_STACK_TOCK_USER}
+      - tock_passwords=${LINTO_STACK_TOCK_PASSWORD}
       - tock_bot_admin_rest_default_base_url=http://linto-tock-bot-api:8080
       - tock_bot_compiler_service_url=http://linto-tock-kotlin-compiler:8080
       - tock_configuration_bot_default_base_url=http://linto-tock-bot-api:8080
-      - botadminverticle_base_href=/tock
+      - botadminverticle_base_href=${LINTO_STACK_TOCK_BASEHREF}
     networks:
       - linto-net
     deploy:
