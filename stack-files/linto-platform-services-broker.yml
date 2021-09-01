@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  linto-platform-services-broker:
+    image: redis:latest
+    networks:
+      - linto-net
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  linto-net:
+    external: true

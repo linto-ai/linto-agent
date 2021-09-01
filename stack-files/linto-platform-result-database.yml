@@ -1,0 +1,30 @@
+version: '3.7'
+
+x-mongo-env: &mongo-env
+  MONGO_INITDB_DATABASE: $LINTO_STACK_MONGODB_DBNAME_WORKER_RESULT
+
+x-mongo-auth: &mongo-auth
+  MONGO_INITDB_ROOT_USERNAME: superuser
+  MONGO_INITDB_ROOT_PASSWORD: supersecret
+
+
+services:
+  linto-platform-result-database:
+    image: mongo:latest
+    volumes:
+      - ${LINTO_SHARED_MOUNT}/mongoseeds-worker:/docker-entrypoint-initdb.d
+      - $HOME/${LINTO_STACK_MONGODB_VOLUME_NAME_WORKER}/.dbdata:/data/db
+    labels:
+      <<: [ *mongo-env ]
+    networks:
+      - linto-net
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  linto-net:
+    external: true
