@@ -387,4 +387,37 @@ sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" \
 | docker stack deploy --resolve-image always --compose-file - linto_stack
 
 
+###########################################
+###  LinTO Platform redis worker store ###
+###########################################
+
+sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-platform-services-broker.yml \
+| docker stack deploy --resolve-image always --compose-file - linto_stack
+
+###########################################
+###  LinTO Platform database worker    ###
+###########################################
+
+
+# Db initialization using JS scripts
+# copy seed init scripts to shared folder for deployment
+rm -rf ${LINTO_SHARED_MOUNT}/mongoseeds-worker
+mkdir -p ${LINTO_SHARED_MOUNT}/mongoseeds-worker
+cp -rp ./config/mongoseeds-worker/* ${LINTO_SHARED_MOUNT}/mongoseeds-worker
+
+MONGO_ENV=""
+# if [[ "$LINTO_STACK_MONGODB_USE_LOGIN" == true ]]; then
+#     MONGO_ENV="${MONGO_ENV}, *mongo-auth"
+# fi
+
+envsubst < ./config/mongoseeds-worker/worker-result-database.js > ${LINTO_SHARED_MOUNT}/mongoseeds-worker/worker-result-database.js
+
+# create main directories (they musn't be removed)
+mkdir -p $HOME/${LINTO_STACK_MONGODB_VOLUME_NAME_WORKER}/.dbdata
+mkdir -p $HOME/${LINTO_STACK_MONGODB_VOLUME_NAME_WORKER}/.dbbackup
+
+sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-platform-result-database.yml \
+| docker stack deploy --resolve-image always --compose-file - linto_stack
+
+
 set +a
