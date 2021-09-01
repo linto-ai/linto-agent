@@ -53,6 +53,9 @@ LINTO_STACK_MONGODB_PASSWORD=my-db-password
 LINTO_STACK_MONGODB_VOLUME_NAME=mongodb-admin
 LINTO_STACK_MONGODB_TARGET_VERSION=2
 
+LINTO_STACK_MONGODB_VOLUME_NAME_WORKER=mongodb-worker
+LINTO_STACK_MONGODB_DBNAME_WORKER_RESULT=result_db
+
 ##############################################################################################
 ### LinTO business logic server (skill server backed by node-red)
 ##############################################################################################
