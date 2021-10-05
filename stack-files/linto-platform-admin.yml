@@ -25,6 +25,10 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+          - node.labels.ip == ingress # <== Must get deployed on a manager node with ip label set to "ingress"
       labels:
         <<: [ *labels ]
       restart_policy:
