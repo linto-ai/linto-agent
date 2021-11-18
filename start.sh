@@ -114,7 +114,7 @@ fi
 
 # Stack deployment using correct labels
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-edge-router.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 
 ###########################################
@@ -150,7 +150,7 @@ fi
 
 # Stack deployment using correct labels
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-mqtt-broker.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 ###########################################
 ###          Docker visualizer          ###
@@ -167,7 +167,7 @@ fi
 
 # Stack deployment using correct labels
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-docker-visualizer.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 ###########################################
 ###       LinTO Platform database       ###
@@ -196,14 +196,14 @@ mkdir -p $HOME/${LINTO_STACK_MONGODB_VOLUME_NAME}/.dbdata
 mkdir -p $HOME/${LINTO_STACK_MONGODB_VOLUME_NAME}/.dbbackup
 
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${MONGO_ENV} ]/" ./stack-files/linto-platform-mongo.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 ###########################################
 ###  LinTO Platform redis session store ###
 ###########################################
 
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-platform-redis.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 ###########################################
 ###       LinTO Mongodb migration       ###
@@ -213,7 +213,7 @@ mkdir -p ${LINTO_SHARED_MOUNT}/mongodb-schemas
 
 LABELS=""
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-mongo-migration.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 id=$(docker create lintoai/linto-platform-mongodb-migration:$LINTO_STACK_IMAGE_TAG)
 docker cp $id:/usr/src/app/linto-platform-mongodb-migration/migrations ${LINTO_SHARED_MOUNT}/mongodb-schemas && mv ${LINTO_SHARED_MOUNT}/mongodb-schemas/migrations ${LINTO_SHARED_MOUNT}/mongodb-schemas/version
@@ -230,7 +230,7 @@ fi
 
 # Stack deployment using correct labels
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-platform-admin.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 
 ###########################################
@@ -250,7 +250,7 @@ fi
 
 # Stack deployment using correct labels
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-platform-bls.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 ###########################################
 ###      LinTO Platform Overwatch       ###
@@ -265,7 +265,7 @@ fi
 
 # Stack deployment using correct labels
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" ./stack-files/linto-platform-overwatch.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 ###########################################
 ###          LinTO Stack Tock           ###
@@ -292,21 +292,12 @@ else
 fi
 
 
-if [[ "$LINTO_STACK_TOCK_BOT" == true ]]; then
-sed -e "s/<<: \[ \*labels\-nlu \]/<<: [ *labels-nlu${LABELS} ]/" -e "s/\-xxx/-nlu/" -e "s/\-xxx/-nlu/" \
-    -e "s/<<: \[ \*labels\-nlp \]/<<: [ *labels-nlp${LABELS} ]/" -e "s/\-xxx/-nlp/" -e "s/\-xxx/-nlp/" \
-    -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
-    -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
-    ./stack-files/linto-platform-tock-tchatbot.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
-else
 sed -e "s/<<: \[ \*labels\-nlu \]/<<: [ *labels-nlu${LABELS} ]/" -e "s/\-xxx/-nlu/" -e "s/\-xxx/-nlu/" \
     -e "s/<<: \[ \*labels\-nlp \]/<<: [ *labels-nlp${LABELS} ]/" -e "s/\-xxx/-nlp/" -e "s/\-xxx/-nlp/" \
     -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
     -e "s/\(traefik.http.routers.linto-tock-nl[up]-[a-z]*-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
     ./stack-files/linto-platform-tock.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
-fi
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
 
 ###########################################
@@ -377,14 +368,22 @@ if [[ "$LINTO_STACK_STT_SERVICE_MANAGER_INGRESS_CONTROLLER" == "nginx" ]]; then
         -e "s/\(traefik.http.routers.linto-platform-stt-service-manager-nginx.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
         -e "s/\(traefik.http.routers.linto-platform-stt-service-manager-nginx-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
         ./stack-files/linto-platform-stt-service-manager-nginx.yml \
-    | docker stack deploy --resolve-image always --compose-file - linto_stack
+    | docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 fi
 
 sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" \
     -e "s/\(traefik.http.routers.linto-platform-stt-service-manager.middlewares: \"\)\(.*\)\"/\1$middlewares\2\"/" \
     -e "s/\(traefik.http.routers.linto-platform-stt-service-manager-secure.middlewares: \"\)\(.*\)\"/\1$secure_middlewares\2\"/" \
     ./stack-files/linto-platform-stt-service-manager.yml \
-| docker stack deploy --resolve-image always --compose-file - linto_stack
+| docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
+
+###########################################
+############### Jitsi stack ###############
+###########################################
+
+if [[ "$LINTO_STACK_ENABLE_JITSI" == true ]]; then
+    ./scripts/start-jitsi.sh
+fi
 
 set +a

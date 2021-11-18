@@ -12,12 +12,16 @@ LINTO_STACK_HTTP_PASSWORD=LINTO_STACK_HTTP_PASSWORD
 LINTO_STACK_IMAGE_TAG=latest
 
 ##############################################################################################
+### Infrastructure jitsi enable
+##############################################################################################
+LINTO_STACK_ENABLE_JITSI=false
+
+##############################################################################################
 ### Node JS apps setup
 ##############################################################################################
 TZ=Europe/Paris
 LINTO_STACK_ADMIN_HTTP_PORT=80
 LINTO_STACK_ADMIN_API_WHITELIST_DOMAINS=https://dev.linto.local
-
 
 ##############################################################################################
 ### Redis session store for webapps
@@ -68,7 +72,6 @@ LINTO_STACK_BLS_API_MAX_LENGTH=5mb
 ##############################################################################################
 ### Tock NLU service
 ##############################################################################################
-LINTO_STACK_TOCK_BOT=false
 LINTO_STACK_TOCK_SERVICE=linto-tock-nlu-web
 LINTO_STACK_TOCK_NLP_API=linto-tock-nlp-api
 LINTO_STACK_TOCK_BOT_API=linto-tock-bot-api
