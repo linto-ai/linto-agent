@@ -13,10 +13,12 @@ This repo provides a tool that *tries* to solve all the burden of  deploying Lin
 
 The tool is available here, [linto-platform-stack](https://github.com/linto-ai/linto-platform-stack). It mainly consists of a bash script, `start.sh`, that feeds Docker Swarm with the provided YML Docker Compose files. The script will also generate files in a shared folder made available on every node of the swarm cluster. Almost every user setups are wrapped in a single environement variable declarative file.
 
-The whole point here is to rationalize all your deployement in two quick steps:
+The whole point here is to rationalize all your deployement in few quick steps:
+0. Read thouroughly this documentation.
 1. Copy the template : `cp dockerenv_template .dockerenv`
 2. Configure the service stack options by filling-up all the mandatory environement variables in `.dockerenv`
-3. Run the `start.sh` script on a manager node of your cluster
+3. Configure a local Docker Swarm network for your service communications
+4. Run the `start.sh` script on a manager node of your cluster
 
 Simple, isn't it ?
 
@@ -26,6 +28,29 @@ Note: `start.sh [-- command args]` have command arguments
     -r | --restart        Hard restart of the stack
 ```
 
+# Ready ? Let's deploy LinTO Platform !
+
+Identify and target the cluster node that will receive the inbound trafic.
+
+1. On a manager node, firstly list nodes and check hostnames :
+```
+docker node ls
+```
+2. Add this specific label :
+```
+docker node update --label-add ip=ingress {Hostname_Of_The_Node_In_Your_Swarm_Cluster}
+```
+3. Create a Docker Swarm local network to enable communication between services 
+```
+docker network create \
+    -d overlay \
+    --attachable \
+    linto-net
+```
+
+4. Configure .dockerenv and run the start.sh script
+
+NOTE : The bash script relies on htpasswd and envsubst binaries. You might install them with apache2-utils and gettext-base Debian packages.
 
 ## Repo's structure explained
 
@@ -136,25 +161,7 @@ NOTE : Some port variations appears in the `linto-edge-router` dashboard route a
 NOTE : `linto-platform-admin` Web interface will propose links to other Web interfaces (node Red, Tock...)
 
 
-# Ready ? Let's deploy LinTO Platform !
 
-Identify and target the cluster node that will receive the inbound trafic.
-
-1. On a manager node, firstly list nodes and check hostnames :
-```
-docker node ls
-```
-2. Add this specific label :
-```
-docker node update --label-add ip=ingress {Hostname_Of_The_Node_In_Your_Swarm_Cluster}
-```
-3. Create a Docker Swarm local network to enable communication between services 
-```
-docker network create \
-    -d overlay \
-    --attachable \
-    linto-net
-```
 ## LinTO Platform stack on a local network
 
 You might choose to start the stack on your Linux Laptop right ahead. As we want you to also benefit from SSL termination when thoroughly testing the platform without a costly server deployment, we suggest you to use a self signed certificate :
