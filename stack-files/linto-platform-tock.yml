@@ -1,5 +1,6 @@
 version: '3.5'
 
+# NLU-WEB labels
 x-labels: &labels-nlu
   traefik.enable: "true"
   traefik.http.services.linto-tock-nlu-web.loadbalancer.server.port: 8080
@@ -50,7 +51,7 @@ services:
   linto-tock-mongo-setup:
     image: mongo:3.6.5
     volumes:
-      - ${LINTO_SHARED_MOUNT}/config/tock/scripts:/scripts
+      - ./config/tock/scripts:/scripts
     env_file: .dockerenv
     environment:
       - MONGO1=linto-tock-mongo
@@ -103,8 +104,22 @@ services:
       retries: 4
       start_period: 10s
 
+  linto-tock-kotlin-compiler:
+    image: tock/kotlin_compiler:$LINTO_STACK_TOCK_TAG
+    env_file: .dockerenv
+    environment:
+      - tock_env=prod
+      - tock_kotlin_compiler_classpath=/maven
+    networks:
+      - linto-net
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 10s
+
   linto-tock-nlu-web:
-    image: tock/nlp_admin:$LINTO_STACK_TOCK_TAG
+    image: tock/bot_admin:$LINTO_STACK_TOCK_TAG
     healthcheck:
       interval: 15s
       timeout: 10s
@@ -117,7 +132,10 @@ services:
       - tock_env=${TOCK_ENV}
       - tock_users=${LINTO_STACK_TOCK_USER}
       - tock_passwords=${LINTO_STACK_TOCK_PASSWORD}
-      - adminverticle_base_href=${LINTO_STACK_TOCK_BASEHREF}
+      - tock_bot_admin_rest_default_base_url=http://linto-tock-bot-api:8080
+      - tock_bot_compiler_service_url=http://linto-tock-kotlin-compiler:8080
+      - tock_configuration_bot_default_base_url=http://linto-tock-bot-api:8080
+      - botadminverticle_base_href=${LINTO_STACK_TOCK_BASEHREF}
     networks:
       - linto-net
     deploy:
@@ -164,6 +182,37 @@ services:
         max-size: "10m"
         max-file: "5"
 
+  linto-tock-bot-api:
+    image: tock/bot_api:$LINTO_STACK_TOCK_TAG
+    env_file: .dockerenv
+    environment:
+      - tock_mongo_url=mongodb://linto-tock-mongo:27017
+      - tock_nlp_service_url=http://linto-tock-nlp-api:8080
+      - tock_env=integ
+      - tock_websocket_enabled=true
+    networks:
+      - linto-net
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 20s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
 networks:
   linto-net:
     external: true
+
+
+

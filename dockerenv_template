@@ -68,7 +68,6 @@ LINTO_STACK_BLS_API_MAX_LENGTH=5mb
 ##############################################################################################
 ### Tock NLU service
 ##############################################################################################
-LINTO_STACK_TOCK_BOT=false
 LINTO_STACK_TOCK_SERVICE=linto-tock-nlu-web
 LINTO_STACK_TOCK_NLP_API=linto-tock-nlp-api
 LINTO_STACK_TOCK_BOT_API=linto-tock-bot-api
@@ -80,7 +79,7 @@ LINTO_STACK_TOCK_ENV=prod
 # On TOCK image 20.9.3 error if user and password are not default
 LINTO_STACK_TOCK_USER=admin@app.com
 LINTO_STACK_TOCK_PASSWORD=password
-LINTO_STACK_TOCK_TAG=21.3.0
+LINTO_STACK_TOCK_TAG=21.9.2
 
 ##############################################################################################
 ### STT Service manager
