@@ -84,8 +84,9 @@ linto-platform-stack
 ├── docs                                                # This doc
 │   └── README.md
 ├── optional-stack-files                                # Some tools that you might start on your docker cluster
+│   └── linto-platform-jitsi.yml                
 │   ├── monitoring_stack.yml
-│   └── network_tool.yml
+│   └── network_tool.yml                   
 ├── scripts                                             # LinTO Platform backup and restore tools
 │   ├── bls_backup.sh
 │   ├── bls_restore.sh
