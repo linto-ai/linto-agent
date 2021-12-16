@@ -1,0 +1,9 @@
+[file]
+watch = true
+
+[http.middlewares]
+  [http.middlewares.jvb_udp]
+    address = ":10000/udp"
+
+  [http.middlewares.jvb_tcp]
+    address = ":4444"

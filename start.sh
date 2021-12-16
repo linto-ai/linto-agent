@@ -350,5 +350,13 @@ sed -e "s/<<: \[ \(.*\) \]/<<: [ \1${LABELS} ]/" \
     ./stack-files/linto-platform-stt-service-manager.yml \
 | docker stack deploy --with-registry-auth --resolve-image always --compose-file - linto_stack
 
+###########################################
+############### Jitsi stack ###############
+###########################################
+
+if [[ "$LINTO_STACK_ENABLE_JITSI" == true ]]; then
+    ./scripts/start-jitsi.sh
+fi
+
 set +a
 
