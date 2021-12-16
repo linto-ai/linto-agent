@@ -314,33 +314,6 @@ cp -rp ./config/servicemanager/* ${LINTO_SHARED_MOUNT}/stt-service-manager
 
 envsubst < ./config/servicemanager/user.js > ${LINTO_SHARED_MOUNT}/stt-service-manager/user.js
 
-# configurer le swagger.yml
-if [[ "$LINTO_STACK_HTTP_USE_AUTH" == true ]]; then
-    LINTO_STACK_LINSTT_PREFIX=$(echo $LINTO_STACK_LINSTT_PREFIX | sed "s:/::")
-    sed -i -e "s:\${{LINTO_STACK_DOMAIN}}:$LINTO_STACK_DOMAIN:g" \
-        -e "s:\${{PathPrefix}}:stt-manager:g" \
-        -e "s:\${{linsttPathPrefix}}:${LINTO_STACK_LINSTT_PREFIX}:g" \
-        ${LINTO_SHARED_MOUNT}/stt-service-manager/swagger.yml
-    which base64 >/dev/null || ($SUDO apt-get update && $SUDO apt-get install base64)
-    baseAuth=$(echo "$LINTO_STACK_HTTP_USER:$LINTO_STACK_HTTP_PASSWORD" | base64)
-    sed -i -e "s:#{{BASIC_AUTH}} ::g" -e "s:\${{BASIC_AUTH}}:${baseAuth}:g" ${LINTO_SHARED_MOUNT}/stt-service-manager/swagger.yml
-else
-    LINTO_STACK_LINSTT_PREFIX=$(echo $LINTO_STACK_LINSTT_PREFIX | sed "s:/::")
-    sed -i -e "s:#{{BASIC_AUTH}} .*::g" \
-        -e "s:\${{LINTO_STACK_DOMAIN}}:$LINTO_STACK_DOMAIN:g" \
-        -e "s:\${{PathPrefix}}:stt-manager:g" \
-        -e "s:\${{linsttPathPrefix}}:${LINTO_STACK_LINSTT_PREFIX}:g" \
-        ${LINTO_SHARED_MOUNT}/stt-service-manager/swagger.yml
-fi
-
-
-if [[ "$LINTO_STACK_USE_SSL" == true ]]; then
-    sed -i "s:\${{http}}:https:g" ${LINTO_SHARED_MOUNT}/stt-service-manager/swagger.yml
-else
-    sed -i "s:\${{http}}:http:g" ${LINTO_SHARED_MOUNT}/stt-service-manager/swagger.yml
-fi
-
-
 # create main directories (they musn't be removed)
 mkdir -p ${LINTO_SHARED_MOUNT}/models
 mkdir -p ${HOME}/${LINTO_STACK_STT_SERVICE_MANAGER_VOLUME_NAME}/dbdata

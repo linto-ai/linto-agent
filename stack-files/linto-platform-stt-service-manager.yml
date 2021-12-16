@@ -19,14 +19,13 @@ x-acme: &acme
 services:
 
   linto-platform-stt-service-manager:
-    image: lintoai/linto-platform-stt-server-manager:$LINTO_STACK_IMAGE_TAG
+    image: lintoai/linto-platform-server-manager:$LINTO_STACK_IMAGE_TAG
     env_file: .dockerenv
     volumes:
       - ${LINTO_SHARED_MOUNT}/models:/opt/model
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
       - ${LINTO_SHARED_MOUNT}/stt-service-manager/nginx.conf:/opt/nginx/nginx.conf
-      - ${LINTO_SHARED_MOUNT}/stt-service-manager/swagger.yml:/opt/swagger.yml
     deploy:
       mode: replicated
       replicas: 1
@@ -45,10 +44,12 @@ services:
       retries: 4
       start_period: 50s
     command:
+      - --serve-swagger
+      - --generate-stack-oas-yaml
       - --run-cmd=npm run start
     environment:
       LINTO_STACK_STT_SERVICE_MANAGER_DIRECTORY: ${LINTO_SHARED_MOUNT}/models
-      LINTO_STACK_STT_SERVICE_MANAGER_SWAGGER_PATH: /opt/swagger.yml
+      LINTO_STACK_STT_SERVICE_MANAGER_SWAGGER_PATH: /opt/swagger.yaml
     networks:
       - linto-net
 
