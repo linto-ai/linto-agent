@@ -1,0 +1,39 @@
+version: '3.7'
+
+x-labels: &labels
+   traefik.enable: "true"
+   traefik.http.services.linto-platform-tasks-monitor.loadbalancer.server.port: 80
+   traefik.http.routers.linto-platform-tasks-monitor.entrypoints: "http"
+   traefik.http.routers.linto-platform-tasks-monitor.rule:  "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`/task-manager`) || PathPrefix(`/task-manager/`))"
+
+x-ssl: &ssl
+  traefik.http.routers.linto-platform-tasks-monitor-secure.entrypoints: "https"
+  traefik.http.routers.linto-platform-tasks-monitor-secure.tls: "true" 
+  traefik.http.routers.linto-platform-tasks-monitor-secure.rule:  "Host(`${LINTO_STACK_DOMAIN}`) && (PathPrefix(`/task-manager`) || PathPrefix(`/task-manager/`))"
+  traefik.http.routers.linto-platform-tasks-monitor.middlewares: "ssl-redirect@file"
+
+x-acme: &acme
+  traefik.http.routers.linto-platform-tasks-monitor-secure.tls.certresolver: "mytlschallenge"
+
+services:
+  linto-platform-tasks-monitor:
+    image: lintoai/linto-platform-tasks-monitor:$LINTO_STACK_IMAGE_TAG
+    networks:
+      - linto-net
+    environment:
+      - LINTO_STACK_TASK_MONITOR_SERVING_URL=task-manager
+      - SERVICES_BROKER=redis://linto-platform-redis:6379
+      - BROKER_PASS=
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        <<: [ *labels ]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
+networks:
+    linto-net:
+        external: true
