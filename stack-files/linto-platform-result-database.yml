@@ -1,7 +1,7 @@
 version: '3.7'
 
 x-mongo-env: &mongo-env
-  MONGO_INITDB_DATABASE: $LINTO_STACK_MONGODB_DBNAME_WORKER_RESULT
+  MONGO_INITDB_DATABASE: result_db
 
 x-mongo-auth: &mongo-auth
   MONGO_INITDB_ROOT_USERNAME: superuser
