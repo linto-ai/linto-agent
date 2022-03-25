@@ -9,9 +9,9 @@ PUBLIC_URL=https://dev.jitsi.local # Public URL for the web service (required)
 DOCKER_HOST_ADDRESS=dev.jitsi.local # IP address of the Docker host
 
 JIGASI_CUSTOM_SERVICE=org.jitsi.jigasi.transcription.LinSttTranscriptionService
-JIGASI_LISTT_WEBSOCKET_URL=wss://domain/service/stt
-JIGASI_LISTT_WEBSOCKET_HOST_USER=user
-JIGASI_LISTT_WEBSOCKET_HOST_PASSWORD=password
+JIGASI_LINSTT_WEBSOCKET_URL=wss://domain/service/stt
+JIGASI_LINSTT_WEBSOCKET_HOST_USER=user
+JIGASI_LINSTT_WEBSOCKET_HOST_PASSWORD=password
 
 JIGASI_TRANSCRIBER_XMPP_USER=transcriber
 JIGASI_TRANSCRIBER_XMPP_PASS=secret
