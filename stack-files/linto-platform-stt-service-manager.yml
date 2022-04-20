@@ -19,7 +19,7 @@ x-acme: &acme
 services:
 
   linto-platform-stt-service-manager:
-    image: lintoai/linto-platform-server-manager:$LINTO_STACK_IMAGE_TAG
+    image: lintoai/linto-platform-service-manager:$LINTO_STACK_IMAGE_TAG
     env_file: .dockerenv
     volumes:
       - ${LINTO_SHARED_MOUNT}/models:/opt/model
