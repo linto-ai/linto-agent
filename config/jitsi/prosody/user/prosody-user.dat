@@ -1,0 +1,4 @@
+return {
+	["password"] = "${JIGASI_TRANSCRIBER_XMPP_PASS}";
+};
+
