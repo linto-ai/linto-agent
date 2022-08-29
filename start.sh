@@ -63,7 +63,7 @@ if [ "$STACK_IMAGE_PULL" = true ]; then
   docker image pull lintoai/linto-platform-business-logic-server:$LINTO_STACK_IMAGE_TAG
   docker image pull lintoai/linto-platform-mongodb-migration:$LINTO_STACK_IMAGE_TAG
   docker image pull lintoai/linto-platform-overwatch:$LINTO_STACK_IMAGE_TAG
-  docker image pull lintoai/linto-platform-stt-server-manager:$LINTO_STACK_IMAGE_TAG
+  docker image pull lintoai/linto-platform-service-manager:$LINTO_STACK_IMAGE_TAG
 
   docker image pull tock/bot_api:$LINTO_STACK_TOCK_TAG
   docker image pull tock/build_worker:$LINTO_STACK_TOCK_TAG
