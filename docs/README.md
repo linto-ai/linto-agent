@@ -1,7 +1,7 @@
 
 # Infrastructure setup
 
-LinTO Platform stack is meant to get deployed on a Docker Swarm cluster. Please read thouroughly the [infrastructure setup guide](https://doc.linto.ai/#/infra) and the following documentation BEFORE you run the startup script.
+LinTO Platform stack is meant to get deployed on a Docker Swarm cluster. Please read thouroughly the [infrastructure setup guide](https://doc.linto.ai/) and the following documentation BEFORE you run the startup script.
 
 If you fancy using kubernetes, or other containers orchestration tools, you might adapt this proposal for your needs... Won't be too much of a hassle as this stack relies mainly on Traefik edge-router which can be deployed as an Ingress controler for K8s.
 
