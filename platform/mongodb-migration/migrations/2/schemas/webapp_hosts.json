@@ -1,0 +1,37 @@
+{
+    "title": "webapp_hosts",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "originUrl": {
+                "type": "string",
+                "format": "uri"
+            },
+            "applications": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "applicationId": {
+                            "type": "string"
+                        },
+                        "requestToken": {
+                            "type": "string"
+                        },
+                        "slots": {
+                            "type": "array",
+                            "items": {
+                                "type": "object"
+                            }
+                        },
+                        "maxSlots": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "required": ["originUrl", "applications"]
+    }
+}

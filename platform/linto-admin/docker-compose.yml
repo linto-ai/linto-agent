@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  
+  mongo-admin:
+    image: mongo:latest
+    volumes:
+      - ./mongodb/seed:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_DATABASE: lintoAdmin
+    networks:
+      - internal
+
+  linto-admin:
+    image: linto-admin:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 50s
+    env_file: .docker_env # Remove when running from stack
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "./vue_app:/usr/src/app/linto-admin/vue_app"
+      - "./webserver:/usr/src/app/linto-admin/webserver"
+      # You might bind mount here webserver and vue_app directories for development ;)
+    command: # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
+      # - --reinstall-webserver
+      # - --rebuild-vue-app-dev
+      # - --run-cmd=DEBUG=* npm run start-dev
+      # - --rebuild-vue-app
+      - --run-cmd=npm run start
+    ports:
+      - 80:80
+    networks:
+      - internal
+
+  redis-admin:
+    image: redis:latest
+    networks:
+      - internal
+
+networks:
+  internal:

@@ -1,0 +1,51 @@
+{
+    "title": "clients_static",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "enrolled": {
+                "type": "boolean"
+            },
+            "connexion": {
+                "type": "string",
+                "enum": ["offline", "online"]
+            },
+            "last_up": {
+                "anyOf": [{
+                    "type": "string",
+                    "format": "date-time"
+                }, {
+                    "type": "string"
+                }]
+            },
+            "last_down": {
+                "anyOf": [{
+                    "type": "string",
+                    "format": "date-time"
+                }, {
+                    "type": "string"
+                }]
+            },
+            "associated_workflow": {
+                "anyOf": [{
+                        "type": "object"
+                    },
+                    {
+                        "type": "null"
+                    }
+                ]
+            },
+            "sn": {
+                "type": "string"
+            },
+            "config": {
+                "type": "object"
+            },
+            "meeting": {
+                "type": "array"
+            }
+        },
+        "required": ["enrolled", "connexion", "last_up", "last_down", "sn", "config", "associated_workflow"]
+    }
+}

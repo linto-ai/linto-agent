@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  linto-platform-services-broker:
+    image: linto_service_broker:stack
+    volumes:
+      - ./redis_conf/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    expose:
+      - "6379"
+    networks:
+      - linto-net
+    command: /bin/sh -c "redis-server-stack  --requirepass $LINTO_STACK_BROKER_PASSWORD"
+
+networks:
+  linto-net:
+    external: true

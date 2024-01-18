@@ -1,0 +1,134 @@
+.linto-config-table {
+    padding: 20px;
+    background-color: #fcfcfc;
+    margin: 0 20px 20px 20px;
+    border: 1px solid $blueMid;
+    max-height: 360px;
+    overflow: auto;
+    .network-item {
+        margin: 10px 0;
+    }
+}
+
+.table--config {
+    border-collapse: collapse;
+    tr {
+        td {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            width: 50%;
+            background-color: #fafafa;
+            font-size: 14px;
+        }
+    }
+}
+
+.linto-settings-item {
+    margin: 0 0 20px 40px;
+    .ping-status {
+        margin-top: 5px;
+        font-size: 14px;
+        font-style: italic;
+        &.success {
+            color: $greenChart;
+        }
+        &.error {
+            color: $error
+        }
+    }
+}
+
+.button {
+    &.button--ping {
+        width: 120px;
+        border-color: $blueMid;
+        background-color: #fff;
+        .label {
+            color: $blueMid;
+        }
+        .icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            background-image: url('../img/ping@2x.png');
+            background-size: 30px 60px;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+        }
+        &:hover {
+            background-color: $blueMid;
+            .label {
+                color: #fff;
+            }
+            .icon {
+                background-position: 0 -30px;
+            }
+        }
+        &.loading {
+            background-color: #fff;
+            border-color: $blueLinto;
+            .label {
+                color: $blueLinto;
+            }
+            .icon {
+                background-image: url('../img/loading@2x.png');
+                background-size: 30px 30px;
+                @include rotate();
+            }
+        }
+    }
+    &.button--say {
+        border-color: $blueLinto;
+        margin: 25px 0 0 10px;
+        .label {
+            color: $blueLinto;
+        }
+        .icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-image: url('../img/say@2x.png');
+            background-size: 30px 60px;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+        }
+        &:hover {
+            background-color: $blueLinto;
+            .label {
+                color: #fff;
+            }
+            .icon {
+                background-position: 0 -30px;
+            }
+        }
+    }
+    /* Mute / unmute */
+    &.button--img {
+        margin: 0 10px;
+        border-color: $blueMid;
+        .button__icon {
+            background-image: url('../img/mute-unmute@2x.png');
+            background-size: 60px 60px;
+            background-repeat: no-repeat;
+            &.button__icon--mute {
+                background-position: -30px 0;
+            }
+            &.button__icon--unmute {
+                background-position: 0 0;
+            }
+        }
+        &:hover {
+            background-color: $blueMid;
+            .button__icon {
+                &.button__icon--mute {
+                    background-position: -30px -30px;
+                }
+                &.button__icon--unmute {
+                    background-position: 0 -30px;
+                }
+            }
+        }
+    }
+}

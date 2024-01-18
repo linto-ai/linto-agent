@@ -1,0 +1,108 @@
+[{
+        "id": "90c0fa5.2442c08",
+        "type": "linto-config",
+        "z": "a2f78166.cb2a",
+        "name": "",
+        "configMqtt": "7c1cf535.20a7ec",
+        "configEvaluate": "88912f7c.650c5",
+        "configChatbot": "b96485f2.704258-chatbot",
+        "configTranscribe": "84e1b781.57967",
+        "language": "fr-FR",
+        "x": 100,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "997c2744.9c80f8",
+        "type": "linto-pipeline-router",
+        "z": "a2f78166.cb2a",
+        "name": "",
+        "x": 350,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "dce00109.eb573",
+        "type": "linto-on-connect",
+        "z": "80776222.28916",
+        "name": "",
+        "x": 120,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "832ff221.5c4348",
+        "type": "linto-model-dataset",
+        "z": "a2f78166.cb2a",
+        "name": "",
+        "x": 350,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "4b562aa9.950974",
+        "type": "linto-red-event-emitter",
+        "z": "a2f78166.cb2a",
+        "name": "",
+        "x": 900,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b7ec987e.cfaba8",
+        "type": "linto-out",
+        "z": "a2f78166.cb2a",
+        "name": "",
+        "x": 860,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "99c1c1fd.a414b",
+        "type": "linto-application-in",
+        "z": "a2f78166.cb2a",
+        "name": "",
+        "auth_android": false,
+        "auth_web": false,
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "997c2744.9c80f8"
+            ]
+        ]
+    },
+    {
+        "id": "7c1cf535.20a7ec",
+        "type": "linto-config-mqtt",
+        "host": "localhost",
+        "port": "1883",
+        "scope": "blk",
+        "login": "test",
+        "password": "test"
+    },
+    {
+        "id": "88912f7c.650c5",
+        "type": "linto-config-evaluate",
+        "host": "localhost:8888",
+        "api": "tock",
+        "appname": "linto",
+        "namespace": "app"
+    },
+    {
+        "id": "b96485f2.704258-chatbot",
+        "type": "linto-config-chatbot",
+        "host": "dev.linto.local:8080",
+        "rest": "/io/app/linto/web"
+    },
+    {
+        "id": "84e1b781.57967",
+        "type": "linto-config-transcribe",
+        "host": "https://stage.linto.ai/stt",
+        "api": "linstt",
+        "commandOffline": "",
+        "largeVocabStreaming": "",
+        "largeVocabStreamingInternal": true,
+        "largeVocabOffline": ""
+    }
+]

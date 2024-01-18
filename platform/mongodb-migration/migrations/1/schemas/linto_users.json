@@ -1,0 +1,20 @@
+{
+    "title": "linto_users",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "email": {
+                "type": "string",
+                "format": "email"
+            },
+            "hash": {
+                "type": "string"
+            },
+            "salt": {
+                "type": "string"
+            }
+        },
+        "required": ["email", "hash", "salt"]
+    }
+}

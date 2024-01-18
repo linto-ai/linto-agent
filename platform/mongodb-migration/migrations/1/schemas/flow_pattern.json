@@ -1,0 +1,24 @@
+{
+    "title": "flow_pattern_tmp",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "type": {
+                "type": "string",
+                "enum": ["Fleet", "Application"]
+            },
+            "flow": {
+                "type": "array"
+            },
+            "created_date": {
+                "type": "string",
+                "format": "date-time"
+            }
+        },
+        "required": ["name", "type", "flow", "created_date"]
+    }
+}

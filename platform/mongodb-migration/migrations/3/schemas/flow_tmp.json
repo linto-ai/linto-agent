@@ -1,0 +1,19 @@
+{
+    "title": "flow_tmp",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string"
+            },
+            "flow": {
+                "type": "array"
+            },
+            "workspaceId": {
+                "type": "string"
+            }
+        },
+        "required": ["id", "flow", "workspaceId"]
+    }
+}

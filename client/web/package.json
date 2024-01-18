@@ -1,0 +1,54 @@
+{
+  "name": "@linto-ai/linto-web-client",
+  "version": "1.1.1",
+  "description": "LinTO by LINAGORA is now available on your webpage ! Wow !",
+  "author": "Damien Laine - LINAGORA",
+  "main": "src/linto.js",
+  "module": "src/linto.js",
+  "browser": "dist/linto.js",
+  "keywords": [
+    "speech-recognition",
+    "wake-word-detection",
+    "hotword",
+    "machine-learning",
+    "voice-commands",
+    "voice-activity-detection",
+    "voice-control",
+    "record-audio",
+    "voice-assistant",
+    "offline-speech-recognition",
+    "mfcc",
+    "features-extraction"
+  ],
+  "scripts": {
+    "test": "parcel tests/index.html --out-dir dev-build --log-level 4 --no-cache",
+    "build": "parcel build src/linto.js --log-level 4 --no-cache --no-source-maps --detailed-report --out-file linto.min.js",
+    "css-linto-ui": "sass ./src/assets/scss/linto-ui.scss ./src/assets/css/linto-ui.min.css --style compressed --no-source-map",
+    "build-linto-ui": "npm run css-linto-ui && parcel build src/linto-ui.js --log-level 4 --no-cache --no-source-maps --detailed-report --out-file linto.ui.min.js",
+    "test-linto-ui": "npm run css-linto-ui && parcel tests/linto-ui/index.html --out-dir dev-build --log-level 4 --no-cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linto-ai/linto-web-client.git"
+  },
+  "license": "AGPLV3",
+  "bugs": {
+    "url": "https://github.com/linto-ai/linto-web-client/issues"
+  },
+  "homepage": "https://github.com/linto-ai/linto-web-client#readme",
+  "devDependencies": {
+    "@linto-ai/webvoicesdk": "^1.2.5",
+    "axios": "^1.1.2",
+    "base64-js": "^1.3.1",
+    "mobile-detect": "^1.4.4",
+    "mqtt": "^4.2.1",
+    "npm": "^6.14.8",
+    "parcel-bundler": "^1.12.5",
+    "re-tree": "^0.1.7",
+    "sass": "^1.46.0",
+    "ua-device-detector": "^1.1.8"
+  },
+  "browserslist": [
+    "since 2017-06"
+  ]
+}

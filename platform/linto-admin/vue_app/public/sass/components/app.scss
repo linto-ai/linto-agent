@@ -1,0 +1,40 @@
+#app {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#page-view {
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+    overflow: hidden;
+    &.fullscreen-child {
+        z-index: 10;
+    }
+}
+
+#view {
+    position: relative;
+    overflow: auto;
+    z-index: 4;
+    background-color: #f0f6f9;
+    padding: 40px;
+    &.fullscreen-child {
+        position: inherit;
+    }
+}
+
+#view-render {
+    height: 100%;
+    padding: 0;
+    &>.flex {
+        padding: 0 0 40px 0;
+    }
+}

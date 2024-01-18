@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="60"
+   viewBox="0 0 44.999999 44.999999"
+   width="60"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="apply.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     id="namedview6"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="4.0986327"
+     inkscape:cx="-4.6809073"
+     inkscape:cy="24.212553"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     d="m 36.628106,12.358677 c 0.975361,0.975361 0.975361,2.556427 0,3.531303 L 19.87725,32.641322 c -0.975361,0.974867 -2.555934,0.974867 -3.531295,0 L 8.3718928,24.666766 c -0.9753611,-0.974876 -0.9753611,-2.555934 0,-3.53081 0.9748757,-0.975361 2.5559342,-0.975361 3.5308092,0 l 6.208658,6.208666 14.985451,-14.985945 c 0.975361,-0.974868 2.55642,-0.974868 3.531295,0 z"
+     id="path2"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="sccccccccs"
+     style="stroke-width:0.12484623" />
+</svg>

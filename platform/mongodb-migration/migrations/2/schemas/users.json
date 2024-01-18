@@ -1,0 +1,26 @@
+{
+    "title": "users",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "userName": {
+                "type": "string"
+            },
+            "email": {
+                "type": "string",
+                "format": "email"
+            },
+            "pswdHash": {
+                "type": "string"
+            },
+            "salt": {
+                "type": "string"
+            },
+            "role": {
+                "type": "string"
+            }
+        },
+        "required": ["userName", "email", "pswdHash", "salt", "role"]
+    }
+}

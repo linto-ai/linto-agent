@@ -1,0 +1,23 @@
+{
+    "title": "workflows_templates",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "type": {
+                "type": "string"
+            },
+            "flow": {
+                "type": "array"
+            },
+            "created_date": {
+                "type": "string",
+                "format": "date-time"
+            }
+        },
+        "required": ["name", "type", "flow", "created_date"]
+    }
+}

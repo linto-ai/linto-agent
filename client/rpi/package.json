@@ -1,0 +1,21 @@
+{
+  "name": "linto-client",
+  "version": "1.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Affero General Public License v3",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "dotenv": "^6.0.0",
+    "eventemitter3": "^3.1.0",
+    "lodash": "^4.17.21",
+    "mqtt": "^2.18.1",
+    "network": "^0.4.1",
+    "ora": "^2.1.0",
+    "wav": "^1.0.2"
+  }
+}

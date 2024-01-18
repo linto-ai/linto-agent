@@ -1,0 +1,41 @@
+{
+    "title": "lintos",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "enrolled": {
+                "type": "boolean"
+            },
+            "connexion": {
+                "type": "string",
+                "enum": ["offline", "online"]
+            },
+            "last_up": {
+                "type": ["string", "null"],
+                "format": "date-time"
+            },
+            "last_down": {
+                "type": ["string", "null"],
+                "format": "date-time"
+            },
+            "associated_context": {
+                "type": ["string", "null"]
+            },
+            "type": {
+                "type": "string",
+                "enum": ["fleet", "application"]
+            },
+            "sn": {
+                "type": "string"
+            },
+            "config": {
+                "type": "object"
+            },
+            "meeting": {
+                "type": "array"
+            }
+        },
+        "required": ["enrolled", "connexion", "last_up", "last_down", "type", "sn", "config"]
+    }
+}

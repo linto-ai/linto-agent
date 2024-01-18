@@ -1,0 +1,1990 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "",
+        "version": "0.0.2",
+        "title": "Linto admin API documentation",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "contact@linto.ai"
+        }
+    },
+    "host": "linto.ai/api",
+    "tags": [{
+            "name": "android_users",
+            "description": "Operations on \"android_users\" collection"
+        },
+        {
+            "name": "client_static",
+            "description": "Operations on \"client_static\" collection"
+        },
+        {
+            "name": "flow",
+            "description": "Operations on nodered flows"
+        },
+        {
+            "name": "stt",
+            "description": "Operations on STT service manager"
+        },
+        {
+            "name": "tock",
+            "description": "Operations on TOCK service"
+        },
+        {
+            "name": "workflows",
+            "description": "Operations on static and application workflows"
+        },
+        {
+            "name": "workflows_applications",
+            "description": "Operations on application workflows"
+        },
+        {
+            "name": "workflows_static",
+            "description": "Operations on static workflows"
+        },
+        {
+            "name": "workflows_templates",
+            "description": "Operations on workflows templates"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/api/androidusers": {
+            "get": {
+                "tags": [
+                    "android_users"
+                ],
+                "summary": "Get all andoird users",
+                "operationId": "getAllAndroidUsers",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "_id": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "applications": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "android_users"
+                ],
+                "summary": "Add a new andoird users",
+                "operationId": "addAndroidUsers",
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "format": "email"
+                            },
+                            "pswd": {
+                                "type": "string"
+                            },
+                            "applications": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/androidusers/applications": {
+            "patch": {
+                "tags": [
+                    "android_users"
+                ],
+                "summary": "Remove an application for all android users",
+                "operationId": "removeApplicationFromAndroidUsers",
+                "parameters": [{
+                    "name": "payload",
+                    "in": "body",
+                    "required": "true",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "_id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+
+                }
+            }
+        },
+        "/api/androidusers/{userId}/applications": {
+            "put": {
+                "tags": [
+                    "android_users"
+                ],
+                "summary": "Register an android user to an application",
+                "operationId": "AddApplicationToAndroidUser",
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "description": "Android user id",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "payload",
+                    "in": "body",
+                    "description": "Array of application to add to android user",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "applications": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": ["success", "error"],
+                                    "required": true
+                                },
+                                "msg": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "error": {
+                                    "type": "object",
+                                    "required": false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/androidusers/{userId}/applications/{applicationId}/remove": {
+            "patch": {
+                "tags": [
+                    "android_users"
+                ],
+                "summary": "Dissociate an android user from an android application",
+                "operationId": "RemoveApplicationFromAndroidUser",
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "description": "Android user id",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "applicationId",
+                    "in": "path",
+                    "description": "Application workflow id to remove",
+                    "required": true,
+                    "type": "string"
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/androidusers/{userId}": {
+            "get": {
+                "tags": [
+                    "android_users"
+                ],
+                "summary": "Get an android user by its id",
+                "operationId": "GetAndroidUserById",
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "description": "Android user id",
+                    "required": true,
+                    "type": "string"
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+
+                            "type": "object",
+                            "properties": {
+                                "_id": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "format": "email"
+                                },
+                                "applications": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "android_users"
+                ],
+                "summary": "Delete an android user by its id",
+                "operationId": "deleteAndroidUser",
+                "parameters": [{
+                    "name": "userId",
+                    "in": "path",
+                    "description": "Android user id",
+                    "required": true,
+                    "type": "string"
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/clients/static": {
+            "get": {
+                "tags": [
+                    "client_static"
+                ],
+                "summary": "Get all static clients",
+                "operationId": "GetAllStaticClients",
+                "produces": [
+                    "application/json"
+                ],
+
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/client_static"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "client_static"
+                ],
+                "summary": "Create a new static device",
+                "operationId": "CreateStaticDevice",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "payload",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "sn": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": ["success", "error"],
+                                    "required": true
+                                },
+                                "msg": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "error": {
+                                    "type": "object",
+                                    "required": false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/clients/static/{serialNumber}": {
+            "get": {
+                "tags": [
+                    "client_static"
+                ],
+                "summary": "Get a static client by its Id",
+                "operationId": "GetStaticClientById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "serialNumber",
+                    "in": "path",
+                    "description": "Static client serial number",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "client_static"
+                ],
+                "summary": "Update a static client",
+                "operationId": "UpdateStaticClientById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "serialNumber",
+                        "in": "path",
+                        "description": "Static client serial number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "_id": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "client_static"
+                ],
+                "summary": "Delete a static client",
+                "operationId": "deleteStaticClientById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "serialNumber",
+                    "in": "path",
+                    "description": "Static client serial number",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/clients/static/replace": {
+            "post": {
+                "tags": [
+                    "client_static"
+                ],
+                "summary": "Replace a static device Serial Number by a target one",
+                "operationId": "ReplaceStaticDeviceInWorkflow",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "sn": {
+                                "type": "string"
+                            },
+                            "workflow": {
+                                "type": "object",
+                                "properties": {
+                                    "_id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "targetDevice": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+
+            }
+        },
+        "/api/flow/{flowId}": {
+            "delete": {
+                "tags": [
+                    "flow"
+                ],
+                "summary": "Delete a flow from nodered api by its flowId",
+                "operationId": "DeleteFlowFromBLS",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "flowId",
+                    "in": "query",
+                    "description": "nodered flow id",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/flow/getAuth": {
+            "get": {
+                "tags": [
+                    "flow"
+                ],
+                "summary": "Get bearer token to require nodered API",
+                "operationId": "GetBLSAuth",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/flow/postbls/static": {
+            "post": {
+                "tags": [
+                    "flow"
+                ],
+                "summary": "Publish a static workflow on BLS",
+                "operationId": "postStaticFlowOnBLS",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "sn": {
+                                "description": "Static client serial number",
+                                "type": "string"
+                            },
+                            "workflow_name": {
+                                "description": "static workflow name",
+                                "type": "string"
+                            },
+                            "workflowTemplate": {
+                                "description": "Workflow template name that will be used",
+                                "type": "string"
+                            },
+                            "sttServiceLanguage": {
+                                "description": "Language of the STT service that will be used",
+                                "type": "string"
+                            },
+                            "sttService": {
+                                "description": "STT service name that will be used",
+                                "type": "string"
+                            },
+                            "tockApplicationName": {
+                                "description": "Tock application name that will be used",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/flow/postbls/application": {
+            "post": {
+                "tags": [
+                    "flow"
+                ],
+                "summary": "Publish an application workflow on BLS",
+                "operationId": "postApplicationFlowOnBLS",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "payload",
+                    "in": "body",
+                    "description": "static workflow name",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "workflow_name": {
+                                "description": "static workflow name",
+                                "type": "string"
+                            },
+                            "workflowTemplate": {
+                                "description": "Workflow template name that will be used",
+                                "type": "string"
+                            },
+                            "sttServiceLanguage": {
+                                "description": "Language of the STT service that will be used",
+                                "type": "string"
+                            },
+                            "sttService": {
+                                "description": "STT service name that will be used",
+                                "type": "string"
+                            },
+                            "tockApplicationName": {
+                                "description": "Tock application name that will be used",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/flow/sandbox": {
+            "get": {
+                "tags": [
+                    "flow"
+                ],
+                "summary": "Get the sandbox flowId from BLS",
+                "operationId": "GetBLSSandboxId",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "sandBoxId": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "flow"
+                ],
+                "summary": "Create a SandBox nodered workflow on BLS",
+                "operationId": "CreateBLSSandboxId",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/flow/sandbox/load": {
+            "put": {
+                "tags": [
+                    "flow"
+                ],
+                "summary": "Load a template in the sandbox flow on BLS",
+                "operationId": "LoadFlowFromTemplate",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "requried": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "flow": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object"
+                                }
+                            },
+                            "flowId": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "sandBoxId": {
+                                    "$ref": "#/definitions/server_response"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/flow/tmp": {
+            "get": {
+                "tags": [
+                    "flow"
+                ],
+                "summary": "Get the flow object of the sandbox workspace",
+                "operationId": "GetTmpFlow",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return the flow object of the sandbox workspace",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "flow"
+                ],
+                "summary": "Update the flow object of the sandbox workspace",
+                "operationId": "UpdateTmpFlow",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "description": "order placed for purchasing the pet",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "flow": {
+                                "type": "object",
+                                "properties": {
+                                    "label": {
+                                        "type": "string"
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "node": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            },
+                            "flowId": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stt/services": {
+            "get": {
+                "tags": [
+                    "stt"
+                ],
+                "summary": "Get all STT services",
+                "operationId": "GetAllSttServices",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "_id": {
+                                        "type": "string"
+                                    },
+                                    "tag": {
+                                        "type": "string"
+                                    },
+                                    "serviceId": {
+                                        "type": "string"
+                                    },
+                                    "replicas": {
+                                        "type": "integer"
+                                    },
+                                    "LModelId": {
+                                        "type": "string"
+                                    },
+                                    "AModelId": {
+                                        "type": "string"
+                                    },
+                                    "isOn": {
+                                        "type": "integer",
+                                        "enum": [0, 1]
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stt/langmodels": {
+            "get": {
+                "tags": [
+                    "stt"
+                ],
+                "summary": "Get all STT services language models",
+                "operationId": "GetAllSttServicesLModels",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "_id": {
+                                        "type": "string"
+                                    },
+                                    "modelId": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "acmodelId": {
+                                        "type": "string"
+                                    },
+                                    "entities": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "intents": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "lang": {
+                                        "type": "string"
+                                    },
+                                    "isGenerated": {
+                                        "type": "integer",
+                                        "enum": [0, 1, -1]
+                                    },
+                                    "isDirty": {
+                                        "type": "integer"
+                                    },
+                                    "updateState": {
+                                        "type": "integer"
+                                    },
+                                    "updateStatus": {
+                                        "type": "string"
+                                    },
+                                    "oov": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "dateGeneration": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "dateModification": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    }
+
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stt/acmodels": {
+            "get": {
+                "tags": [
+                    "stt"
+                ],
+                "summary": "Get all STT services acoustic models",
+                "operationId": "GetAllSttServicesACModels",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "_id": {
+                                        "type": "string"
+                                    },
+                                    "modelId": {
+                                        "type": "string"
+                                    },
+                                    "lang": {
+                                        "type": "string"
+                                    },
+                                    "desc": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stt/lexicalseeding": {
+            "post": {
+                "tags": [
+                    "stt"
+                ],
+                "summary": "Trigger the process of lexical seeding on a STT service",
+                "operationId": "SttLexicalSeeding",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "flowId": {
+                                "type": "string"
+                            },
+                            "service_name": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stt/generategraph": {
+            "post": {
+                "tags": [
+                    "stt"
+                ],
+                "summary": "Trigger the process of graph generation on a STT service",
+                "operationId": "SttGenerateGraph",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "serviceName",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tock/applications": {
+            "get": {
+                "tags": [
+                    "tock"
+                ],
+                "summary": "Get all tock applications",
+                "operationId": "GetTockApplications",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "_id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "label": {
+                                        "type": "string"
+                                    },
+                                    "namespace": {
+                                        "type": "string",
+                                        "enum": ["app"]
+                                    },
+                                    "intents": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "supportedLocales": {
+                                        "type": "array"
+                                    },
+                                    "nlpEngineType": {
+                                        "type": "object"
+                                    },
+                                    "mergeEngineTypes": {
+                                        "type": "boolean"
+                                    },
+                                    "useEntityModels": {
+                                        "type": "boolean"
+                                    },
+                                    "supportedSubEntites": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tock/lexicalseeding": {
+            "post": {
+                "tags": [
+                    "tock"
+                ],
+                "summary": "Trigger the process of lexical seeding on a Tock application",
+                "operationId": "SttLexicalSeeding",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "flowId",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/{id}/services": {
+            "patch": {
+                "tags": [
+                    "workflows"
+                ],
+                "summary": "Update a static or application workflows parameters (STT, NLU...)",
+                "operationId": "UpdateWorkflowServices",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "type": "string",
+                        "description": "Workflow id to be updated"
+                    },
+                    {
+                        "in": "body",
+                        "name": "payload",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["static", "application"]
+                                },
+                                "workflowName": {
+                                    "type": "string"
+                                },
+                                "sttServiceLanguage": {
+                                    "type": "string",
+                                    "enum": ["fr-FR", "en-US"]
+                                },
+                                "sttService": {
+                                    "type": "string"
+                                },
+                                "tockApplicationName": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/saveandpublish": {
+            "post": {
+                "tags": [
+                    "workflows"
+                ],
+                "summary": "Save the current workspace object and post it to BLS",
+                "operationId": "WorkflowSaveAndPublish",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": ["static", "application"]
+                            },
+                            "noderedFlowId": {
+                                "type": "string",
+                                "description": "Nodered targeted workspace ID"
+                            },
+                            "workflowId": {
+                                "type": "string",
+                                "description": "Current workflow (static or application) ID"
+                            },
+                            "workflowName": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/application": {
+            "get": {
+                "tags": [
+                    "workflows_applications"
+                ],
+                "summary": "Get all application workflows",
+                "operationId": "GetAllApplicationWorkflows",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/workflows_application"
+                            }
+
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "workflows_applications"
+                ],
+                "summary": "Create an application workflows",
+                "operationId": "CreateApplicationWorkflow",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "workflowName": {
+                                "type": "string"
+                            },
+                            "workflowDescription": {
+                                "type": "string",
+                                "description": "Description of the workflow"
+                            },
+                            "workflowTemplate": {
+                                "type": "string"
+                            },
+                            "sttServiceLanguage": {
+                                "type": "string"
+                            },
+                            "sttService": {
+                                "type": "string"
+                            },
+                            "tockApplicationName": {
+                                "type": "string"
+                            }
+                        }
+
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/workflows_application"
+                            }
+
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/application/{id}": {
+            "get": {
+                "tags": [
+                    "workflows_applications"
+                ],
+                "summary": "Get an application workflow by its id",
+                "operationId": "GetApplicationWorkflowById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "required": true,
+                    "name": "id",
+                    "description": "Application workflow id",
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/workflows_application"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "workflows_applications"
+                ],
+                "summary": "Delete an application workflow by its id",
+                "operationId": "DeleteApplicationWorkflow",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "required": true,
+                        "name": "workflowId",
+                        "description": "Application workflow id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "workflowName",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/workflows_application"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/application/{id}/androidusers": {
+            "get": {
+                "tags": [
+                    "workflows_applications"
+                ],
+                "summary": "Get a user list associated to application {id}",
+                "operationId": "GetAndroidUserByApplication",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "required": true,
+                    "name": "id",
+                    "description": "Application workflow id",
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "_id": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "applications": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/static": {
+            "get": {
+                "tags": [
+                    "workflows_static"
+                ],
+                "summary": "Get all static worfklows",
+                "operationId": "GetAllStaticWorkflows",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/workflows_static"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "workflows_static"
+                ],
+                "summary": "Create a static worfklows",
+                "operationId": "CreateStaticWorkflows",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "required": true,
+                    "schema": {
+                        "tyep": "object",
+                        "properties": {
+                            "sn": {
+                                "type": "string",
+                                "description": "Serial number of the static device to associate"
+                            },
+                            "workflowName": {
+                                "type": "string",
+                                "description": "Workflow name and nodered workspace name"
+                            },
+                            "workflowDescription": {
+                                "type": "string",
+                                "description": "Description of the workflow"
+                            },
+                            "workflowTemplate": {
+                                "type": "string",
+                                "description": "Name of the workflow template to use"
+                            },
+                            "sttServiceLanguage": {
+                                "type": "string",
+                                "description": "languague used with STT service",
+                                "enum": ["fr-FR, en-US"]
+                            },
+                            "sttService": {
+                                "type": "string",
+                                "description": "Name of the STT service to use"
+                            },
+                            "tockApplicationName": {
+                                "type": "string",
+                                "description": "Tock application name to use"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/server_response"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/static/{id}": {
+            "get": {
+                "tags": [
+                    "workflows_static"
+                ],
+                "summary": "Get a static worfklow by its ID",
+                "operationId": "GetStaticWorkflowById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "description": "Static workflow id",
+                    "type": "string",
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/workflows_static"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "workflows_static"
+                ],
+                "summary": "Delete a static worfklow by its ID",
+                "operationId": "DeleteStaticWorkflowById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "description": "Static workflow id",
+                    "type": "string",
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/static/name/{name}": {
+            "get": {
+                "tags": [
+                    "workflows_static"
+                ],
+                "summary": "Get a static worfklow by its name",
+                "operationId": "GetStaticWorkflowByName",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "name",
+                    "description": "Static workflow name",
+                    "type": "string",
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/workflows_static"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/templates": {
+            "get": {
+                "tags": [
+                    "workflows_templates"
+                ],
+                "summary": "Get all workflows templates",
+                "operationId": "getAllWorkflowTemplates",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/workflows_application"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/template/": {
+            "post": {
+                "tags": [
+                    "workflows_templates"
+                ],
+                "summary": "Create a new workflow template",
+                "operationId": "CreateWorkflowTemplate",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "payload",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "workflowType": {
+                                "type": "string",
+                                "enum": ["static", "application"]
+                            },
+                            "workflowName": {
+                                "type": "string",
+                                "description": "Name of the template to create"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/workflows_static"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/workflows/template/{templateId}": {
+            "delete": {
+                "tags": [
+                    "workflows_templates"
+                ],
+                "summary": "Delete a workflow template by its ID",
+                "operationId": "DeleteWorkflowTemplate",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "templateId",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/server_response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dbversion": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string",
+                    "required": true,
+                    "enum": ["current_version"]
+                },
+                "version": {
+                    "type": "integer"
+                }
+            }
+        },
+        "users": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "userName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "pswdHash": {
+                    "type": "string"
+                },
+                "salt": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "android_users": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "pswdHash": {
+                    "type": "string"
+                },
+                "salt": {
+                    "type": "string"
+                },
+                "applications": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "client_static": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "enrolled": {
+                    "type": "boolean"
+                },
+                "connexion": {
+                    "type": "string",
+                    "enum": ["online, offline"]
+                },
+                "last_up": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "last_down": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "associated_workflow": {
+                    "type": "object",
+                    "properties": {
+                        "_id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "properties": {}
+                },
+                "meetting": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "flow_tmp": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string",
+                    "required": true,
+                    "enum": ["tmp"]
+                },
+                "flow": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "workspaceId": {
+                    "type": "string"
+                }
+
+            }
+        },
+        "workflows_application": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "flowId": {
+                    "type": "string"
+                },
+                "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "flow": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "label": {
+                            "type": "string"
+                        },
+                        "nodes": {
+                            "type": "array",
+                            "items": {
+                                "type": "object"
+                            }
+                        },
+                        "configs": {
+                            "type": "array",
+                            "items": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "workflows_static": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "flowId": {
+                    "type": "string"
+                },
+                "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "associated_device": {
+                    "type": "string"
+                },
+                "flow": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "label": {
+                            "type": "string"
+                        },
+                        "nodes": {
+                            "type": "array",
+                            "items": {
+                                "type": "object"
+                            }
+                        },
+                        "configs": {
+                            "type": "array",
+                            "items": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "workflows_templates": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "types": "string",
+                    "enum": ["static", "application"]
+                },
+                "flow": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "server_response": {
+
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "enum": ["success", "error"],
+                    "required": true
+                },
+                "msg": {
+                    "type": "string",
+                    "required": true
+                },
+                "error": {
+                    "type": "object",
+                    "required": false
+                }
+            }
+        }
+    }
+}

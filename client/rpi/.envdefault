@@ -1,0 +1,11 @@
+# Components loading in this order, components are orchestration plugins for the LinTO client actions
+COMPONENTS = localmqtt,logicmqtt,audio
+
+# Local MQTT bus setup
+LOCAL_MQTT_ADDRESS = 127.0.0.1
+LOCAL_MQTT_PORT = 1883
+LOCAL_MQTT_KEEP_ALIVE = 15
+
+# Audio and Mic
+AUDIO_FILE = /tmp/command.raw
+TTS_LANG = fr-FR,en-US,en-GB,es-ES,de-DE,it-IT
