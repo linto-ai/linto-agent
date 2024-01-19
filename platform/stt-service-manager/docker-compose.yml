@@ -1,0 +1,55 @@
+version: '3.5'
+
+services:
+
+  stt-service-manager:
+    image: lintoai/linto-platform-stt-server-manager:latest-unstable
+    depends_on:
+      - mongodb-stt-service-manager
+    volumes:
+      - ${LINTO_STACK_STT_SERVICE_MANAGER_DIRECTORY}:/opt/model
+      - ./config/nginx.conf:/opt/nginx/nginx.conf
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
+      - ./config/swagger.yml:/opt/swagger.yml
+    ports:
+      - target: 80
+        published: 8000
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      interval: 15s
+      timeout: 10s
+      retries: 4
+      start_period: 50s
+    env_file: .env
+    command: # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
+      - --run-cmd=npm run start
+    environment:
+      LINTO_STACK_STT_SERVICE_MANAGER_SWAGGER_PATH: /opt/swagger.yml
+    networks:
+      - linto-net
+
+  mongodb-stt-service-manager:
+    image: mongo:latest
+    volumes:
+      - ${LINTO_STACK_STT_SERVICE_MANAGER_DIRECTORY}/dbdata:/data/db
+      - ${LINTO_STACK_STT_SERVICE_MANAGER_DIRECTORY}/dbbackup:/data/backup
+      - ./config/seed:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_DATABASE: linSTTAdmin
+    networks:
+      - linto-net
+
+networks:
+    internal:
+    linto-net:
+       external: true

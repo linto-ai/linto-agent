@@ -1,0 +1,41 @@
+{
+    "title": "workflows_static",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "flowId": {
+                "type": "string"
+            },
+            "associated_device": {
+                "type": "string"
+            },
+            "created_date": {
+                "type": "string",
+                "format": "date-time"
+            },
+            "updated_date": {
+                "type": "string",
+                "format": "date-time"
+            },
+            "flow": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "nodes": {
+                        "type": "array"
+                    }
+                }
+            }
+        },
+        "required": ["name", "flowId", "associated_device", "created_date", "updated_date", "flow"]
+    }
+}

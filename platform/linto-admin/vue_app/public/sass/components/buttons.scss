@@ -1,0 +1,367 @@
+.button {
+    display: inline-block;
+    border: 1px solid #fff;
+    padding: 0;
+    margin: 0;
+    height: 32px;
+    background-color: #fff;
+    @include transition(all 0.3s ease-in);
+    @include buttonShadow();
+    @include borderRadius(3px);
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    /* label & icon */
+    .button__label {
+        display: inline-block;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 28px;
+        color: $blueLinto;
+        vertical-align: top;
+        color: $textColor;
+        padding: 0 10px;
+        border: 1px solid transparent;
+        @include borderRadius(3px);
+    }
+    .button__icon {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        vertical-align: top;
+        margin: 0;
+        padding: 0;
+        @include borderRadius(3px);
+        &.button__icon--monitoring {
+            @include maskImage('../img/svg/levels.svg');
+        }
+        &.button__icon--close {
+            @include maskImage('../img/svg/close.svg');
+        }
+        &.button__icon--ping {
+            @include maskImage('../img/svg/ping.svg');
+        }
+        &.button__icon--talk {
+            @include maskImage('../img/svg/chat.svg');
+        }
+        &.button__icon--mute {
+            @include maskImage('../img/svg/mute.svg');
+        }
+        &.button__icon--unmute {
+            @include maskImage('../img/svg/unmute.svg');
+        }
+        &.button__icon--workflow {
+            @include maskImage('../img/svg/workflow.svg');
+        }
+        &.button__icon--fullscreen {
+            @include maskImage('../img/svg/fullscreen.svg');
+        }
+        &.button__icon--leave-fullscreen {
+            @include maskImage('../img/svg/leave-fullscreen.svg');
+        }
+        &.button__icon--save {
+            @include maskImage('../img/svg/save.svg');
+        }
+        &.button__icon--load {
+            @include maskImage('../img/svg/upload.svg');
+        }
+        &.button__icon--publish,
+        &.button__icon--deploy {
+            @include maskImage('../img/svg/rocket.svg');
+        }
+        &.button__icon--logout {
+            @include maskImage('../img/svg/logout.svg');
+        }
+        &.button__icon--settings {
+            @include maskImage('../img/svg/settings.svg');
+        }
+        &.button__icon--barcode {
+            @include maskImage('../img/svg/barcode.svg');
+        }
+        &.button__icon--delete,
+        &.button__icon--trash {
+            @include maskImage('../img/svg/delete.svg');
+        }
+        &.button__icon--cancel {
+            @include maskImage('../img/svg/cancel.svg');
+        }
+        &.button__icon--apply {
+            @include maskImage('../img/svg/apply.svg');
+        }
+        &.button__icon--add {
+            @include maskImage('../img/svg/add.svg');
+        }
+        &.button__icon--back {
+            @include maskImage('../img/svg/back.svg');
+        }
+        &.button__icon--user-settings {
+            @include maskImage('../img/svg/user-settings.svg');
+        }
+        &.button__icon--android {
+            @include maskImage('../img/svg/android.svg');
+        }
+        &.button__icon--webapp {
+            @include maskImage('../img/svg/webapp.svg');
+        }
+        &.button__icon--reset {
+            @include maskImage('../img/svg/reset.svg');
+        }
+        &.button__icon--edit {
+            @include maskImage('../img/svg/edit.svg');
+        }
+        &.button__icon--say {
+            @include maskImage('../img/svg/say.svg');
+        }
+        &.button__icon--goto {
+            @include maskImage('../img/svg/goto.svg');
+        }
+        &.button__icon--mutli-user {
+            @include maskImage('../img/svg/multi-user.svg');
+        }
+        &.button__icon--install {
+            @include maskImage('../img/svg/install.svg');
+        }
+        &.button__icon--loading {
+            @include maskImage('../img/svg/loading.svg');
+            @include rotate();
+        }
+        &.button__icon--arrow {
+            @include maskImage('../img/svg/arrow.svg');
+            @include transition(all 0.3s ease);
+            &.opened {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            &.closed {
+                -ms-transform: rotate(-90deg);
+                -moz-transform: rotate(-90deg);
+                -webkit-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+            }
+        }
+    }
+    /* Type of button */
+    &.button-icon-txt {
+        min-width: 120px;
+        .button__icon {
+            margin-left: 5px;
+        }
+        .button__label {
+            padding: 0 10px 0 5px;
+        }
+    }
+    &.button--full {
+        width: 100%;
+        padding: 0;
+    }
+    /* Button colors */
+    &.button--valid,
+    &.button--green {
+        border-color: $valid;
+        .button__icon {
+            background-color: $valid;
+        }
+        .button__label {
+            color: $valid;
+        }
+        &:hover {
+            background-color: $valid;
+            .button__label {
+                color: #fff;
+            }
+        }
+    }
+    &.button--important,
+    &.button--red {
+        border-color: $error;
+        .button__icon {
+            background-color: $error;
+        }
+        .button__label {
+            color: $error;
+        }
+        &:hover {
+            background-color: $error;
+            .button__label {
+                color: #fff;
+            }
+        }
+    }
+    &.button--cancel,
+    &.button--grey {
+        border-color: #666;
+        .button__icon {
+            background-color: #666;
+        }
+        .button__label {
+            color: #666;
+        }
+        &:hover {
+            background-color: #666;
+            .button__label {
+                color: #fff;
+            }
+        }
+    }
+    &.button--blue {
+        border-color: $blueLinto;
+        .button__icon {
+            background-color: $blueLinto;
+        }
+        .button__label {
+            color: $blueLinto;
+        }
+        &:hover {
+            background-color: $blueLinto;
+            .button__label {
+                color: #fff;
+            }
+        }
+    }
+    &.button--bluemid {
+        border-color: $blueMid;
+        .button__icon {
+            background-color: $blueMid;
+        }
+        .button__label {
+            color: $blueMid;
+        }
+        &:hover {
+            background-color: $blueMid;
+            .button__label {
+                color: #fff;
+            }
+        }
+    }
+    &.button--bluedark {
+        border-color: $blueDark;
+        .button__icon {
+            background-color: $blueDark;
+        }
+        .button__label {
+            color: $blueDark;
+        }
+        &:hover {
+            background-color: $blueDark;
+            .button__label {
+                color: #fff;
+            }
+        }
+    }
+    &.button--orange {
+        border-color: $warning;
+        .button__icon {
+            background-color: $warning;
+        }
+        .button__label {
+            color: $warning;
+        }
+        &:hover {
+            background-color: $warning;
+            .button__label {
+                color: #fff;
+            }
+        }
+    }
+    &:hover {
+        /* Button icons HOVER */
+        .button__icon {
+            background-color: #fff;
+        }
+        &.button--with-desc {
+            overflow: visible;
+            &::after {
+                content: attr(data-desc);
+                position: absolute;
+                font-size: 14px;
+                max-width: 180px;
+                min-width: 80px;
+                height: auto;
+                top: 2px;
+                left: 110%;
+                padding: 5px;
+                color: #ffffff;
+                background-color: inherit;
+                font-style: italic;
+                white-space: nowrap;
+                @include borderRadius(3px);
+                z-index: 10;
+                white-space: break-spaces;
+                text-align: center;
+            }
+            &.bottom {
+                &::after {
+                    top: 35px;
+                    left: 0;
+                }
+            }
+        }
+    }
+}
+
+a.button {
+    height: 30px;
+}
+
+.button--toggle__container {
+    padding-bottom: 20px;
+    border-bottom: 1px solid $blueLight;
+}
+
+.button--toggle__label {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    color: $blueDark;
+    line-height: 25px;
+    padding: 0 10px 0 0;
+}
+
+.button--toggle {
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    border: 2px solid $blueMid;
+    background-color: #fff;
+    @include borderRadius(15px);
+    @include buttonShadow();
+    @include transition(all 0.3s ease);
+    position: relative;
+    outline: none !important;
+    .button--toggle__disc {
+        display: inline-block;
+        @include transition(all 0.3s ease);
+        width: 18px;
+        height: 18px;
+        @include borderRadius(15px);
+        border: 1px solid #fff;
+        position: absolute;
+        top: 0;
+    }
+    &.enabled {
+        border-color: $valid;
+        .button--toggle__disc {
+            background-color: $valid;
+            left: 100%;
+            margin-left: -20px;
+        }
+    }
+    &.disabled {
+        border-color: $error;
+        .button--toggle__disc {
+            background-color: $error;
+            left: 0;
+            margin-left: 0;
+        }
+    }
+    &:hover {
+        cursor: pointer;
+        background-color: #f2f2f2;
+        @include buttonShadowHover();
+    }
+}

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60"
+   height="60"
+   viewBox="0 0 15.875 15.875"
+   version="1.1"
+   id="svg202"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="workflow.svg">
+  <defs
+     id="defs196" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6"
+     inkscape:cx="8.5461509"
+     inkscape:cy="33.11209"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1600"
+     inkscape:window-height="836"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       position="8.1205816,11.167999"
+       orientation="0,1"
+       id="guide229"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="9.4021578,4.7010789"
+       orientation="0,1"
+       id="guide231"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata199">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-281.125)">
+    <g
+       id="g329"
+       transform="translate(0.0553472,0.01157391)">
+      <rect
+         ry="1.2301682"
+         style="stroke-width:0.23196273"
+         y="284.60965"
+         x="9.1051722"
+         height="2.8118131"
+         width="5.7114954"
+         id="rect204-7" />
+      <rect
+         transform="matrix(0,1,1,0,0,0)"
+         style="stroke-width:0.32272294"
+         ry="0.082682297"
+         y="7.9552169"
+         x="285.832"
+         height="0.16536459"
+         width="6.4669123"
+         id="rect227" />
+      <rect
+         transform="scale(-1,1)"
+         style="stroke-width:0.23140685"
+         ry="0.082682297"
+         y="292.13354"
+         x="-11.280202"
+         height="0.16536459"
+         width="3.3249853"
+         id="rect227-5" />
+      <rect
+         transform="scale(-1,1)"
+         style="stroke-width:0.23140685"
+         ry="0.082682297"
+         y="285.832"
+         x="-11.280203"
+         height="0.16536459"
+         width="3.3249853"
+         id="rect227-5-3" />
+      <rect
+         transform="scale(-1,1)"
+         style="stroke-width:0.23140685"
+         ry="0.082682297"
+         y="289.26672"
+         x="-8.0853128"
+         height="0.16536459"
+         width="3.3249853"
+         id="rect227-5-3-5" />
+      <rect
+         ry="1.2301682"
+         style="stroke-width:0.23196273"
+         y="290.68039"
+         x="9.1051722"
+         height="2.8118131"
+         width="5.7114954"
+         id="rect204-7-6" />
+      <rect
+         ry="1.2301682"
+         style="stroke-width:0.23196273"
+         y="287.8692"
+         x="0.94763803"
+         height="2.8118131"
+         width="5.7114954"
+         id="rect204-7-6-2" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,20 @@
+{
+    "title": "local_skills",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "version": {
+                "type": "string"
+            },
+            "created_date": {
+                "type": "string",
+                "format": "date-time"
+            }
+        },
+        "required": ["name", "version", "created_date"]
+    }
+}

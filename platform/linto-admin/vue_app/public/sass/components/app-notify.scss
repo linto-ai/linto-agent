@@ -1,0 +1,131 @@
+.notif-wrapper {
+    z-index: 999;
+    @include boxShadow(0, -2px, 2px, 0, rgba(0, 0, 0, 0.2));
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    position: relative;
+    @include transition(height 0.3s ease);
+    background-color: #fff;
+    &.closed {
+        height: 0;
+    }
+    &.success,
+    &.error {
+        height: 40px;
+        padding: 10px 0;
+    }
+    &.success {
+        &::after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: $valid;
+            @include traceBorderTop();
+        }
+    }
+    &.error {
+        &::after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: $error;
+            @include traceBorderTop();
+        }
+    }
+}
+
+.notif-container {
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    &>span {
+        display: inline-block;
+    }
+    .icon {
+        width: 40px;
+        height: 40px;
+        margin: 0 10px;
+    }
+    .notif-msg {
+        font-size: 16px;
+        &.success {
+            color: $valid;
+        }
+        &.error {
+            color: $error;
+        }
+    }
+}
+
+
+/*** TOP NOTIF ***/
+
+#top-notif {
+    min-height: 40px;
+    background: #f2f2f2;
+    border-bottom: 1px solid #ccc;
+    z-index: 20;
+    .icon.state__icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-image: url('../img/deploy-status-icons@2x.png');
+        background-size: 20px 60px;
+        background-repeat: no-repeat;
+        margin-right: 10px;
+        &.state__icon--loading {
+            background-position: 0 -40px;
+            @include rotate();
+        }
+        &.state__icon--success {
+            background-position: 0 0;
+        }
+    }
+    .state-item {
+        padding: 10px 40px;
+        justify-content: center;
+        align-items: center;
+        .state-text {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 500;
+            color: $blueDark;
+            &.success {
+                color: $greenChart;
+            }
+            strong {
+                font-weight: 600;
+                color: $blueLinto;
+            }
+        }
+    }
+}
+
+.state-progress-container {
+    height: 15px;
+    width: 50%;
+    max-width: 220px;
+    border: 1px solid $blueMid;
+    position: relative;
+    margin-left: 20px;
+    @include borderRadius(10px);
+    overflow: hidden;
+    .state-progress {
+        @include transition(all 0.3 ease);
+        position: absolute;
+        top: 0;
+        height: 15px;
+        background: $greenChart;
+        width: 0;
+        @include borderRadius(10px);
+    }
+}

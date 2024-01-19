@@ -1,0 +1,16 @@
+{
+  "title": "mqtt_acls",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "topic": {
+        "type": "string"
+      },
+      "acc": {
+        "type": "integer"
+      }
+    },
+    "required": ["topic", "acc"]
+  }
+}

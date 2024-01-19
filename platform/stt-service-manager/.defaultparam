@@ -1,0 +1,46 @@
+# Global service parameters
+SAVE_MODELS_PATH=/opt/model
+TEMP_FOLDER_NAME=tmp
+LM_FOLDER_NAME=LMs
+AM_FOLDER_NAME=AMs
+DICT_DELIMITER=|
+LANGUAGE="af-ZA, am-ET, ar-AE, ar-BH, ar-DZ, ar-EG, ar-IQ, ar-JO, ar-KW, ar-LB, ar-LY, ar-MA, arn-CL, ar-OM, ar-QA, ar-SA, ar-SY, ar-TN, ar-YE, as-IN, az-Cyrl-AZ, az-Latn-AZ, ba-RU, be-BY, bg-BG, bn-BD, bn-IN, bo-CN, br-FR, bs-Cyrl-BA, bs-Latn-BA, ca-ES, co-FR, cs-CZ, cy-GB, da-DK, de-AT, de-CH, de-DE, de-LI, de-LU, dsb-DE, dv-MV, el-GR, en-029, en-AU, en-BZ, en-CA, en-GB, en-IE, en-IN, en-JM, en-MY, en-NZ, en-PH, en-SG, en-TT, en-US, en-ZA, en-ZW, es-AR, es-BO, es-CL, es-CO, es-CR, es-DO, es-EC, es-ES, es-GT, es-HN, es-MX, es-NI, es-PA, es-PE, es-PR, es-PY, es-SV, es-US, es-UY, es-VE, et-EE, eu-ES, fa-IR, fi-FI, fil-PH, fo-FO, fr-BE, fr-CA, fr-CH, fr-FR, fr-LU, fr-MC, fy-NL, ga-IE, gd-GB, gl-ES, gsw-FR, gu-IN, ha-Latn-NG, he-IL, hi-IN, hr-BA, hr-HR, hsb-DE, hu-HU, hy-AM, id-ID, ig-NG, ii-CN, is-IS, it-CH, it-IT, iu-Cans-CA, iu-Latn-CA, ja-JP, ka-GE, kk-KZ, kl-GL, km-KH, kn-IN, kok-IN, ko-KR, ky-KG, lb-LU, lo-LA, lt-LT, lv-LV, mi-NZ, mk-MK, ml-IN, mn-MN, mn-Mong-CN, moh-CA, mr-IN, ms-BN, ms-MY, mt-MT, nb-NO, ne-NP, nl-BE, nl-NL, nn-NO, nso-ZA, oc-FR, or-IN, pa-IN, pl-PL, prs-AF, ps-AF, pt-BR, pt-PT, qut-GT, quz-BO, quz-EC, quz-PE, rm-CH, ro-RO, ru-RU, rw-RW, sah-RU, sa-IN, se-FIse-NO, se-SE, si-LK, sk-SK, sl-SI, sma-NO, sma-SE, smj-NO, smj-SE, smn-FI, sms-FI, sq-AL, sr-Cyrl-BA, sr-Cyrl-CS, sr-Cyrl-ME, sr-Cyrl-RS, sr-Latn-BA, sr-Latn-CS, sr-Latn-ME, sr-Latn-RS, sv-FI, sv-SE, sw-KE, syr-SY, ta-IN, te-IN, tg-Cyrl-TJ, th-TH, tk-TM, tn-ZA, tr-TR, tt-RU, tzm-Latn-DZ, ug-CN, uk-UA, ur-PK, uz-Cyrl-UZ, uz-Latn-UZ, vi-VN, wo-SN, xh-ZA, yo-NG, zh-CN, zh-HK, zh-MO, zh-SG, zh-TW, zu-ZA"
+NGRAM=3
+### CHECK_SERVICE_TIMEOUT (in seconds)
+CHECK_SERVICE_TIMEOUT=10
+
+# Service Components and PORT
+LINTO_STACK_STT_SERVICE_MANAGER_COMPONENTS=WebServer,ServiceManager,LinSTT,ClusterManager,IngressController
+LINTO_STACK_STT_SERVICE_MANAGER_HTTP_PORT=80
+LINTO_STACK_STT_SERVICE_MANAGER_SWAGGER_PATH=/opt/swagger.yml
+
+# Service module
+LINTO_STACK_STT_SERVICE_MANAGER_CLUSTER_MANAGER=DockerSwarm
+LINTO_STACK_STT_SERVICE_MANAGER_INGRESS_CONTROLLER=nginx
+LINTO_STACK_STT_SERVICE_MANAGER_LINSTT_TOOLKIT=kaldi
+
+# NGINX
+LINTO_STACK_STT_SERVICE_MANAGER_NGINX_CONF=/opt/nginx/nginx.conf
+LINTO_STACK_STT_SERVICE_MANAGER_NGINX_HOST=nginx-stt-service-manager
+
+# TRAEFIK
+LINTO_STACK_DOMAIN=dev.local
+
+# Docker socket
+LINTO_STACK_STT_SERVICE_MANAGER_DOCKER_SOCKET=/var/run/docker.sock
+
+# Mongodb settings
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_HOST=mongodb-stt-service-manager
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PORT=27017
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_DBNAME=linSTTAdmin
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_REQUIRE_LOGIN=true
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_USER=root
+LINTO_STACK_STT_SERVICE_MANAGER_MONGODB_PSWD=root
+
+# LinSTT settings
+LINTO_STACK_LINSTT_OFFLINE_IMAGE=lintoai/linto-platform-stt-standalone-worker
+LINTO_STACK_LINSTT_STREAMING_IMAGE=lintoai/linto-platform-stt-standalone-worker-streaming
+LINTO_STACK_LINSTT_NETWORK=linto-net
+LINTO_STACK_LINSTT_PREFIX=stt
+LINTO_STACK_IMAGE_TAG=latest
+LINTO_STACK_LINSTT_NAME=stt

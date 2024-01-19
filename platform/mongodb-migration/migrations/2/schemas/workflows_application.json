@@ -1,0 +1,38 @@
+{
+    "title": "workflows_application",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "flowId": {
+                "type": "string"
+            },
+            "created_date": {
+                "type": "string",
+                "format": "date-time"
+            },
+            "updated_date": {
+                "type": "string",
+                "format": "date-time"
+            },
+            "flow": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "nodes": {
+                        "type": "array"
+                    }
+                }
+            }
+        },
+        "required": ["name", "flowId", "created_date", "updated_date", "flow"]
+    }
+}

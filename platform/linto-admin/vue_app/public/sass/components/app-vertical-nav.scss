@@ -1,0 +1,153 @@
+/*** VERTICAL NAVIGATION ***/
+
+#vertical-nav {
+    position: relative;
+    min-width: 180px;
+    max-width: 260px;
+    width: auto;
+    padding: 20px 0;
+    background: $blueDark;
+    overflow: hidden;
+    z-index: 5;
+    &.fullscreen-child {
+        z-index: 1;
+    }
+    .nav-divider {
+        width: 100%;
+        height: 1px;
+        background-color: #747e92;
+        margin: 10px 0;
+    }
+}
+
+.vertical-nav-item {
+    position: relative;
+    padding: 20px;
+    height: auto;
+    .vertical-nav-item__link,
+    .vertical-nav-item__link--parent {
+        position: relative;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 400;
+        color: #fff;
+        text-decoration: none;
+        .nav-link__icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            margin: 0 5px;
+            vertical-align: top;
+            &.nav-link__icon--static {
+                @include maskImage('../img/svg/cpu.svg');
+            }
+            &.nav-link__icon--app {
+                @include maskImage('../img/svg/app.svg');
+            }
+            &.nav-link__icon--android {
+                @include maskImage('../img/svg/android.svg');
+            }
+            &.nav-link__icon--android-users {
+                @include maskImage('../img/svg/android-users.svg');
+            }
+            &.nav-link__icon--webapp {
+                @include maskImage('../img/svg/webapp.svg');
+            }
+            &.nav-link__icon--workflow {
+                @include maskImage('../img/svg/workflow.svg');
+            }
+            &.nav-link__icon--nlu {
+                @include maskImage('../img/svg/nlu.svg');
+            }
+            &.nav-link__icon--single-user {
+                @include maskImage('../img/svg/single-user.svg');
+            }
+            &.nav-link__icon--multi-user {
+                @include maskImage('../img/svg/multi-user.svg');
+            }
+            &.nav-link__icon--terminal {
+                @include maskImage('../img/svg/terminal.svg');
+            }
+            &.nav-link__icon--users {
+                @include maskImage('../img/svg/users.svg');
+            }
+            &.nav-link__icon--skills-manager {
+                @include maskImage('../img/svg/skills-manager.svg');
+            }
+        }
+        .nav-link__label {
+            display: inline-block;
+            height: 30px;
+            vertical-align: top;
+            color: #fff;
+            line-height: 30px;
+        }
+    }
+    .vertical-nav-item__link--parent {
+        &::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 2px;
+            left: 100%;
+            margin-left: -30px;
+            background-image: url('../img/nav-arrows@2x.png');
+            background-size: 40px 40px;
+            background-position: 0 0;
+        }
+        &:hover::after {
+            background-position: 0 -20px;
+        }
+        &.opened {
+            &::after {
+                background-position: -20px 0;
+            }
+            &:hover::after {
+                background-position: -20px -20px;
+            }
+        }
+    }
+    .vertical-nav-item--children {
+        overflow: hidden;
+        @include transition(all 0.3s ease-in);
+        border-left: 1px solid #ececec;
+        margin: 5px 0;
+        &.hidden {
+            display: flex;
+            height: 0px;
+            margin: 0;
+            padding: 0;
+        }
+        .vertical-nav-item__link--children {
+            display: inline-block;
+            font-size: 14px;
+            padding: 8px 0 8px 15px;
+            font-weight: 400;
+            text-decoration: none;
+            color: #fff;
+            &:hover {
+                color: $blueLinto;
+            }
+            &.active {
+                &,
+                &:hover {
+                    background-color: $blueMid;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+    &.active {
+        background-color: $blueMid;
+        .vertical-nav-item__link,
+        .vertical-nav-item__link--parent {
+            font-weight: 600;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+}

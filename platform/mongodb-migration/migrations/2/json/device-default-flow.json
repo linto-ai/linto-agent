@@ -1,0 +1,202 @@
+{
+    "name": "device-default-workflow",
+    "type": "static",
+    "flow": [{
+            "id": "be6fd44c.33822",
+            "type": "tab",
+            "label": "SandBox",
+            "disabled": false,
+            "info": ""
+        },
+        {
+            "id": "48d297d1.2ebde8",
+            "type": "linto-config",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "configMqtt": "355cc7bb.9e486",
+            "configEvaluate": "e5538090.0da508",
+            "configTranscribe": "887e4dc7.82a26",
+            "language": "fr-FR",
+            "x": 120,
+            "y": 40,
+            "wires": []
+        },
+        {
+            "id": "e810d232.bc33c8",
+            "type": "linto-red-event-emitter",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "x": 920,
+            "y": 100,
+            "wires": []
+        },
+        {
+            "id": "856638f0.e6cfd8",
+            "type": "linto-evaluate",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "x": 730,
+            "y": 100,
+            "wires": [
+                [
+                    "e810d232.bc33c8"
+                ]
+            ]
+        },
+        {
+            "id": "84e9565b.798a2",
+            "type": "linto-transcribe",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "x": 560,
+            "y": 100,
+            "wires": [
+                [
+                    "856638f0.e6cfd8"
+                ]
+            ]
+        },
+        {
+            "id": "89b8e953.d83bb",
+            "type": "linto-out",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "x": 1140,
+            "y": 120,
+            "wires": []
+        },
+        {
+            "id": "f999e18c.924b9",
+            "type": "linto-model-dataset",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "x": 530,
+            "y": 200,
+            "wires": []
+        },
+        {
+            "id": "3d4602b9.4a7b2e",
+            "type": "linto-ui",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "group": "e7bb73f7.537b8",
+            "width": "9",
+            "height": "5",
+            "x": 1150,
+            "y": 60,
+            "wires": []
+        },
+        {
+            "id": "bca109ee.43a938",
+            "type": "to-linto-ui",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "x": 1020,
+            "y": 60,
+            "wires": [
+                [
+                    "3d4602b9.4a7b2e"
+                ]
+            ]
+        },
+        {
+            "id": "226fea8b.9e09fe",
+            "type": "linto-terminal-in",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "x": 110,
+            "y": 100,
+            "wires": [
+                [
+                    "127dd3c9.86da64"
+                ]
+            ]
+        },
+        {
+            "id": "5a769f16.1826b",
+            "type": "linto-on-connect",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "x": 300,
+            "y": 40,
+            "wires": []
+        },
+        {
+            "id": "127dd3c9.86da64",
+            "type": "linto-pipeline-router",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "x": 310,
+            "y": 100,
+            "wires": [
+                [
+                    "84e9565b.798a2"
+                ],
+                [],
+                []
+            ]
+        },
+        {
+            "id": "2274858c.4c712a",
+            "type": "linto-skill-welcome",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "command": "##intent|capabilities|fr\n- que peux tu faire\n- que sais tu faire\n- dis moi [tous](all) ce que tu sais faire\n- donne moi [toutes](all) tes commandes\n\n##intent|capabilities|en\n- what do you do\n- give me [all](all) you'r voice commands\n\n##intent|goodbye|fr\n- ciao\n- à bientôt\n- à la prochaine\n- au revoir\n- à plus\n\n##intent|goodbye|en\n- see you soon\n- goodbye\n- goodbye linto\n- thank you \n- see you\n- bye\n- thanks\n\n##intent|greeting|fr\n- bonjour\n- bonjour, comment tu t'appelles\n- comment tu t'appelles\n- bonsoir\n- salut\n\n##intent|greeting|en\n- greeting\n- hey\n- good morning\n- good afternoon\n- good evening\n- hello\n- hi\n- what's your name\n\n##intent|howareyou|fr\n- comment ça va\n- comment vas-tu\n- comment tu vas\n- est-ce que ça va\n- tout va [bien](isok)\n- je vais [bien](isok)\n- je [vais bien](isok)\n- ça va [bien](isok)\n- [oui](isok)\n- je ne vais [pas très bien](isko)\n- ça ne va pas [très bien](isko)\n- je ne [vais pas bien](isko)\n- je ne me sens [pas bien](isko)\n- ça [ne va pas](isko) trop\n\n##intent|howareyou|en\n- are you okay\n- how are you doing\n- how do you do\n- everything is [good](isok)\n- i am [happy](isok)\n- [ok](isok)\n- i am [fine](isok)\n- [good](isok) thanks\n- i'm [fine](isok)\n- i'm [ok](isok)\n- everything is [alright](isok)\n- i'm [not well](isko) thank you\n- i'm [not fine](isko)\n- i'm [not ok](isko)\n- i'm [not feeling good](isko) today\n- i'm in a [bad mood](isko)\n- [not fine](isko)\n- [not ok](isko)\n- [not good](isko) thanks\n- [not well](isko) thanks\n- i am [sad](isko)\n",
+            "description": {
+                "en-US": "greeting someone",
+                "fr-FR": "souhaiter la bienvenue"
+            },
+            "x": 130,
+            "y": 180,
+            "wires": [
+                []
+            ]
+        },
+        {
+            "id": "f82b7c7c.4abe4",
+            "type": "linto-skill-weather",
+            "z": "be6fd44c.33822",
+            "name": "",
+            "defaultCity": "",
+            "degreeType": "C",
+            "api": "microsoft",
+            "command": "##intent|weather|fr\n- quelle est la météo de [demain](time)\n- le temps est-il clément [demain](time)\n- quel temps fait-il [demain](time)\n- quel temps fait-il [demain](time) à [toulouse](location)\n- quelle est la météo pour [demain](time)\n- c'est quoi la météo à [lens](location)\n- donne-moi la météo à [bordeaux](location)\n- quel temps fait-il à [nantes](location) [demain](time)\n- donne-moi la météo de [nice](location)\n\n##intent|weather|en\n- what's the weather in [new york](location)\n- give me the weather at [london](location)\n- could you give me the weather of [london](location)\n- weather at [london](location)\n- can you give me the weather at [phoenix](location)\n- what's the weather of [tomorrow](time)\n- what is the weather for [tomorrow](time)\n- is the weather good [tomorrow](time)\n- the weather for [tomorrow](time) please\n- what's the weather in [toulouse](location) [tomorrow](time)\n- is the weather good [tomorrow](time) in [toulouse](location)\n- what's the weather for [tomorrow](time) in [paris](location)\n- the weather at [roma](location)\n",
+            "description": {
+                "en-US": "get weather information",
+                "fr-FR": "donnez la météo d'une ville"
+            },
+            "x": 120,
+            "y": 220,
+            "wires": [
+                []
+            ]
+        },
+        {
+            "id": "355cc7bb.9e486",
+            "type": "linto-config-mqtt",
+            "z": "be6fd44c.33822",
+            "host": "localhost",
+            "port": "1883",
+            "scope": "blk",
+            "login": "login",
+            "password": "password"
+        },
+        {
+            "id": "e5538090.0da508",
+            "type": "linto-config-evaluate",
+            "z": "be6fd44c.33822",
+            "host": "host",
+            "api": "tock",
+            "appname": "appname",
+            "namespace": "app"
+        },
+        {
+            "id": "887e4dc7.82a26",
+            "type": "linto-config-transcribe",
+            "z": "be6fd44c.33822",
+            "host": "host",
+            "api": "linstt"
+        }
+    ],
+    "created_date": "2020-07-30T10:43:49+02:00"
+}

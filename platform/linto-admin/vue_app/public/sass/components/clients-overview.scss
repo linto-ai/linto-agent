@@ -1,0 +1,73 @@
+.icon.icon--status {
+    position: relative;
+    cursor: pointer;
+    &:after {
+        display: none;
+    }
+    &.icon--status__with-desc {
+        &:hover {
+            &:after {
+                content: attr(data-label);
+                display: inline-block;
+                width: 200px;
+                padding: 5px;
+                @include borderRadius(3px);
+                background-color: #ccc;
+                position: absolute;
+                top: -8px;
+                left: 20px;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 600;
+                z-index: 20;
+            }
+            &.offline {
+                &:after {
+                    background-color: $error;
+                }
+            }
+            &.online {
+                &:after {
+                    background-color: $valid;
+                }
+            }
+        }
+    }
+}
+
+.icon--status__label {
+    display: inline-block;
+    line-height: 20px;
+    padding-left: 5px;
+    &.label--green {
+        color: $valid;
+    }
+    &.label--red {
+        color: $error;
+    }
+}
+
+.client-status__link {
+    display: inline-block;
+    text-decoration: none;
+    color: $blueLinto;
+    padding-left: 10px;
+    font-style: italic;
+    &:hover {
+        text-decoration: underline;
+        color: $blueMid;
+    }
+}
+
+.auth-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    @include borderRadius(5px);
+    &.enabled {
+        background-color: $valid;
+    }
+    &.disabled {
+        background-color: $error;
+    }
+}

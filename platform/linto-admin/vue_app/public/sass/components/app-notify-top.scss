@@ -1,0 +1,76 @@
+#app-notif-top {
+    background: #fff;
+    @include blockShadow();
+    margin-bottom: 20px;
+    @include transition(all 0.3s ease);
+    position: relative;
+    overflow: hidden;
+    &.closed {
+        height: 50px;
+        #app-notif-top-data,
+        #model-generating-refresh {
+            display: none;
+        }
+    }
+    &>div {
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+    }
+    h3 {
+        padding: 0 20px;
+        font-size: 18px;
+        font-weight: 600;
+        color: $blueMid;
+    }
+    #close-notif-top {
+        position: absolute;
+        top: 10px;
+        left: 100%;
+        margin-left: -40px;
+    }
+}
+
+.model-generating-table {
+    width: auto;
+    tr {
+        td {
+            padding: 5px;
+            &.model-generating__label {
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.model-generating__prct-wrapper {
+    display: inline-block;
+    height: 20px;
+    width: 240px;
+    border: 1px solid #ccc;
+    background-color: #fcfcfc;
+    position: relative;
+    @include borderRadius(5px);
+    .model-generating__prct-value {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        background-color: $greenChart;
+        z-index: 2;
+    }
+    .model-generating__prct-label {
+        display: inline-block;
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: $textColor;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+    }
+}

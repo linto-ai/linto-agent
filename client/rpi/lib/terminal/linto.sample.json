@@ -1,0 +1,56 @@
+{
+    "enrolled": true,
+    "sn": "0",
+    "connexion": "offline",
+    "config": {
+        "network": [
+            {
+                "name": "eth0",
+                "ip_address": "0.0.0.0",
+                "mac_address": "ee:ee:ee:ee:ee:ee",
+                "gateway_ip": "0.0.0.0",
+                "type": "Wireless|wired"
+            }
+        ],
+        "firmware": "1.1.0",
+        "ftp": {
+            "host": "",
+            "user": "",
+            "use_secure": "",
+            "password": "",
+            "port": ""
+        },
+        "sound": {
+            "input": "hw:0,1",
+            "output": "hw:1,1",
+            "volume": "100",
+            "sensibility": "100",
+            "ww-sensibility": "100",
+            "tts_lang": "fr-FR"
+        },
+        "disk": {
+            "root_expand": true,
+            "mounts": {
+                "root": "",
+                "tmp": "",
+                "var": "",
+                "storage": ""
+            }
+        },
+        "mqtt": {
+            "scope": "blk",
+            "frommetopic": "fromlinto",
+            "towardsmetopic": "tolinto",
+            "client_id": "",
+            "clean": true,
+            "host": "my.lintoserver",
+            "port": "1883",
+            "username": "myusername",
+            "password": "mypassword",
+            "uselogin": true,
+            "keepalive": "10",
+            "protocol": "MQTTS",
+            "keyfile": ""
+        }
+    }
+}

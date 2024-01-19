@@ -1,0 +1,48 @@
+{
+  "name": "business-logic-server",
+  "version": "1.1.2",
+  "description": "Connector to server functionality for linto (LinStt, OpenPaas, ...)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start-dev": "NODE_ENV=developpement DEBUG=* node index.js",
+    "pretest": "eslint --ignore-path .gitignore .",
+    "pretest-fix": "eslint --ignore-path .gitignore . --fix"
+  },
+  "keywords": [
+    "linto",
+    "node-red",
+    "docker"
+  ],
+  "author": "yhoupert@linagora.com",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@linto-ai/node-red-linto-core": "latest",
+    "body-parser": "^1.19.0",
+    "debug": "^4.1.0",
+    "decompress": "^4.2.1",
+    "dotenv": "^6.1.0",
+    "eventemitter3": "^3.1.0",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.2.1",
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.6.0",
+    "node-red": "^1.2.8",
+    "node-red-dashboard": "^2.19.0",
+    "path": "^0.12.7",
+    "tar-fs": "^2.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "prettier": "^1.17.0"
+  },
+  "homepage": "https://linto.ai/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linto-ai/Business-Logic-Server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/linto-ai/Business-Logic-Server/issues"
+  }
+}

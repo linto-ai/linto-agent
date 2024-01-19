@@ -1,0 +1,216 @@
+{
+    "name": "linto-fleet-default",
+    "type": "Fleet",
+    "flow": [{
+            "id": "2d78a86.a300558",
+            "type": "tab",
+            "label": "linto-fleet-default",
+            "disabled": false
+        },
+        {
+            "id": "1c43e500-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-config-mqtt",
+            "z": "2d78a86.a300558",
+            "host": "localhost",
+            "port": "1883",
+            "scope": "blk"
+        },
+        {
+            "id": "1c43e501-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-config-evaluate",
+            "z": "2d78a86.a300558",
+            "host": "https://stage.linto.ai/tockapi/rest/nlp/parse",
+            "api": "tock",
+            "appname": "linto",
+            "namespace": "app"
+        },
+        {
+            "id": "1c43e502-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-config-transcribe",
+            "z": "2d78a86.a300558",
+            "host": "https://stage.linto.ai/stt/fr",
+            "api": "linstt"
+        },
+        {
+            "id": "1c440c1b-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-config-mqtt",
+            "z": "2d78a86.a300558",
+            "host": "localhost",
+            "port": "1883",
+            "scope": "blk"
+        },
+        {
+            "id": "1c440c1c-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-config-evaluate",
+            "z": "2d78a86.a300558",
+            "host": "https://stage.linto.ai/tockapi/rest/nlp/parse",
+            "api": "tock",
+            "appname": "linto",
+            "namespace": "app"
+        },
+        {
+            "id": "1c440c1d-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-config-transcribe",
+            "z": "2d78a86.a300558",
+            "host": "https://stage.linto.ai/stt/fr",
+            "api": "linstt"
+        },
+        {
+            "id": "1c43e503-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-config",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "configMqtt": "b4daef64.04ab9",
+            "configEvaluate": "eb19bca.3dd5e4",
+            "configTranscribe": "12977d52.e61213",
+            "language": "fr-FR",
+            "x": 120,
+            "y": 40,
+            "wires": []
+        },
+        {
+            "id": "1c43e504-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-red-event-emitter",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "x": 760,
+            "y": 100,
+            "wires": []
+        },
+        {
+            "id": "1c440c10-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-evaluate",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "x": 540,
+            "y": 100,
+            "wires": [
+                [
+                    "1c43e504-6ac3-11ea-af80-ff4f9bc85132"
+                ]
+            ]
+        },
+        {
+            "id": "1c440c11-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-transcribe",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "x": 340,
+            "y": 100,
+            "wires": [
+                [
+                    "1c440c10-6ac3-11ea-af80-ff4f9bc85132"
+                ]
+            ]
+        },
+        {
+            "id": "1c440c12-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-terminal-in",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "sn": "blk01",
+            "x": 140,
+            "y": 100,
+            "wires": [
+                [
+                    "1c440c11-6ac3-11ea-af80-ff4f9bc85132"
+                ]
+            ]
+        },
+        {
+            "id": "1c440c13-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-out",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "x": 1140,
+            "y": 120,
+            "wires": []
+        },
+        {
+            "id": "1c440c14-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-skill-weather",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "defaultCity": "Toulouse",
+            "degreeType": "C",
+            "api": "microsoft",
+            "command": "##intent|weather|fr\n- quelle est la météo pour [demain](time)\n- quel temps fait il [demain](time)\n- quel temps fait il [demain](time) a [paris](location)\n- quel temps fait il [demain](time) a [toulouse](location)\n- quel temps fait il [demain](time) a [bordeaux](location)\n- quel temps fait il [demain](time) a [rennes](location)\n- quel temps fait il a [rennes](location)\n- quel temps fait il a [toulouse](location)\n- quel temps fait il a [paris](location)\n- temps a [paris](location)\n- temps a [lens](location)\n- quelle est la météo pour [demain](time)\n- météo a [paris](location)\n- météo a [lens](location)\n- donne moi la météo a [lens](location)\n- donne moi la météo à [lens](location)\n- il fait quel temps à [toulouse](location)\n- est ce qu'il pleut à [bordeaux](location)\n- quel temps fait il à [paris](location)\n- quel temps fait il à [toulouse](location)\n- quel temps fait il à [las vegas](location) [demain](time)\n- quel temps fait il à [hollywood](location)\n- quel temps fait il à [phoenix parc](location)\n- quel temps fait il à [phoenix](location) [demain](time)\n- quel temps fait il à [bollywood](location)\n- quel temps fait il à [bollywood parc](location)\n- quel temps fait il à [bollywood hotel](location)\n- quel temps fait il à [las vegas hotel](location) [demain](time)\n- quel temps fait il à [las venise hotel](location)\n- quel temps fait il à [center venise hotel](location)\n- la météo est elle bonne a [paris toulouse](location)\n- la météo est elle bonne a [saint etienne en cogles](location)\n- la météo est elle bonne a [saint brice en cogles](location)\n- donne moi la météo de [paris](location)\n- Quelle est la météo à [vegas](location)\n- Quel temps fait-il à [Las Vegas](location) [demain](time)\n- Quelle est la météo à [Strasbourg](location) pour [demain](time)\n- La météo est-elle bonne [demain](time) à [Toulouse](location)\n- quel temps fait il à [santa monica](location)\n- quel temps fait il à [roma](location) parc\n- quel temps fait il à [phoenix parc](location)\n- quel temps fait il à l'aéroport de [las vegas](location)\n- quel temps fait il à [lyon](location)\n- quel temps fait il à [rennes](location)\n- quel temps fait il à [madrid](location)\n- quel temps fait il à [londres](location)\n##intent|weather|en\n- what's the weather in [new york](location)\n- weather at [new work](location)\n- give me the weather at [madrid](location)\n- give me the weather at [london](location)\n- could you give me the weather of [london](location)\n- weather at [london](location)\n- weather at [venise](location)\n- can you give me the weather at [venise](location)\n- can you give me the weather at [phoenix](location)\n- what's the weather for [tomorrow](time)\n- what is the weather for [tomorrow](time)\n- is the weather good [tomorrow](time)\n- what's the weather like [tomorrow](time)\n- the weather for [tomorrow](time) please\n- [tomorrow](time) weather\n- what's the weather in [toulouse](location) [tomorrow](time)\n- what's the weather in [paris](location) [tomorrow](time)\n- what's the weather in [las vegas](location) [tomorrow](time)\n- what's the weather in [london](location) [tomorrow](time)\n- what's the weather in [madrid](location) [tomorrow](time)\n- what's the weather in [casa del mar](location) [tomorrow](time)\n- what is the weather in [casa del mar](location) [tomorrow](time)\n- what is the weather in [hollywood](location) [tomorrow](time)\n- what is the weather in [rennes](location) [tomorrow](time)\n- what is the weather in [las vegas](location) [tomorrow](time)\n- what is the weather in [lyon](location) [tomorrow](time)\n- what is the weather in [toulouse](location) [tomorrow](time)\n- is the weather good [tomorrow](time) in [paris](location)\n- is the weather good [tomorrow](time) in [toulouse](location)\n- is the weather good [tomorrow](time) in [las vegas](location)\n- is the weather good [tomorrow](time) in [hollywood](location)\n- is the weather good [tomorrow](time) in [casa del mar](location)\n- is the weather good [tomorrow](time) in [nantes](location)\n- what's the weather for [tomorrow](time) in [toulouse](location)\n- what's the weather for [tomorrow](time) in [paris](location)\n- what's the weather for [tomorrow](time) in [las vegas](location)\n- what's the weather for [tomorrow](time) in [hollywood](location)\n- what's the weather for [tomorrow](time) in [santa monica](location)\n- what's the weather for [tomorrow](time) in [los angeles](location)\n- what's the weather for [tomorrow](time) in [new york](location)\n- what's the weather in [toulouse](location) for [tomorrow](time)\n- what's the weather in [phoenix](location) for [tomorrow](time)\n- what's the weather in [montauban](location) for [tomorrow](time)\n- what's the weather in [las vegas](location) for [tomorrow](time)\n- what's the weather in [venice beach](location) for [tomorrow](time)\n- what's the weather in [new york](location) for [tomorrow](time)\n- what's the weather in [london](location) for [tomorrow](time)\n- the weather at [las vegas](location)\n- the weather at [roma](location)\n- the weather like in [paris](location) for [tomorrow](time)\n- the weather like in [hollywood](location) for [tomorrow](time)\n- the weather like in [london](location) for [tomorrow](time)\n- what is the weather in [venice beach](location) for [tomorrow](time)\n- what is the weather in [hollywood](location) for [tomorrow](time)\n- what is the weather in [las vegas](location) for [tomorrow](time)\n- what is the weather in [casa del mar](location) for [tomorrow](time)\n- what is the weather in [paris](location) for [tomorrow](time)\n- what is the weather in [toulouse](location) for [tomorrow](time)\n- what's the weather in [paris](location)\n- what's the weather in [messages](location)\n- what's the weather in [las vegas airport](location)",
+            "x": 140,
+            "y": 180,
+            "wires": [
+                []
+            ]
+        },
+        {
+            "id": "1c440c15-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-model-dataset",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "x": 530,
+            "y": 200,
+            "wires": []
+        },
+        {
+            "id": "1c440c16-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-skill-welcome",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "command": "##intent|goodbye|fr\n- salut\n- tchao\n- adieu\n- ciao\n- bye bye\n- au plaisir\n- à bientôt\n- a bientôt\n- a la prochaine\n- au revoir linto\n- au revoir\n- au plaisir linto\n- a bientôt linto\n- a bientôt\n- bye\n- a plus\n##intent|goodbye|en\n- well thank\n- see you soon\n- farewell\n- goodbye\n- good bye \n- good bye linto\n- thank you \n- thank you linto\n- see ya\n- see you\n- good bye\n- bye\n- bye bye\n- goodbye LinTo\n- thank you LinTo\n- thanks\n##intent|greeting|fr\n- bonjour\n- coucou\n- donne moi ton nom\n- bonjour, comment tu t'appelles\n- comment tu t'appelles\n- yo\n- bonsoir\n- salut\n- salut linto\n- bienvenue\n- salutation\n- hey\n##intent|greeting|en\n- greeting\n- hiya\n- hey\n- good morning\n- good afternoon\n- good evening\n- howdy\n- hello\n- hi\n- what’s your name ?\n- what's your name\n##intent|howareyou|fr\n- bonjour linto comment vas-tu\n- comment ça va\n- comment vas tu\n- comment tu vas\n- ca roule ?\n- est ce que ça va\n- linto comment ça va\n- je me sens [bien](isok)\n- tout va [bien](isok)\n- tout va [bien](isok) merci\n- je vais [bien](isok)\n- je [vais bien](isok)\n- ca va [bien](isok)\n- [ca va](isok)\n- [ca va](isok) merci\n- ça va [bien](isok)\n- [ça va](isok)\n- [oui](isok)\n- [tranquille](isok)\n- je vais [pas très bien](isko)\n- ca va pas [très bien](isko)\n- je [vais pas bien](isko)\n- je me sens [pas bien](isko)\n- je ne me sens [pas bien](isko) aujourd'hui\n- [pas très](isko) en forme\n- je suis de [mauvaise](isko) humeur\n- ça [ne va pas](isko) trop\n##intent|howareyou|en\n- are you ok\n- are you okay\n- how are you doing\n- how are you\n- how are you doing ?\n- how are you?\n- how do you do\n- are you fine?\n- are you feeling good?\n- are you ok ?\n- howdy\n- everything is [good](isok)\n- i'm [happy](isok)\n- i'm feel [great](isok)\n- i'm [right](isok)\n- [well](isok) thanks\n- [ok](isok)\n- i am [fine](isok)\n- [fine](isok)\n- [good](isok) thanks\n- i'm [well](isok) thank you\n- i'm [fine](isok)\n- i'm [ok](isok)\n- i'm in a [good mood](isok)\n- everything is [alright](isok)\n- i feel [good](isok)\n- i'm [not well](isko) thank you\n- i'm [not fine](isko)\n- i'm [not ok](isko)\n- i feel [no good](isko)\n- i'm [not feeling good](isko) today\n- [not good](isko)\n- i'm in a [bad mood](isko)\n- [not fine](isko)\n- [not ok](isko)\n- [not good](isko) thanks\n- [not well](isko) thanks\n- i am [sad](isko)",
+            "x": 140,
+            "y": 220,
+            "wires": [
+                []
+            ]
+        },
+        {
+            "id": "1c440c17-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "linto-ui",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "group": "e7bb73f7.537b8",
+            "width": "9",
+            "height": "5",
+            "x": 1150,
+            "y": 60,
+            "wires": []
+        },
+        {
+            "id": "1c440c18-6ac3-11ea-af80-ff4f9bc85132",
+            "type": "to-linto-ui",
+            "z": "2d78a86.a300558",
+            "name": "",
+            "x": 1020,
+            "y": 60,
+            "wires": [
+                [
+                    "1c440c17-6ac3-11ea-af80-ff4f9bc85132"
+                ]
+            ]
+        },
+        {
+            "id": "b4daef64.04ab9",
+            "type": "linto-config-mqtt",
+            "z": "2d78a86.a300558",
+            "host": "localhost",
+            "port": "1883",
+            "scope": "blk"
+        },
+        {
+            "id": "eb19bca.3dd5e4",
+            "type": "linto-config-evaluate",
+            "z": "2d78a86.a300558",
+            "host": "https://stage.linto.ai/tockapi/rest/nlp/parse",
+            "api": "tock",
+            "appname": "linto",
+            "namespace": "app"
+        },
+        {
+            "id": "12977d52.e61213",
+            "type": "linto-config-transcribe",
+            "z": "2d78a86.a300558",
+            "host": "https://stage.linto.ai/stt/fr",
+            "api": "linstt"
+        }
+    ],
+    "created_date": "2020-04-22T10:43:49+02:00"
+}

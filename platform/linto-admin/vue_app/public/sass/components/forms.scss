@@ -1,0 +1,401 @@
+/* Input */
+
+.form__input {
+    display: inline-block;
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #fff;
+    @include borderRadius(5px);
+    @include boxShadow(0, 2px, 4px, 0, rgba(0, 0, 0, 0.3));
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    max-width: 320px;
+    min-width: 160px;
+    margin: 5px 0;
+    outline: none;
+    &.form__input--error {
+        background-color: rgba(255, 112, 112, 0.1);
+        border-color: $error;
+    }
+    &.form__input--valid {
+        background-color: rgba(125, 252, 245, 0.1);
+        border-color: $valid;
+    }
+    /* LOGIN */
+    &.form__input--login {
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-bottom: 1px solid #fff;
+        @include borderRadius(0px);
+        @include cancelBoxShadow();
+        margin: 10px 0;
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        padding: 0 5px 0 45px;
+        color: #fff;
+        background-image: url('../img/login-icons@2x.png');
+        background-size: 40px 80px;
+        background-repeat: no-repeat;
+        max-width: 330px;
+        &.name {
+            background-position: 0 0;
+        }
+        &.pswd {
+            background-position: 0 -40px;
+        }
+        &:focus,
+        &:active {
+            outline: none !important;
+            border: 1px solid #fff;
+            background-color: rgba(255, 255, 255, 0.2)
+        }
+        &.error {
+            border: 1px solid $error;
+            background-color: rgba(255, 112, 112, 0.2);
+        }
+    }
+    &[disabled="disabled"] {
+        background-color: #ececec;
+        border-color: #ccc;
+        color: $textColor;
+    }
+    &.input--number {
+        max-width: 100px;
+        min-width: 100px;
+    }
+}
+
+.form__input::placeholder {
+    color: #b9b9b9;
+    font-style: italic;
+}
+
+.form__input::-webkit-input-placeholder {
+    color: #b9b9b9;
+    font-style: italic;
+}
+
+.form__input::-ms-input-placeholder {
+    color: #b9b9b9;
+    font-style: italic;
+}
+
+.form__input::-moz-placeholder {
+    color: #b9b9b9;
+    font-style: italic;
+}
+
+.form__input:-moz-placeholder {
+    color: #b9b9b9;
+    font-style: italic;
+}
+
+
+/* Select */
+
+.form__select {
+    display: inline-block;
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #fff;
+    @include borderRadius(5px);
+    @include boxShadow(0,
+    2px,
+    4px,
+    0,
+    rgba(0, 0, 0, 0.3));
+    font-size: 15px;
+    background-color: #fff;
+    color: #333;
+    max-width: 320px;
+    min-width: 160px;
+    margin: 5px 0;
+    outline: none;
+    &.form__select--error {
+        background-color: rgba(255, 112, 112, 0.1);
+        border-color: $error;
+    }
+    &.form__select--valid {
+        background-color: rgba(125, 252, 245, 0.1);
+        border-color: $valid;
+    }
+    &[disabled="disabled"] {
+        background-color: #ececec;
+        border-color: #ccc;
+        color: $textColor;
+    }
+    &.form__select--inarray {
+        max-width: 120px;
+        min-width: 80px;
+    }
+}
+
+.form__checkbox-container {
+    margin: 10px 0;
+    align-items: flex-start;
+    .form__select,
+    .form__input {
+        margin-top: -7px;
+    }
+    input[type="checkbox"] {
+        cursor: pointer;
+    }
+    .form__checkbox-label {
+        display: inline-block;
+        line-break: normal;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 0 15px 0 5px;
+        line-height: 18px;
+        @include noSelection();
+        cursor: pointer;
+    }
+}
+
+
+/* Textarea */
+
+.form__textarea {
+    display: inline-block;
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #fff;
+    @include borderRadius(5px);
+    @include boxShadow(0,
+    2px,
+    4px,
+    0,
+    rgba(0, 0, 0, 0.3));
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    max-width: 400px;
+    min-width: 220px;
+    min-height: 80px;
+    height: auto;
+    margin: 5px 0;
+    resize: vertical;
+    &.form__textarea--error {
+        background-color: rgba(255, 112, 112, 0.1);
+        border-color: $error;
+    }
+    &.form__textarea--valid {
+        background-color: rgba(125, 252, 245, 0.1);
+        border-color: $valid;
+    }
+}
+
+
+/* input file */
+
+.input-file-container {
+    position: relative;
+    .input__file {
+        position: absolute;
+        z-index: -1;
+        top: 5px;
+        left: 5px;
+        width: 1px;
+        height: 1px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .input__file-label-btn {
+        display: inline-block;
+        min-width: 120px;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid $greenChart;
+        background-color: $greenChart;
+        color: #fff;
+        z-index: 5;
+        @include borderRadius(3px);
+        @include boxShadow(0,
+        2px,
+        2px,
+        0,
+        rgba(0, 0, 0, 0.2));
+        margin-right: 20px;
+        .input__file-icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            @include maskImage('../img/svg/upload.svg');
+            background-color: #fff;
+            vertical-align: top;
+        }
+        .input__file-label {
+            vertical-align: top;
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            font-weight: 700;
+            color: #fff;
+        }
+        &.error {
+            background-color: $error;
+            border-color: $error;
+        }
+        &:hover {
+            cursor: pointer;
+            background-color: #fff;
+            color: $greenChart;
+            .input__file-label {
+                color: $greenChart;
+            }
+            .input__file-icon {
+                background-color: $greenChart;
+            }
+            &.error {
+                &:hover {
+                    .input__file-label {
+                        color: $error;
+                    }
+                    .input__file-icon {
+                        background-color: $error;
+                    }
+                }
+            }
+        }
+        @include transition(all 0.3s ease);
+    }
+}
+
+
+/* Label */
+
+.form__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: $blueMid;
+    &.form__label--sub {
+        line-height: 30px;
+        font-weight: 500;
+    }
+    strong {
+        font-size: 16px;
+        color: $error;
+    }
+}
+
+
+/* Error field */
+
+.form__error-field {
+    font-size: 14px;
+    line-height: 16px;
+    height: 16px;
+    margin: 0 0 4px 0;
+    color: $error;
+    font-style: italic;
+    &.features-error {
+        margin-top: 10px;
+        margin-left: -10px;
+    }
+}
+
+.form__info {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 16px;
+    color: #b2b2b2;
+    font-style: italic;
+}
+
+.stt-field {
+    margin: 0 10px;
+}
+
+
+/* Featurs (app deploy) */
+
+.application-features-container {
+    padding-left: 20px;
+    border-left: 3px solid $blueMid;
+    margin: 20px 10px;
+    &.error {
+        border-color: $error;
+    }
+}
+
+.dictation-external {
+    margin-left: 100px;
+    margin-top: -15px;
+}
+
+
+/* HELPER BUTTON */
+
+.helper-btn {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: $blueDark;
+    cursor: pointer;
+    color: #fff;
+    @include borderRadius(10px);
+    padding: 0;
+    margin-right: 10px;
+    border: 1px solid $blueDark;
+    @include transition(all 0.3s ease);
+    font-weight: 600;
+    &:hover {
+        background-color: #fff;
+        color: $blueDark;
+    }
+}
+
+.helper-content {
+    display: inline-block;
+    max-width: 640px;
+    height: auto;
+    padding: 20px;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    background: #fff;
+    font-size: 14px;
+    z-index: 20;
+    border: 1px solid $blueDark;
+    .close {
+        @include transition(all 0.3s ease);
+        display: inline-block;
+        position: absolute;
+        top: 5px;
+        left: 100%;
+        margin-left: -25px;
+        width: 22px;
+        height: 22px;
+        background-color: transparent;
+        border: 1px solid $error;
+        @include borderRadius(3px);
+        padding: 0;
+        &:after {
+            @include transition(all 0.3s ease);
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include maskImage('../img/svg/close.svg');
+            background-color: $error;
+            margin: 0;
+            padding: 0;
+        }
+        &:hover {
+            cursor: pointer;
+            background-color: $error;
+            &:after {
+                background-color: #fff;
+            }
+        }
+    }
+    p {
+        margin: 0;
+    }
+}

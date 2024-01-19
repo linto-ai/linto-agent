@@ -1,1 +1,67 @@
-devcerts/*.pem
+build/
+stack/devcerts/*.pem
+
+.vscode
+**/dev-build
+**/.cache
+lib/terminal/linto.json
+
+# Env
+.env
+
+# node Version
+.nvmrc
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+node_modules/
+
+# Typescript v1 declaration files
+typings/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+tmp/
+
+# Other
+.history/
+temp/
+
+**/.env
+**/node_modules
+
+**/settings.tmp.js
+**/json_tmp
+**/public/tockapp.json
+**/public/tocksentences.json
+**/dist
+**/.local_cmd
+**/data
+**/dump.rdb
+/webserver/model/mongodb/schemas
+
+**/model/*

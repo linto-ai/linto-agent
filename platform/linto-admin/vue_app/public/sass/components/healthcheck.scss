@@ -1,0 +1,37 @@
+.healtcheck-overview {
+    max-width: 320px;
+    margin: 20px auto;
+    background-color: #fcfcfc;
+    @include blockShadow();
+    padding: 40px;
+}
+
+table.healthcheck-table {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    width: 100%;
+    thead {
+        th {
+            text-align: left;
+        }
+    }
+    tr {
+        border-bottom: 1px solid #ccc;
+    }
+    td {
+        padding: 10px 5px;
+        &.status {
+            text-align: center;
+            span {
+                display: inline-block;
+                font-weight: 600;
+                &.connected {
+                    color: $greenChart;
+                }
+                &.disconnected {
+                    color: $error;
+                }
+            }
+        }
+    }
+}

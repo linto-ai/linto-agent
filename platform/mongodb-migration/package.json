@@ -1,0 +1,23 @@
+{
+    "name": "mongodb-migration",
+    "version": "0.3.0",
+    "description": "linto-platform-admin migration service",
+    "main": "index.js",
+    "scripts": {
+        "migrate": "node index.js"
+    },
+    "author": "Romain Lopez <rlopez@lignora.com>",
+    "contributors": [
+        "Romain Lopez <rlopez@linagora.com>",
+        "Damien Laine <dlaine@linagora.com>",
+        "Yoann Houpert <yhoupert@linagora.com>"
+    ],
+    "license": "GNU AFFERO GPLV3",
+    "dependencies": {
+        "debug": "^4.1.1",
+        "dotenv": "^6.0.0",
+        "mongodb": "^3.1.13",
+        "path": "^0.12.7",
+        "z-schema": "^4.2.2"
+    }
+}

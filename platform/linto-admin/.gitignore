@@ -1,0 +1,13 @@
+**/node_modules
+**/.env
+**/settings.tmp.js
+**/json_tmp
+**/public/tockapp.json
+**/public/tocksentences.json
+**/package-lock.json
+**/dist
+**/.vscode
+**/.local_cmd
+**/data
+**/dump.rdb
+/webserver/model/mongodb/schemas

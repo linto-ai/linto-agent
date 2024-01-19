@@ -1,0 +1,125 @@
+@mixin borderRadius($value) {
+    -webkit-border-radius: $value;
+    -moz-border-radius: $value;
+    border-radius: $value;
+}
+
+@mixin borderRadiusMulti($topleft, $topright, $botright, $botleft) {
+    -webkit-border-top-left-radius: $topleft;
+    -moz-border-radius-topleft: $topleft;
+    border-top-left-radius: $topleft;
+    -webkit-border-top-right-radius: $topright;
+    -moz-border-radius-topright: $topright;
+    border-top-right-radius: $topright;
+    -webkit-border-bottom-right-radius: $botright;
+    -moz-border-radius-bottomright: $botright;
+    border-bottom-right-radius: $botright;
+    -webkit-border-bottom-left-radius: $botleft;
+    -moz-border-radius-bottomleft: $botleft;
+    border-bottom-left-radius: $botleft;
+}
+
+@mixin boxShadow($offsetX, $offsetY, $blurRadius, $spreadRadius, $color) {
+    -moz-box-shadow: $offsetX $offsetY $blurRadius $spreadRadius $color;
+    -webkit-box-shadow: $offsetX $offsetY $blurRadius $spreadRadius $color;
+    box-shadow: $offsetX $offsetY $blurRadius $spreadRadius $color;
+}
+
+@mixin noShadow() {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+@mixin maskImage($path) {
+    mask-image: url($path);
+    -webkit-mask-image: url($path);
+    mask-size: cover;
+    -webkit-mask-size: cover;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+}
+
+@mixin transition($value) {
+    -webkit-transition: $value;
+    -moz-transition: $value;
+    -o-transition: $value;
+    transition: $value;
+}
+
+@mixin transitionEase() {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+@mixin transform($value) {
+    -webkit-transform: $value;
+    -o-transform: $value;
+    transform: $value;
+}
+
+@-webkit-keyframes blinkRedWhite {
+    0% {
+        background-color: #fff;
+    }
+    50% {
+        background-color: #ec5a5a;
+    }
+    100% {
+        background-color: #fff;
+    }
+}
+
+@keyframes blinkRedWhite {
+    0% {
+        background-color: #fff;
+    }
+    50% {
+        background-color: #ec5a5a;
+    }
+    100% {
+        background-color: #fff;
+    }
+}
+
+@mixin blinkRedToWhite {
+    -webkit-animation: blinkRedWhite 2s infinite;
+    -moz-animation: blinkRedWhite 2s infinite;
+    -ms-animation: blinkRedWhite 2s infinite;
+    -o-animation: blinkRedWhite 2s infinite;
+    animation: blinkRedWhite 2s infinite;
+}
+
+@-webkit-keyframes blinkWhiteRed {
+    0% {
+        background-color: #ec5a5a;
+    }
+    50% {
+        background-color: #fff;
+    }
+    100% {
+        background-color: #ec5a5a;
+    }
+}
+
+@keyframes blinkWhiteRed {
+    0% {
+        background-color: #ec5a5a;
+    }
+    50% {
+        background-color: #fff;
+    }
+    100% {
+        background-color: #ec5a5a;
+    }
+}
+
+@mixin blinkWhiteToRed {
+    -webkit-animation: blinkWhiteRed 2s infinite;
+    -moz-animation: blinkWhiteRed 2s infinite;
+    -ms-animation: blinkWhiteRed 2s infinite;
+    -o-animation: blinkWhiteRed 2s infinite;
+    animation: blinkWhiteRed 2s infinite;
+}

@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+
+  linto-platform-mongodb-migration:
+    image: lintoai/linto-platform-mongodb-migration:latest
+    networks:
+      - internal
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: none
+    command: # Overrides CMD specified in dockerfile (none here, handled by entrypoint)
+      - --run-cmd=npm run migrate
+    env_file: .docker_env
+    ports:
+      - 80:80
+
+networks:
+  internal:

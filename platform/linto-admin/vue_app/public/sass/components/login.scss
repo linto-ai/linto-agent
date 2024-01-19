@@ -1,0 +1,58 @@
+#login-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background-image: url('../img/bg-login.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#login-wrapper {
+    justify-content: center;
+    align-items: center;
+    .login-logo {
+        width: 340px;
+        height: auto;
+        margin: 0 auto 40px auto;
+    }
+    .login-form-container {
+        max-width: 800px;
+        padding: 40px;
+        justify-content: center;
+        &>div {
+            justify-content: center;
+        }
+    }
+}
+
+.setup-form-container {
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid #fff;
+    @include blockShadow();
+    color: $blueDark;
+    justify-content: center;
+    max-width: 420px;
+    h1 {
+        font-size: 22px;
+        color: $blueLinto;
+        width: 100%;
+        text-align: center;
+    }
+    .info {
+        font-size: 16px;
+        color: $blueDark;
+        padding-bottom: 20px;
+    }
+    .field-info {
+        font-size: 14px;
+        ul {
+            font-size: 14px;
+            margin: 0;
+        }
+    }
+}

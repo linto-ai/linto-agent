@@ -1,0 +1,25 @@
+{
+    "title": "android_users",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "email": {
+                "type": "string"
+            },
+            "pswdHash": {
+                "type": "string"
+            },
+            "salt": {
+                "type": "string"
+            },
+            "applications": {
+                "type": "array"
+            },
+            "keyToken": {
+                "type": "string"
+            }
+        }
+    },
+    "required": ["email", "pswdHash", "salt", "applications"]
+}
