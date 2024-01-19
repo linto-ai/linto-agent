@@ -27,7 +27,7 @@
     "ncp": "^2.0.0",
     "nginx-conf": "^1.5.0",
     "node-datetime": "^2.1.2",
-    "node-fetch": "2.6.1",
+    "node-fetch": "2.6.7",
     "ora": "^3.4.0",
     "rimraf": "^3.0.0",
     "saslprep": "^1.0.3",
